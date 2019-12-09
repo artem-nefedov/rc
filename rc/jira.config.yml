@@ -1,0 +1,64 @@
+endpoint: https://jira.paragon-software.com
+user: nefedov
+
+custom-commands:
+  - name: close-all
+    help: Close multiple issues
+    args:
+      - name: ISSUE
+        required: true
+        repeat: true
+    script: |-
+      {{range args.ISSUE}}
+      echo "Closing {{.}} ..."
+      {{jira}} close {{.}}
+      {{end}}
+  - name: delete
+    help: Delete specified issue
+    args:
+      - name: ISSUE
+        required: true
+        repeat: true
+    script: |-
+      {{range args.ISSUE}}
+      echo "Deleting {{.}} ..."
+      {{jira}} req -M DELETE /rest/api/2/issue/{{.}}
+      {{end}}
+  - name: ll
+    help: List issue keys returned by query
+    args:
+      - name: QUERY
+        required: true
+    script: |-
+      {{jira}} ls --query '{{args.QUERY}}' | awk -F: '{print $1}'
+  - name: mass-delete
+    help: Delete all issues returned by query
+    args:
+      - name: QUERY
+        required: true
+    script: |-
+      {{jira}} ll '{{args.QUERY}}' | while read -r i
+      do {{jira}} delete "$i"; done
+  - name: mine
+    help: Display issues assigned to me
+    options:
+      - name: all
+        short: a
+        type: BOOL
+        help: Show unresolved issues as well
+    script: |-
+      {{jira}} ls --query "{{if not options.all}}resolution = unresolved AND {{end}}assignee=currentuser() ORDER BY created"
+  - name: lsd
+    help: List completed issues
+    options:
+      - name: assignee
+        short: a
+        help: User assigned the issue
+      - name: project
+        short: p
+        help: Project to search for
+    script: |-
+      {{jira}} ls --query "status = 'done'
+      {{if options.assignee}} AND assignee = '{{options.assignee}}'{{end}}
+      {{if options.project}} AND project = '{{options.project}}'{{end}}"
+

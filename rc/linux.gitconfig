@@ -1,0 +1,65 @@
+[user]
+	name = Artem Nefedov
+	email = anefedov@aligntech.com
+[color]
+	ui = true
+[pull]
+	rebase = true
+[push]
+	default = current
+[rebase]
+	stat = true
+[oh-my-zsh]
+	hide-dirty = 1
+[alias]
+	ls = log --no-prefix --pretty=format:'%C(green)%h %C(yellow)[%cd]%Cred%d %Creset%s%C(cyan)%  [%cn]%Creset' --decorate --date='format:%Y-%m-%d %H:%M:%S' --graph --all
+	l  = log --no-prefix --pretty=format:'%C(green)%h %C(yellow)[%cd]%Cred%d %Creset%s%C(cyan)%  [%cn]%Creset' --decorate --date=format:'%d %b %H:%M' --graph
+	ln = log --no-prefix --pretty=format:'%C(green)%h %C(yellow)[%cd]%>(18)%C(cyan)%cn%Cred%d %Creset%s' --decorate --date='format:%Y-%m-%d %H:%M:%S' --graph
+	lm = log --no-prefix --pretty=format:'%C(green)%h %C(yellow)[%cd] %Cred%d%Creset%s' --decorate --date='format:%Y-%m-%d %H:%M:%S' --graph --author=nefedov
+	ll = log --no-prefix --pretty=format:'%C(yellow)%h%Cred%d %Creset%s%C(cyan) [%cn]%Creset' --decorate --numstat
+	lh = !git l | head
+	dsf = !"f() { git log --color -p \"$@\" | diff-so-fancy | less --tabs=4 -R -+F -+X; } ; f"
+	st = status -s --ignored
+	ci = commit -a
+	h  = help
+	co = checkout
+	b  = branch
+	d  = diff --no-prefix
+	s  = show --no-prefix
+	sbr = svn branch -d branches
+	all-diff =  !git d $(git log --pretty=format:%h master.. | tail -n 1)..HEAD
+	all-list =  !git all-diff --name-status
+	all-files = !git all-list | cut -f 2-
+	svnu = !git svn fetch && git svn rebase
+	svn-log-since = "!f() { r=$1; shift; git l \"$@\" $(git svn find-rev r${r#r})^..HEAD ; } ; f"
+	lsb = branch -a --sort=committerdate
+	alias = !git config --get-regexp '^alias\\.' | sed 's/\\t\\+//g'
+	sw = "!f() { git checkout $(if [ -z \"$1\" ]; then \
+		b=$(git branch); \
+		if echo \"$b\" | grep -q '^\\* master'; then \
+			echo \"$b\" | grep -v '^\\*' | tail -n 1; \
+		else \
+			echo master; \
+		fi; else echo \"$1\"; fi) && git branch; } ; f"
+
+[svn]
+	pushmergeinfo = true
+[core]
+	;pager = diff-so-fancy | less --tabs=4 -R -+F -+X
+	pager = diff-so-fancy | less --tabs=4 -RFX
+[color "diff-highlight"]
+        oldNormal = red bold
+        oldHighlight = red bold 52
+        newNormal = green bold
+        newHighlight = green bold 22
+[color "diff"]
+        meta = yellow
+        frag = magenta bold
+        commit = yellow bold
+        old = red bold
+        new = green bold
+        whitespace = red reverse
+[pager]
+        log = diff-so-fancy | less --tabs=4 -R -+F -+X
+[credential]
+	helper = cache

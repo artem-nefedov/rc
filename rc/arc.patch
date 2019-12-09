@@ -1,0 +1,69 @@
+--- ArcanistSubversionAPI.php	2017-08-21 19:44:20.715530912 +0300
++++ /usr/share/arcanist/src/repository/api/ArcanistSubversionAPI.php	2017-08-21 19:30:18.949142496 +0300
+@@ -305,7 +305,7 @@
+       $diff_cmd = Filesystem::resolvePath($diff_bin);
+       return $this->buildLocalFuture(
+         array(
+-          'diff --depth empty --diff-cmd %s -x -U%d %s',
++          'diff --show-copies-as-adds --depth empty --diff-cmd %s -x -U%d %s',
+           $diff_cmd,
+           $this->getDiffLinesOfContext(),
+           $path,
+@@ -384,15 +384,15 @@
+     $status = $status[$path];
+ 
+     // Build meaningful diff text for "svn copy" operations.
+-    if ($status & parent::FLAG_ADDED) {
+-      $info = $this->getSVNInfo($path);
+-      if (!empty($info['Copied From URL'])) {
+-        return $this->buildSyntheticAdditionDiff(
+-          $path,
+-          $info['Copied From URL'],
+-          $info['Copied From Rev']);
+-      }
+-    }
++    //if ($status & parent::FLAG_ADDED) {
++    //  $info = $this->getSVNInfo($path);
++    //  if (!empty($info['Copied From URL'])) {
++    //    return $this->buildSyntheticAdditionDiff(
++    //      $path,
++    //      $info['Copied From URL'],
++    //      $info['Copied From Rev']);
++    //  }
++    //}
+ 
+     // If we run "diff" on a binary file which doesn't have the "svn:mime-type"
+     // of "application/octet-stream", `diff' will explode in a rain of
+@@ -451,7 +451,8 @@
+   }
+ 
+   protected function buildSyntheticAdditionDiff($path, $source, $rev) {
+-    $type = $this->getSVNProperty($path, 'svn:mime-type');
++    // $type = $this->getSVNProperty($path, 'svn:mime-type');
++    $type = 'text/plain';
+     if ($type == 'application/octet-stream') {
+       return <<<EODIFF
+ Index: {$path}
+--- ArcanistDiffWorkflow.php	2017-08-21 19:43:19.564181193 +0300
++++ /usr/share/arcanist/src/workflow/ArcanistDiffWorkflow.php	2017-08-01 16:28:41.820840934 +0300
+@@ -1634,6 +1634,8 @@
+       array(
+         pht('NEW DIFFERENTIAL REVISION'),
+         pht('Describe the changes in this new revision.'),
++        pht('Suggested reviewers:'),
++        pht('FIXME'),
+       ),
+       $included,
+       array(
+--- ArcanistCommitWorkflow.php	2017-08-21 19:44:20.715530912 +0300
++++ /usr/share/arcanist/src/workflow/ArcanistCommitWorkflow.php	2017-06-09 19:39:30.751788768 +0300
+@@ -143,7 +143,8 @@
+     $files = $this->getCommitFileList($revision);
+ 
+     $tmp_file = new TempFile();
+-    Filesystem::writeFile($tmp_file, $message);
++    // Filesystem::writeFile($tmp_file, $message);
++    Filesystem::writeFile($tmp_file, strtok($message, "\n") . " ( D{$revision_id} )");
+ 
+     $command = csprintf(
+       'svn commit %Ls --encoding utf-8 -F %s',
