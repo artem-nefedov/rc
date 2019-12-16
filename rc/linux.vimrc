@@ -33,7 +33,7 @@ if !exists('s:no_plug_manager')
 	Plug 'szw/vim-maximizer'
 	Plug 'moll/vim-bbye'
 	Plug 'aymericbeaumet/symlink.vim'
-	Plug 'bling/vim-bufferline'
+	"Plug 'bling/vim-bufferline'
 	if (v:version >= 800) || has('nvim')
 		Plug 'w0rp/ale', { 'on': 'ALENext' }
 		nnoremap <Space>a :ALENext<CR>
