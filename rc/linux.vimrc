@@ -480,7 +480,7 @@ if has('autocmd')
 
 		au FileType ps1 setlocal ignorecase smartcase
 
-		au FileType rmd,yaml call MyExpandTab(2)
+		au FileType rmd,yaml,json call MyExpandTab(2)
 
 		au BufWritePost *.vimrc source %
 
