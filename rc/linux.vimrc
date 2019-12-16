@@ -457,7 +457,6 @@ if has('autocmd')
 		au BufReadPost *.cls   setlocal filetype=tex
 		au BufReadPost *.o.cmd setlocal filetype=make
 		au BufReadPost *.gitconfig setlocal filetype=gitconfig
-		au BufReadPost *fsd-ati/tests/test_* call MyExpandTab(2)
 
 		"au FileType qf setlocal conceallevel=2 "concealcursor=ncv
 		"au FileType qf syntax match qfFileName /^[^|]*/ transparent conceal
@@ -481,7 +480,7 @@ if has('autocmd')
 
 		au FileType ps1 setlocal ignorecase smartcase
 
-		au FileType rmd call MyExpandTab(2)
+		au FileType rmd,yaml call MyExpandTab(2)
 
 		au BufWritePost *.vimrc source %
 
