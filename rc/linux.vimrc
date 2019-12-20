@@ -114,6 +114,7 @@ EOF
 			au TermOpen * nmap <buffer> o i
 			au TermOpen * nmap <buffer> O i
 			au TermOpen * nmap <buffer> R :call chansend(b:terminal_job_id, "\<lt>c-a>\<lt>c-k>. ~/.zshrc\<lt>cr>")<cr>
+			au TermOpen * setlocal sidescrolloff=0
 			au Filetype netrw vmap <buffer> E .call feedkeys("i<end>\<lt>c-a>") \| term<cr>
 			au Filetype netrw nmap <buffer> E VE
 			au BufReadPre,FileReadPre * call InheritExitRemap()
