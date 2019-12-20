@@ -108,6 +108,12 @@ EOF
 					\ exec 'b ' . b:nvr_term \|
 					\ startinsert \| else \|
 					\ echo 'No bound terminal' \| endif"<cr>
+		tmap <c-x>y <c-\><c-n>GkV?➜<cr>j"*y<c-l>i
+		tmap <c-x>Y <c-\><c-n>GkV?➜<cr>jy<c-l>i
+		nnoremap <c-x>y "*y
+		nnoremap <c-x>Y "*Y
+		vnoremap <c-x>y "*y
+		nnoremap <c-x><c-y> :let @* = @"<cr>
 
 		augroup Term
 			au!
