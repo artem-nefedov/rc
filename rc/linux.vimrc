@@ -35,7 +35,7 @@ if !exists('s:no_plug_manager')
 	Plug 'aymericbeaumet/symlink.vim'
 	"Plug 'bling/vim-bufferline'
 	if (v:version >= 800) || has('nvim')
-		Plug 'w0rp/ale', { 'on': 'ALENext' }
+		Plug 'w0rp/ale'
 		nnoremap <Space>a :ALENext<CR>
 	endif
 	if has('nvim')
