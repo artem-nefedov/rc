@@ -39,8 +39,8 @@ fi
 
 rc="$HOME/.${with_sh}rc"
 
-if ! grep -q -F .bash_aliases.bash "$rc" || ! grep -q -F .bash_functions.bash "$rc"; then
-	cat >> "$rc" <<-EOF
+if ! grep -Fq .bash_aliases.bash "$rc" || ! grep -Fq .bash_functions.bash "$rc"; then
+	cat >> "$rc" <<-'EOF'
 
 	if [ -e ~/.bash_aliases.bash ]; then
 		. ~/.bash_aliases.bash
@@ -63,6 +63,9 @@ if hash nvim 2>/dev/null; then
 	mkdir -p "$HOME/.config/nvim/"
 	if [ ! -e "$HOME/.config/nvim/init.vim" ]; then
 		ln -s "$HOME/.vimrc" "$HOME/.config/nvim/init.vim"
+	fi
+	if [ ! -e "$HOME/.config/nvim/coc-settings.json" ]; then
+		ln -s "$PWD/coc-settings.json" "$HOME/.config/nvim/coc-settings.json"
 	fi
 else
 	hash vim
@@ -130,8 +133,8 @@ if [ -d "$HOME/git" ]; then
 		git clone "https://github.com/so-fancy/diff-so-fancy"
 	fi
 
-	if ! grep -q "$HOME/git/diff-so-fancy" "$rc"; then
-		echo "PATH=\"$HOME/git/diff-so-fancy:\$PATH\"" >> "$rc"
+	if ! grep -Fq '$HOME/git/diff-so-fancy' "$rc"; then
+		echo 'PATH="$HOME/git/diff-so-fancy:\$PATH"' >> "$rc"
 	fi
 fi
 
