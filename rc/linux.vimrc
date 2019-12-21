@@ -16,7 +16,6 @@ if !exists('s:no_plug_manager')
 	Plug 'scrooloose/nerdcommenter'
 	Plug 'PProvost/vim-ps1'
 	Plug 'airblade/vim-gitgutter'
-	Plug 'ervandew/supertab'
 	Plug 'mbbill/undotree'
 	Plug 'easymotion/vim-easymotion'
 	Plug 'majutsushi/tagbar'
@@ -33,6 +32,7 @@ if !exists('s:no_plug_manager')
 	Plug 'szw/vim-maximizer'
 	Plug 'moll/vim-bbye'
 	Plug 'aymericbeaumet/symlink.vim'
+	Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 	"Plug 'bling/vim-bufferline'
 	if (v:version >= 800) || has('nvim')
 		Plug 'w0rp/ale'
@@ -41,6 +41,21 @@ if !exists('s:no_plug_manager')
 	if has('nvim')
 		Plug 'artem-nefedov/nvim-editcommand'
 		Plug 'Vigemus/nvimux'
+		Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+		function! s:check_back_space() abort
+			let col = col('.') - 1
+			return !col || getline('.')[col - 1]  =~ '\s'
+		endfunction
+
+		inoremap <silent><expr> <tab>
+					\ pumvisible() ? "\<c-n>" :
+					\ <sid>check_back_space() ? "\<tab>" :
+					\ coc#refresh()
+		inoremap <s-tab> <c-p>
+	else
+		let g:SuperTabDefaultCompletionType = "<c-n>"
+		Plug 'ervandew/supertab'
 	endif
 	call plug#end()
 
@@ -499,6 +514,7 @@ try
 	runtime! plugin/sensible.vim
 	hi PreProc term=underline ctermfg=12 guifg=#ff80ff
 	hi Special term=bold ctermfg=9 guifg=Orange
+	hi Pmenu ctermbg=DarkGray guibg=DarkGray
 catch
 endtry
 
