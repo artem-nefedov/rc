@@ -52,7 +52,8 @@ if !exists('s:no_plug_manager')
 					\ pumvisible() ? "\<c-n>" :
 					\ <sid>check_back_space() ? "\<tab>" :
 					\ coc#refresh()
-		inoremap <s-tab> <c-p>
+		inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+		inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<CR>"
 	else
 		let g:SuperTabDefaultCompletionType = "<c-n>"
 		Plug 'ervandew/supertab'
