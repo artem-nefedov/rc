@@ -37,7 +37,13 @@ is_inside_git()
 dirdiff ()
 {
 	local diff cG cN line type
-	local find=( find \( \! -path '*/.git/*' -a \! -path '*/.svn/*' \) )
+	local -a find=( find . \( \! -path '*/.git/*' -a \! -path '*/.svn/*' \) )
+
+	if [ "$(uname)" = Darwin ]; then
+		local -a stat=( xargs -0 stat -f $'%z\t%N' )
+	else
+		local -a stat=( xargs -0 stat -c $'%s\t%n' )
+	fi
 
 	case "$1" in
 		rm|size|file|stat)
@@ -75,8 +81,8 @@ dirdiff ()
 		echo -e "${cG}=== $1 vs $2 ===${cN}"
 		case "$type" in
 			size)
-				$diff   <(cd "$1" && "${find[@]}" -print0 | sort -z | xargs -0 stat -c $'%s\t%n') \
-					<(cd "$2" && "${find[@]}" -print0 | sort -z | xargs -0 stat -c $'%s\t%n')
+				$diff   <(cd "$1" && "${find[@]}" -print0 | sort -z | "${stat[@]}") \
+					<(cd "$2" && "${find[@]}" -print0 | sort -z | "${stat[@]}")
 				;;
 			file)
 				$diff   <(cd "$1" && "${find[@]}" -print0 | sort -z | xargs -0 file) \
