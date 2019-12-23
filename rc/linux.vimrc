@@ -103,7 +103,7 @@ EOF
 		tnoremap <c-x><c-x> <c-\><c-n>
 		tnoremap <c-x>. <c-x>
 		nnoremap <c-x><c-d> :call DeleteHiddenBuffers()<cr>
-		nnoremap <c-x><c-s> :call DeleteHiddenBuffers() \| mksession! ~/.vim-session<cr>
+		nnoremap <c-x><c-s> :silent !test \\! -f ~/.vim-session \|\| mv ~/.vim-session ~/.vim-session.prev<cr>:call DeleteHiddenBuffers() \| mksession! ~/.vim-session<cr>
 		tmap <c-x><c-s> <c-\><c-n><c-x><c-s>i
 		nnoremap <c-x><c-r> :source ~/.vim-session \| call Terminal_restore()<cr>
 		tmap <c-x><c-r> <c-\><c-n><c-x><c-r>i
