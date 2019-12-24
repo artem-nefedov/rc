@@ -57,6 +57,9 @@ if !exists('s:no_plug_manager')
 					\ coc#refresh()
 		inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 		inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<CR>"
+
+		nmap <Space>s <Plug>(coc-diagnostic-next)
+		nmap <Space>w <Plug>(coc-diagnostic-prev)
 	else
 		let g:SuperTabDefaultCompletionType = "<c-n>"
 		Plug 'ervandew/supertab'
