@@ -39,7 +39,8 @@ if !exists('s:no_plug_manager')
 	"Plug 'bling/vim-bufferline'
 	if (v:version >= 800) || has('nvim')
 		Plug 'w0rp/ale'
-		nnoremap <Space>a :ALENext<CR>
+		nnoremap <Space>a :ALENextWrap<CR>
+		nnoremap <Space>q :ALEPreviousWrap<CR>
 	endif
 	if has('nvim')
 		Plug 'artem-nefedov/nvim-editcommand'
