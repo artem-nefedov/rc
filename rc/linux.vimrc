@@ -138,6 +138,8 @@ EOF
 		vmap <c-x>y "*y
 		nnoremap <c-x><c-y> :let @* = @"<cr>
 
+		nnoremap <space>r :echo 'No runner for this filetype'<cr>
+
 		augroup Term
 			au!
 			au TermOpen * nmap <buffer> o i
@@ -148,6 +150,7 @@ EOF
 			au Filetype netrw nmap <buffer> E VE
 			au BufReadPre,FileReadPre * call InheritExitRemap()
 			au FileType netrw call InheritExitRemap()
+			au FileType go nnoremap <buffer> <space>r :GoRun<cr>
 		augroup END
 
 		" hack fix for TERM=putty
