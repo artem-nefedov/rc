@@ -128,11 +128,15 @@ EOF
 		imap <c-x><c-n> <c-x>n
 		imap <c-x><c-p> <c-x>p
 		tnoremap <c-x>: <c-\><c-n>:
+		inoremap <c-x>: <esc>:
 		tnoremap <c-x>; <c-\><c-n>q:
+		inoremap <c-x>; <esc>qa:
 		nnoremap <c-x>t :tabnew<cr>
 		tmap <c-x>t <c-\><c-n><c-x>t
+		imap <c-x>t <esc><c-x>t
 		nnoremap <c-x>0 :tabl<cr>
 		tmap <c-x>0 <c-\><c-n><c-x>0
+		imap <c-x>0 <esc><c-x>0
 		nnoremap <c-x>I :PlugInstall<cr>
 		nnoremap <c-x>U :PlugUpgrade \| PlugUpdate<cr>
 		nnoremap <c-x><c-e> :exec "if exists('b:nvr_term') \|
