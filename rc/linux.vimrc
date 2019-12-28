@@ -364,7 +364,7 @@ set splitright
 
 " emacs-like shortcuts for insert/command mode (and some for normal)
 nnoremap <c-a> ^
-nnoremap <c-e> $
+"nnoremap <c-e> $
 nnoremap <m-d> cw
 inoremap <m-d> <esc><right>dWi
 cnoremap <c-a> <home>
