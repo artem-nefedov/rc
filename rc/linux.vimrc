@@ -492,8 +492,10 @@ endfunction
 
 function! Python_autofix()
 	if &filetype == 'python'
+		let l:pos = getpos('.')
 		silent %!autopep8 %
 		silent write
+		silent call setpos('.', l:pos)
 	endif
 endfunction
 
