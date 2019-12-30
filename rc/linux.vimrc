@@ -493,9 +493,9 @@ endfunction
 function! Python_autofix()
 	if &filetype == 'python'
 		let l:pos = getpos('.')
-		silent %!autopep8 %
-		silent write
-		silent call setpos('.', l:pos)
+		%!autopep8 %
+		write
+		call setpos('.', l:pos)
 	endif
 endfunction
 
@@ -538,7 +538,7 @@ if has('autocmd')
 		au BufWritePost *.vimrc source %
 
 		if executable('autopep8')
-			au BufWritePost *.py call Python_autofix()
+			au BufWritePost *.py silent call Python_autofix()
 		endif
 	augroup END
 endif
