@@ -490,6 +490,13 @@ function! Session_paste(command)
 	exec 'normal ' . a:command
 endfunction
 
+function! Python_autofix()
+	if &filetype == 'python'
+		silent %!autopep8 %
+		silent write
+	endif
+endfunction
+
 if has('autocmd')
 	augroup vimrc
 		au!
@@ -528,6 +535,9 @@ if has('autocmd')
 
 		au BufWritePost *.vimrc source %
 
+		if executable('autopep8')
+			au BufWritePost *.py call Python_autofix()
+		endif
 	augroup END
 endif
 
