@@ -373,6 +373,19 @@ xdocker()
 		-e "XAUTHORITY=$XAUTH" "--net=host" "$@"
 }
 
+f()
+{
+	local b
+	b=$(echo "${*// /_}" | tr '[:upper:]' '[:lower:]' \
+		| awk -F- '{print toupper($1)"-"$2}')
+	b="feature/$b"
+	if git rev-parse -q --verify "$b" >/dev/null; then
+		git checkout "$b"
+	else
+		git checkout -b "$b"
+	fi
+}
+
 funcgrep ()
 {
 	local opt cmd
