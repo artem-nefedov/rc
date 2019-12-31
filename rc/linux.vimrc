@@ -179,7 +179,8 @@ EOF
 	let g:NERDDefaultAlign = 'left'
 	let g:ale_lint_on_enter = 0
 	let g:ale_lint_delay = 1000
-	"let g:airline#extensions#tabline#enabled = 1
+	let g:airline#extensions#tabline#enabled = 1
+	let g:airline#extensions#tabline#tab_nr_type = 2 " splits and tab number
 	let g:airline#extensions#keymap#enabled = 0
 	let g:netrw_keepdir = 0
 
