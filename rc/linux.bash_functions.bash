@@ -260,6 +260,10 @@ v()
 				nvr --nostart --remote "${v[@]}"
 				nvr_reset_mouse
 			fi
+		else
+			if [ -e /tmp/nvimsocket ]; then
+				nvr_reset_mouse
+			fi
 		fi
 
 		abduco -A nvim nvim --listen /tmp/nvimsocket +term
