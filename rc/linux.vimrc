@@ -511,6 +511,7 @@ if has('autocmd')
 		au BufReadPost *.cls   setlocal filetype=tex
 		au BufReadPost *.o.cmd setlocal filetype=make
 		au BufReadPost *.gitconfig setlocal filetype=gitconfig
+		au BufNew,BufRead *.bash let b:is_bash = 1
 
 		"au FileType qf setlocal conceallevel=2 "concealcursor=ncv
 		"au FileType qf syntax match qfFileName /^[^|]*/ transparent conceal
