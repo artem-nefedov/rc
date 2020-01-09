@@ -538,9 +538,9 @@ if has('autocmd')
 
 		au BufWritePost *.vimrc source %
 
-		if executable('autopep8')
-			au BufWritePost *.py silent call Python_autofix()
-		endif
+		"if executable('autopep8')
+		"        au BufWritePost *.py silent call Python_autofix()
+		"endif
 	augroup END
 endif
 
