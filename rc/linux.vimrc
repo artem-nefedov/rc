@@ -16,6 +16,7 @@ if !exists('s:no_plug_manager')
 	Plug 'tpope/vim-unimpaired'
 	Plug 'scrooloose/nerdcommenter'
 	Plug 'PProvost/vim-ps1'
+	Plug 'udalov/kotlin-vim'
 	Plug 'airblade/vim-gitgutter'
 	Plug 'mbbill/undotree'
 	Plug 'easymotion/vim-easymotion'
