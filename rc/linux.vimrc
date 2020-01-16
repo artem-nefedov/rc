@@ -75,6 +75,7 @@ if !exists('s:no_plug_manager')
 	augroup plugins
 		au!
 		au FileType go nnoremap <buffer> <space>r :GoRun<cr>
+		au FileType python ALEDisableBuffer
 	augroup END
 
 	if has('nvim')
