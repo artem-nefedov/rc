@@ -151,3 +151,8 @@ if [ -d "$HOME/git" ]; then
 	fi
 fi
 
+git_comp='/usr/local/share/zsh/site-functions/git-completion.bash'
+
+if [ -f "$git_comp" ] && ! grep -q '^_git_sw ' "$git_comp"; then
+	echo '_git_sw () { __gitcomp_direct "$(__git_heads "" "$track" " ")"; }' >> "$git_comp"
+fi

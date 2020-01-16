@@ -43,6 +43,8 @@ elif [ -n "$ZSH_VERSION" ]; then
 	PROMPT+="%(?:%{$fg_bold[green]%}➜ :%{$fg_bold[red]%}➜ )%{$reset_color%}"
 
 	WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
+
+	# doesn't work everywhere - for some platforms, restore.sh edits "git-completion.bash"
 	_git-sw() { _arguments -w -S -s '*: :__git_ignore_line_inside_arguments __git_branch_names'; }
 
 	bindkey "^[[1~" beginning-of-line
