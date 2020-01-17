@@ -390,6 +390,19 @@ f()
 	fi
 }
 
+gpr()
+{
+	local f1 f2 line
+	while IFS='' read -r line; do
+		printf '%s\n' "$line"
+		# shellcheck disable=SC2034
+		read -r f1 f2 <<< "$line"
+		if [[ "$f2" == https://* ]]; then
+			open "$f2"
+		fi
+	done < <(git push -u 2>&1)
+}
+
 funcgrep ()
 {
 	local opt cmd
