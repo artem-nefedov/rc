@@ -341,7 +341,7 @@ nnoremap <F3> :vimgrep  % \| copen
 set pastetoggle=<F4>
 nnoremap <F5> :call MyExpandTab(2)
 nnoremap <F6> :call MyExpandTab(4)
-nnoremap <F8> :setlocal spell spelllang=en_us<CR>:syntax spell toplevel<CR>
+nnoremap <F8> :setlocal spell! spelllang=en_us \| syntax spell toplevel<cr>
 nnoremap <F9> :w! /tmp/vim-exec \| !chmod +x /tmp/vim-exec && /tmp/vim-exec  && rm -f /tmp/vim-exec
 			\<left><left><left><left><left><left><left><left><left><left><left><left>
 			\<left><left><left><left><left><left><left><left><left><left><left>
@@ -560,6 +560,9 @@ hi Comment term=standout cterm=bold ctermfg=2 gui=bold guifg=Green
 
 hi DiffText   cterm=none ctermfg=Black ctermbg=Red gui=none guifg=Black guibg=Red
 hi DiffChange cterm=none ctermfg=Black ctermbg=LightMagenta gui=none guifg=Black guibg=LightMagenta
+
+"hi clear SpellBad
+hi SpellBad ctermfg=009 ctermbg=012
 
 set t_Co=256
 set updatetime=250
