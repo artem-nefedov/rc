@@ -2,15 +2,11 @@
 
 trap 'echo >&@ "$0:Error at $LINENO: $BASH_COMMAND"; exit 1;' ERR
 
-args=()
-
-for f in "$@"; do
-	args+=( "$(greadlink -e "$f")" )
-done
+f="$(greadlink -e "$1")"
 
 osascript \
 	-e 'on run args' \
 	-e 'set the clipboard to POSIX file (first item of args)' \
 	-e 'end' \
-	"${args[@]}"
+	"$f"
 
