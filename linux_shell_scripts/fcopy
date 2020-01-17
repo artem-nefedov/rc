@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+trap 'echo >&@ "$0:Error at $LINENO: $BASH_COMMAND"; exit 1;' ERR
+
+args=()
+
+for f in "$@"; do
+	args+=( "$(greadlink -e "$f")" )
+done
+
+osascript \
+	-e 'on run args' \
+	-e 'set the clipboard to POSIX file (first item of args)' \
+	-e 'end' \
+	"${args[@]}"
+
