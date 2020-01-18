@@ -69,7 +69,7 @@ if !exists('s:no_plug_manager')
 	endif
 	call plug#end()
 
-	nnoremap <space>r :echo 'No runner for this filetype'<cr>
+	nnoremap <space>r :call Run_File()<cr>
 	nnoremap <space>b :Gblame<cr>
 
 	augroup plugins
@@ -226,6 +226,12 @@ function! GotoWindowByBuffer(goto_buf)
 			break
 		endfor
 	endfor
+endfunction
+
+function! Run_File()
+	vsplit
+	terminal %
+	wincmd p
 endfunction
 
 function! Go_Back(write)
