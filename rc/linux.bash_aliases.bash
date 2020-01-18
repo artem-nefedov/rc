@@ -33,14 +33,14 @@ if [ -n "$BASH_VERSION" ]; then
 elif [ -n "$ZSH_VERSION" ]; then
 	unalias md 2>/dev/null
 
-	unset LESS
+	#unset LESS
 	PROMPT='%{$fg_bold[cyan]%}%~%{$reset_color%} '
 	if [[ $(uname) != CYGWIN* ]]; then
 		PROMPT+='$(git_prompt_info)'
 		ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg_bold[blue]%}(%{$fg[red]%}"
 	fi
 	#PROMPT+='${ret_status}%{$reset_color%}'
-	PROMPT+="%(?:%{$fg_bold[green]%}➜ :%{$fg_bold[red]%}➜ )%{$reset_color%}"
+	PROMPT+='%(?:%{$fg_bold[green]%}➜ :%{$fg_bold[red]%}➜ )%{$reset_color%}'
 
 	WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
 
@@ -81,7 +81,8 @@ alias cdd='cd ~/Desktop'
 #alias sudo='sudo_wrapper'
 alias cd..='cd ..'
 alias sl='ls'
-alias less='less -i -R -N'
+#alias less='less -i -R -N'
+export LESS='-i -R -N'
 alias diff='colordiff'
 alias ssh-copy-id-root='ssh-copy-id -i /root/.ssh/id_rsa.pub'
 alias hw.c='echo -e "#include <stdio.h>\n\nint main(void)\n{\n\n	printf(\"Hello, world\\\n\");\n\n	return 0;\n\n}\n" > hw.c'
