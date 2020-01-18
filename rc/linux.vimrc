@@ -229,6 +229,7 @@ function! GotoWindowByBuffer(goto_buf)
 endfunction
 
 function! Run_File()
+	write
 	vsplit
 	terminal %
 	wincmd p
