@@ -232,12 +232,7 @@ function! Go_Back(write)
 	if a:write == 1 && &readonly != 1
 		write
 	endif
-	if &bufhidden == 'delete' || &bufhidden == 'wipe'
-		q!
-	else
-		exec "b! " . b:nvr_jump
-		bdelete! #
-	endif
+	exec "b! " . b:nvr_jump
 endfunction
 
 function! InheritExitRemap()
