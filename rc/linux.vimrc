@@ -69,7 +69,8 @@ if !exists('s:no_plug_manager')
 	endif
 	call plug#end()
 
-	nnoremap <space>r :call Run_File()<cr>
+	nnoremap <space>r :call Run_File('')<cr>
+	nnoremap <space>R :call Run_File('')<left><left>
 	nnoremap <space>b :Gblame<cr>
 
 	augroup plugins
@@ -220,18 +221,10 @@ else
 	nnoremap Q <nop>
 endif
 
-function! GotoWindowByBuffer(goto_buf)
-	for win in nvim_list_wins()
-		if a:goto_buf == winbufnr(win)
-			break
-		endfor
-	endfor
-endfunction
-
-function! Run_File()
+function! Run_File(args)
 	write
 	vsplit
-	terminal %
+	exec 'terminal % ' . a:args
 	wincmd p
 endfunction
 
