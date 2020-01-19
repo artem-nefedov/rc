@@ -7,6 +7,7 @@ endtry
 let g:mapleader = ','
 
 if !exists('s:no_plug_manager')
+	"let g:netrw_nogx = 1
 	Plug 'artem-nefedov/netrw'
 	Plug 'tpope/vim-sensible'
 	Plug 'tpope/vim-surround'
@@ -14,6 +15,7 @@ if !exists('s:no_plug_manager')
 	Plug 'tpope/vim-fugitive'
 	Plug 'tpope/vim-vinegar'
 	Plug 'tpope/vim-unimpaired'
+	Plug 'tyru/open-browser.vim'
 	Plug 'scrooloose/nerdcommenter'
 	Plug 'PProvost/vim-ps1'
 	Plug 'udalov/kotlin-vim'
@@ -69,9 +71,13 @@ if !exists('s:no_plug_manager')
 	endif
 	call plug#end()
 
-	nnoremap <space>r :call Run_File('')<cr>
-	nnoremap <space>R :call Run_File('')<left><left>
 	nnoremap <space>b :Gblame<cr>
+
+	"nmap gx <Plug>(openbrowser-smart-search)
+	"vmap gx <Plug>(openbrowser-smart-search)
+	nmap gx <Plug>(openbrowser-open)
+	vmap gx <Plug>(openbrowser-open)
+	" map <Plug>NetrwBrowseX instead for compatibility with fugitive?
 
 	augroup plugins
 		au!
@@ -353,6 +359,9 @@ nnoremap <c-x><c-a> <c-a>
 nnoremap <Space><Space> @q
 nnoremap <Space>d "_dd
 vnoremap <Space>d "_d
+nnoremap <space>r :call Run_File('')<cr>
+nnoremap <space>R :call Run_File('')<left><left>
+nnoremap <space>m :make<cr>
 
 " make :W equal to :w
 command! -bang -range=% -complete=file -nargs=* W <line1>,<line2>write<bang> <args>
