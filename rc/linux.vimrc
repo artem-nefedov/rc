@@ -184,6 +184,16 @@ EOF
 		endif
 	endif
 
+	command! -bang -nargs=* GGrep
+		\ call fzf#vim#grep(
+		\   'git grep --line-number '.shellescape(<q-args>), 0,
+		\   fzf#vim#with_preview({'dir': systemlist('git rev-parse --show-toplevel')[0]}), <bang>0)
+
+	command! -bang -nargs=* Rg
+		\ call fzf#vim#grep(
+		\   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(substitute(substitute(<q-args>, '\\>$', '\\b', ''), '^\\<', '\\b', '')), 1,
+		\   fzf#vim#with_preview(), <bang>0)
+
 	set list
 	let g:NERDDefaultAlign = 'left'
 	let g:ale_lint_on_enter = 0
@@ -218,6 +228,7 @@ EOF
 	nnoremap <c-p>/ :History/<CR>
 	nmap <c-p>? :History/<CR>
 	nnoremap <c-p>r :Rg<space>
+	nnoremap <c-p>G :GGrep<space>
 
 	highlight GitGutterAdd    guifg=#009900 guibg=#073642 ctermfg=2 ctermbg=0
 	highlight GitGutterChange guifg=#bbbb00 guibg=#073642 ctermfg=3 ctermbg=0
