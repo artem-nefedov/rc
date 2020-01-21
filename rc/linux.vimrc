@@ -477,7 +477,7 @@ nmap <silent> <Leader>p :call Session_paste("p")<CR>
 nmap <silent> <Leader>P :call Session_paste("P")<CR>
 
 function! Terminal_cd()
-	if &buftype == 'terminal'
+	if &buftype == 'terminal' && expand('%') =~# '[\/]zsh$'
 		call chansend(b:terminal_job_id, 'NVIM_LISTEN_ADDRESS= cd "' . getcwd() . "\"\<cr>")
 	endif
 endfunction
