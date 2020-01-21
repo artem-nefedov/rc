@@ -186,7 +186,7 @@ EOF
 
 	command! -bang -nargs=* GGrep
 		\ call fzf#vim#grep(
-		\   'git grep --line-number '.shellescape(<q-args>), 0,
+		\   'git grep --line-number --color=always '.shellescape(<q-args>), 0,
 		\   fzf#vim#with_preview({'dir': systemlist('git rev-parse --show-toplevel')[0]}), <bang>0)
 
 	command! -bang -nargs=* Rg
