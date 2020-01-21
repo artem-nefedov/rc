@@ -249,7 +249,11 @@ function! Go_Back(write)
 	if a:write == 1 && &readonly != 1
 		write
 	endif
-	exec "b! " . b:nvr_jump
+	if &bufhidden == 'delete' || &bufhidden == 'wipe'
+		q!
+	else
+		exec "b! " . b:nvr_jump
+	endif
 endfunction
 
 function! InheritExitRemap()
