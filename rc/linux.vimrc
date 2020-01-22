@@ -130,7 +130,6 @@ EOF
 		nnoremap <c-x><c-r> :source ~/.vim-session \| call Terminal_restore()<cr>
 		tmap <c-x><c-r> <c-\><c-n><c-x><c-r>i
 		tnoremap <c-x><pageup> <c-\><c-n><pageup>
-		nnoremap <c-w><c-l> :setlocal scrollback=1 \| sleep 100m \| setlocal scrollback=-1<cr>
 		tmap <c-x><c-n> <c-x>n
 		tmap <c-x><c-p> <c-x>p
 		nmap <c-x><c-n> <c-x>n
@@ -171,6 +170,7 @@ EOF
 			au Filetype netrw nmap <buffer> E VE
 			au BufReadPre,FileReadPre * call InheritExitRemap()
 			au FileType netrw call InheritExitRemap()
+			au TermOpen * nnoremap <buffer> <c-w><c-l> :call Terminal_reset()<cr>
 		augroup END
 
 		" hack fix for TERM=putty
@@ -241,6 +241,7 @@ endif
 function! Run_File(args)
 	write
 	vsplit
+	" TODO: resolve path before running
 	exec 'terminal % ' . a:args
 	wincmd p
 endfunction
@@ -475,6 +476,14 @@ vmap <silent> <Leader>y y:call Session_yank()<CR>
 vmap <silent> <Leader>Y Y:call Session_yank()<CR>
 nmap <silent> <Leader>p :call Session_paste("p")<CR>
 nmap <silent> <Leader>P :call Session_paste("P")<CR>
+
+function! Terminal_reset()
+	setlocal scrollback=1
+	call chansend(b:terminal_job_id, "\<c-l>")
+	sleep 100m
+	setlocal scrollback=-1
+	startinsert
+endfunction
 
 function! Terminal_cd()
 	if &buftype == 'terminal' && expand('%') =~# '[\/]zsh$'
