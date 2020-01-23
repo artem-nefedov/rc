@@ -241,8 +241,7 @@ endif
 function! Run_File(args)
 	write
 	vsplit
-	" TODO: resolve path before running
-	exec 'terminal % ' . a:args
+	exec 'terminal %:p ' . a:args
 	wincmd p
 endfunction
 
