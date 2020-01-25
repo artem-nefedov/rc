@@ -230,8 +230,14 @@ EOF
 
 	function! Terminal_airline(...)
 		if &buftype == 'terminal'
-			let w:airline_section_b = '%{fnamemodify(getcwd(), ":~:.")}'
-			let w:airline_section_c = matchstr(expand('%'), 'term.*:\zs.*')
+			let l:spc = g:airline_symbols.space
+			call a:1.add_section('airline_a', l:spc . g:airline_section_a . l:spc)
+			call a:1.add_section('airline_b', l:spc . '%{fnamemodify(getcwd(), ":~:.")}' . l:spc)
+			call a:1.add_section('airline_term', l:spc . matchstr(expand('%'), 'term.*:\zs.*'))
+			call a:1.split()
+			call a:1.add_section('airline_y', '')
+			call a:1.add_section('airline_z', l:spc . airline#section#create_right(['linenr', 'maxlinenr']))
+			return 1
 		endif
 	endfunction
 
