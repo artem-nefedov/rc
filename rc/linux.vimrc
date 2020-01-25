@@ -172,6 +172,7 @@ EOF
 			au FileType netrw call InheritExitRemap()
 			au TermOpen * nnoremap <buffer> <c-w><c-l> :call Terminal_reset()<cr>
 			au TermOpen * nnoremap <buffer> D "tyiW:call Terminal_open()<cr>
+			au WinEnter term://* stopinsert
 		augroup END
 
 		" hack fix for TERM=putty
