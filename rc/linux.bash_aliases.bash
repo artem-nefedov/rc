@@ -34,7 +34,8 @@ elif [ -n "$ZSH_VERSION" ]; then
 	unalias md 2>/dev/null
 
 	#unset LESS
-	PROMPT='%{$fg_bold[cyan]%}%~%{$reset_color%} '
+	#PROMPT='%{$fg_bold[cyan]%}%~%{$reset_color%} '
+	PROMPT=''
 	if [[ $(uname) != CYGWIN* ]]; then
 		PROMPT+='$(git_prompt_info)'
 		ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg_bold[blue]%}(%{$fg[red]%}"
