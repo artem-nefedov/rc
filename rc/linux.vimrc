@@ -159,6 +159,7 @@ EOF
 		nmap <c-x>Y "*Y
 		vmap <c-x>y "*y
 		nnoremap <c-x><c-y> :let @* = @"<cr>
+		tnoremap <c-x>b <c-\><c-n>:call chansend(b:terminal_job_id, Get_git_branch()) \| startinsert<cr>
 
 		augroup Term
 			au!
@@ -228,11 +229,15 @@ EOF
 	nnoremap <c-p><c-r> :Rg <c-r>/
 	nnoremap <c-p>G :GGrep<space>
 
+	function! Get_git_branch()
+		return substitute(systemlist('git symbolic-ref HEAD 2>/dev/null || git rev-parse --short HEAD 2>/dev/null || echo --')[0], '^refs/heads/', '', '')
+	endfunction
+
 	function! Terminal_airline(...)
 		if &buftype == 'terminal'
 			let l:spc = g:airline_symbols.space
 			call a:1.add_section('airline_a', l:spc . g:airline_section_a . l:spc)
-			call a:1.add_section('airline_b', l:spc . "%{substitute(systemlist('git symbolic-ref HEAD 2>/dev/null || git rev-parse --short HEAD 2>/dev/null || echo --')[0], '^refs/heads/', '', '')}" . l:spc)
+			call a:1.add_section('airline_b', l:spc . "%{Get_git_branch()}" . l:spc)
 			call a:1.add_section('airline_c', l:spc . '%{fnamemodify(getcwd(), ":~:.")}')
 			call a:1.split()
 			call a:1.add_section('airline_y', l:spc . matchstr(expand('%'), 'term.*:\zs.*') . l:spc)
