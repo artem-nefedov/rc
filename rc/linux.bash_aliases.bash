@@ -36,10 +36,10 @@ elif [ -n "$ZSH_VERSION" ]; then
 	#unset LESS
 	#PROMPT='%{$fg_bold[cyan]%}%~%{$reset_color%} '
 	PROMPT=''
-	if [[ $(uname) != CYGWIN* ]]; then
-		PROMPT+='$(git_prompt_info)'
-		ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg_bold[blue]%}(%{$fg[red]%}"
-	fi
+	#if [[ $(uname) != CYGWIN* ]]; then
+	#        PROMPT+='$(git_prompt_info)'
+	#        ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg_bold[blue]%}(%{$fg[red]%}"
+	#fi
 	#PROMPT+='${ret_status}%{$reset_color%}'
 	PROMPT+='%(?:%{$fg_bold[green]%}➜ :%{$fg_bold[red]%}➜ )%{$reset_color%}'
 

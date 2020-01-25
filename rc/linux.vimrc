@@ -232,10 +232,10 @@ EOF
 		if &buftype == 'terminal'
 			let l:spc = g:airline_symbols.space
 			call a:1.add_section('airline_a', l:spc . g:airline_section_a . l:spc)
-			call a:1.add_section('airline_b', l:spc . '%{fnamemodify(getcwd(), ":~:.")}' . l:spc)
-			call a:1.add_section('airline_term', l:spc . matchstr(expand('%'), 'term.*:\zs.*'))
+			call a:1.add_section('airline_b', l:spc . "%{substitute(systemlist('git symbolic-ref HEAD 2>/dev/null || git rev-parse --short HEAD 2>/dev/null || echo --')[0], '^refs/heads/', '', '')}" . l:spc)
+			call a:1.add_section('airline_c', l:spc . '%{fnamemodify(getcwd(), ":~:.")}')
 			call a:1.split()
-			call a:1.add_section('airline_y', '')
+			call a:1.add_section('airline_y', l:spc . matchstr(expand('%'), 'term.*:\zs.*') . l:spc)
 			call a:1.add_section('airline_z', l:spc . airline#section#create_right(['linenr', 'maxlinenr']))
 			return 1
 		endif
