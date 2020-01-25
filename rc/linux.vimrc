@@ -481,14 +481,15 @@ nmap <silent> <Leader>P :call Session_paste("P")<CR>
 function! Terminal_open()
 	let l:p = expand(@t)
 	if isdirectory(l:p)
-		let l:cmd = 'cd ' . l:p
+		call chansend(b:terminal_job_id, "\<c-a>\<c-k>cd " . l:p . "\<cr>")
+		startinsert
 	elseif filereadable(l:p)
-		let l:cmd = 'v ' . l:p
+		call chansend(b:terminal_job_id, "\<c-a>\<c-k>v " . l:p . "\<cr>")
 	else
-		echom 'Not a file or directory: ' . l:p
-		return
+		echohl WarningMsg
+		echo 'Not a file or directory: ' . l:p
+		echohl NONE
 	endif
-	call chansend(b:terminal_job_id, "\<c-a>\<c-k>" . l:cmd . "\<cr>")
 endfunction
 
 function! Terminal_reset()
