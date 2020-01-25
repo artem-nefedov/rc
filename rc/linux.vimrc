@@ -171,6 +171,7 @@ EOF
 			au BufReadPre,FileReadPre * call InheritExitRemap()
 			au FileType netrw call InheritExitRemap()
 			au TermOpen * nnoremap <buffer> <c-w><c-l> :call Terminal_reset()<cr>
+			au TermOpen * nnoremap <buffer> D "tyiW:call Terminal_open()<cr>
 		augroup END
 
 		" hack fix for TERM=putty
@@ -475,6 +476,19 @@ vmap <silent> <Leader>y y:call Session_yank()<CR>
 vmap <silent> <Leader>Y Y:call Session_yank()<CR>
 nmap <silent> <Leader>p :call Session_paste("p")<CR>
 nmap <silent> <Leader>P :call Session_paste("P")<CR>
+
+function! Terminal_open()
+	let l:p = expand(@t)
+	if isdirectory(l:p)
+		let l:cmd = 'cd ' . l:p
+	elseif filereadable(l:p)
+		let l:cmd = 'v ' . l:p
+	else
+		echom 'Not a file or directory: ' . l:p
+		return
+	endif
+	call chansend(b:terminal_job_id, "\<c-a>\<c-k>" . l:cmd . "\<cr>")
+endfunction
 
 function! Terminal_reset()
 	setlocal scrollback=1
