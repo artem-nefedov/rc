@@ -24,6 +24,7 @@ if !exists('s:no_plug_manager')
 	Plug 'easymotion/vim-easymotion'
 	Plug 'majutsushi/tagbar'
 	let g:airline#extensions#bufferline#enabled = 0
+	let g:airline#extensions#term#enabled = 0
 	Plug 'vim-airline/vim-airline'
 	Plug 'junegunn/vim-easy-align'
 	Plug 'junegunn/gv.vim'
@@ -161,17 +162,11 @@ EOF
 
 		augroup Term
 			au!
-			au TermOpen * nmap <buffer> o i
-			au TermOpen * nmap <buffer> O i
-			au TermOpen * nmap <buffer> R :call chansend(b:terminal_job_id, "\<lt>c-a>\<lt>c-k>. ~/.zshrc\<lt>cr>")<cr>
-			au TermOpen * setlocal sidescrolloff=0
-			au TermOpen * setlocal scrolloff=0
+			au TermOpen * call Terminal_init()
 			au Filetype netrw vmap <buffer> E .call feedkeys("i<end>\<lt>c-a>") \| term<cr>
 			au Filetype netrw nmap <buffer> E VE
 			au BufReadPre,FileReadPre * call InheritExitRemap()
 			au FileType netrw call InheritExitRemap()
-			au TermOpen * nnoremap <buffer> <c-w><c-l> :call Terminal_reset()<cr>
-			au TermOpen * nnoremap <buffer> D "tyiW:call Terminal_open()<cr>
 			au WinEnter term://* stopinsert
 		augroup END
 
@@ -232,6 +227,18 @@ EOF
 	nnoremap <c-p>r :Rg<space>
 	nnoremap <c-p><c-r> :Rg <c-r>/
 	nnoremap <c-p>G :GGrep<space>
+
+	function! Terminal_airline(...)
+		if &buftype == 'terminal'
+			let w:airline_section_b = '%{fnamemodify(getcwd(), ":~:.")}'
+			let w:airline_section_c = matchstr(expand('%'), 'term.*:\zs.*')
+		endif
+	endfunction
+
+	if !exists('g:airline_terminal_function_added')
+		call airline#add_statusline_func('Terminal_airline')
+		let g:airline_terminal_function_added = 1
+	endif
 
 	highlight GitGutterAdd    guifg=#009900 guibg=#073642 ctermfg=2 ctermbg=0
 	highlight GitGutterChange guifg=#bbbb00 guibg=#073642 ctermfg=3 ctermbg=0
@@ -478,6 +485,17 @@ vmap <silent> <Leader>y y:call Session_yank()<CR>
 vmap <silent> <Leader>Y Y:call Session_yank()<CR>
 nmap <silent> <Leader>p :call Session_paste("p")<CR>
 nmap <silent> <Leader>P :call Session_paste("P")<CR>
+
+function! Terminal_init()
+	setlocal sidescrolloff=0
+	setlocal scrolloff=0
+	nmap <buffer> o i
+	nmap <buffer> O i
+	nmap <buffer> R :call chansend(b:terminal_job_id, "\<lt>c-a>\<lt>c-k>. ~/.zshrc\<lt>cr>")<cr>
+	nnoremap <buffer> <c-w><c-l> :call Terminal_reset()<cr>
+	nnoremap <buffer> D "tyiW:call Terminal_open()<cr>
+	AirlineRefresh
+endfunction
 
 function! Terminal_open()
 	let l:p = expand(@t)
