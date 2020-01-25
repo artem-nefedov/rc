@@ -230,6 +230,7 @@ EOF
 	nnoremap <c-p>/ :History/<CR>
 	nmap <c-p>? :History/<CR>
 	nnoremap <c-p>r :Rg<space>
+	nnoremap <c-p><c-r> :Rg <c-r>/
 	nnoremap <c-p>G :GGrep<space>
 
 	highlight GitGutterAdd    guifg=#009900 guibg=#073642 ctermfg=2 ctermbg=0
