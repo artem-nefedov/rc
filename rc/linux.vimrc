@@ -187,7 +187,7 @@ EOF
 				call a:1.add_section('airline_b', l:spc . "%{Get_git_branch()}" . l:spc)
 				call a:1.add_section('airline_c', l:spc . '%{fnamemodify(getcwd(), ":~:.")}')
 				call a:1.split()
-				call a:1.add_section('airline_y', l:spc . matchstr(expand('%'), 'term.*:\zs.*') . l:spc)
+				call a:1.add_section('airline_y', "%{airline#util#wrap('" . l:spc . l:spc . "' . matchstr(expand('%'), 'term.*:\\zs.*') . '" . l:spc . "', 80)}")
 				call a:1.add_section('airline_z', l:spc . airline#section#create_right(['linenr', 'maxlinenr']))
 				return 1
 			endif
