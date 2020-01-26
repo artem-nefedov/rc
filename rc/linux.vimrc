@@ -168,8 +168,8 @@ EOF
 			au BufReadPre,FileReadPre * call InheritExitRemap()
 			au FileType netrw call InheritExitRemap()
 			au WinEnter  term://* stopinsert
-			au TermEnter term://* let b:allow_git_refresh = 1
-			au TermLeave term://* let b:allow_git_refresh = 0
+			au TermEnter term://*/zsh let b:allow_git_refresh = 1
+			au TermLeave term://*/zsh let b:allow_git_refresh = 0
 			au TermOpen  term://*/zsh call Terminal_init()
 		augroup END
 
