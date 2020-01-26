@@ -229,8 +229,13 @@ EOF
 	nnoremap <c-p><c-r> :Rg <c-r>/
 	nnoremap <c-p>G :GGrep<space>
 
+	function! Set_git_branch(job_id, data, event) dict
+		let g:last_read_git_branch = substitute(trim(join(a:data)), '^refs/heads/', '', '')
+	endfunction
+
 	function! Get_git_branch()
-		return substitute(systemlist('git symbolic-ref HEAD 2>/dev/null || git rev-parse --short HEAD 2>/dev/null || echo --')[0], '^refs/heads/', '', '')
+		call jobstart('git symbolic-ref HEAD 2>/dev/null || git rev-parse --short HEAD 2>/dev/null || echo --', {'on_stdout': 'Set_git_branch', 'stdout_buffered': 1})
+		return exists('g:last_read_git_branch') ? g:last_read_git_branch : '--'
 	endfunction
 
 	function! Terminal_airline(...)
