@@ -16,6 +16,7 @@ if !exists('s:no_plug_manager')
 	Plug 'tpope/vim-fugitive'
 	Plug 'tpope/vim-vinegar'
 	Plug 'tpope/vim-unimpaired'
+	let g:rainbow_active = 0
 	Plug 'luochen1990/rainbow'
 	Plug 'tyru/open-browser.vim'
 	Plug 'scrooloose/nerdcommenter'
@@ -232,6 +233,7 @@ EOF
 	let g:airline#extensions#keymap#enabled = 0
 	let g:netrw_keepdir = 0
 
+	nnoremap <leader>r :RainbowToggle<cr>
 	nnoremap <leader>u :UndotreeToggle<CR>
 	nnoremap gs :Gstatus<CR>
 	nnoremap <leader>gd :Gvdiff<CR>
