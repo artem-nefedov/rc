@@ -497,6 +497,15 @@ vmap <silent> <Leader>Y Y:call Session_yank()<CR>
 nmap <silent> <Leader>p :call Session_paste("p")<CR>
 nmap <silent> <Leader>P :call Session_paste("P")<CR>
 
+function! Terminal_modify(ncmd)
+	setlocal modifiable
+	silent nunmap <buffer> J
+	silent vunmap <buffer> J
+	silent nunmap <buffer> gJ
+	silent vunmap <buffer> gJ
+	exec 'norm ' . a:ncmd
+endfunction
+
 function! Terminal_init()
 	setlocal sidescrolloff=0
 	setlocal scrolloff=0
@@ -506,6 +515,10 @@ function! Terminal_init()
 	nnoremap <buffer> <c-w><c-l> :call Terminal_reset()<cr>
 	nnoremap <buffer> D "tyiW:call Terminal_open()<cr>
 	nnoremap <buffer> C "tyiW"tpi
+	nnoremap <buffer> J :<c-u>call Terminal_modify('J')<cr>
+	vnoremap <buffer> J :<c-u>call Terminal_modify('J')<cr>
+	nnoremap <buffer> gJ :<c-u>call Terminal_modify('gJ')<cr>
+	vnoremap <buffer> gJ :<c-u>call Terminal_modify('gJ')<cr>
 	AirlineRefresh
 endfunction
 
