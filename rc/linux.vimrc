@@ -505,6 +505,7 @@ function! Terminal_init()
 	nmap <buffer> R :call chansend(b:terminal_job_id, "\<lt>c-a>\<lt>c-k>. ~/.zshrc\<lt>cr>")<cr>
 	nnoremap <buffer> <c-w><c-l> :call Terminal_reset()<cr>
 	nnoremap <buffer> D "tyiW:call Terminal_open()<cr>
+	nnoremap <buffer> C "tyiW"tpi
 	AirlineRefresh
 endfunction
 
