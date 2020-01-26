@@ -169,6 +169,8 @@ EOF
 			au BufReadPre,FileReadPre * call InheritExitRemap()
 			au FileType netrw call InheritExitRemap()
 			au WinEnter term://* stopinsert
+			au TermEnter term://* let b:allow_git_refresh = 1
+			au TermLeave term://* unlet b:allow_git_refresh
 		augroup END
 
 		function! Set_git_branch(job_id, data, event) dict
@@ -176,7 +178,9 @@ EOF
 		endfunction
 
 		function! Get_git_branch()
-			call jobstart('git symbolic-ref HEAD 2>/dev/null || git rev-parse --short HEAD 2>/dev/null || echo --', {'on_stdout': 'Set_git_branch', 'stdout_buffered': 1})
+			if exists('b:allow_git_refresh')
+				call jobstart('git symbolic-ref HEAD 2>/dev/null || git rev-parse --short HEAD 2>/dev/null || echo --', {'on_stdout': 'Set_git_branch', 'stdout_buffered': 1})
+			endif
 			return exists('b:last_read_git_branch') ? b:last_read_git_branch : '--'
 		endfunction
 
