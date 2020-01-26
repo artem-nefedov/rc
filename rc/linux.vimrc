@@ -159,7 +159,7 @@ EOF
 		nmap <c-x>Y "*Y
 		vmap <c-x>y "*y
 		nnoremap <c-x><c-y> :let @* = @"<cr>
-		tnoremap <c-x>b <c-\><c-n>:call chansend(b:terminal_job_id, Get_git_branch()) \| startinsert<cr>
+		tnoremap <c-x>b <c-\><c-n>:call chansend(b:terminal_job_id, Get_git_branch(0)) \| startinsert<cr>
 
 		augroup Term
 			au!
@@ -173,22 +173,20 @@ EOF
 			au TermLeave term://* unlet b:allow_git_refresh
 		augroup END
 
-		function! Set_git_branch(job_id, data, event) dict
-			let b:last_read_git_branch = substitute(trim(join(a:data)), '^refs/heads/', '', '')
-		endfunction
-
-		function! Get_git_branch()
-			if exists('b:allow_git_refresh')
-				call jobstart('git symbolic-ref HEAD 2>/dev/null || git rev-parse --short HEAD 2>/dev/null || echo --', {'on_stdout': 'Set_git_branch', 'stdout_buffered': 1})
+		function! Get_git_branch(force)
+			if exists('b:allow_git_refresh') || a:force
+				let b:last_read_git_branch = substitute(systemlist('git symbolic-ref HEAD 2>/dev/null || git rev-parse --short HEAD 2>/dev/null || echo --')[0], '^refs/heads/', '', '')
+				return b:last_read_git_branch
+			else
+				return exists('b:last_read_git_branch') ? b:last_read_git_branch : '--'
 			endif
-			return exists('b:last_read_git_branch') ? b:last_read_git_branch : '--'
 		endfunction
 
 		function! Terminal_airline(...)
 			if &buftype == 'terminal'
 				let l:spc = g:airline_symbols.space
 				call a:1.add_section('airline_a', l:spc . g:airline_section_a . l:spc)
-				call a:1.add_section('airline_b', l:spc . "%{Get_git_branch()}" . l:spc)
+				call a:1.add_section('airline_b', l:spc . "%{Get_git_branch(0)}" . l:spc)
 				call a:1.add_section('airline_c', l:spc . '%{fnamemodify(getcwd(), ":~:.")}')
 				call a:1.split()
 				call a:1.add_section('airline_y', "%{airline#util#wrap('" . l:spc . l:spc . "' . matchstr(expand('%'), 'term.*:\\zs.*') . '" . l:spc . "', 80)}")
@@ -528,6 +526,7 @@ function! Terminal_init()
 	vnoremap <buffer> J :<c-u>call Terminal_modify('J')<cr>
 	nnoremap <buffer> gJ :<c-u>call Terminal_modify('gJ')<cr>
 	vnoremap <buffer> gJ :<c-u>call Terminal_modify('gJ')<cr>
+	call Get_git_branch(1)
 	AirlineRefresh
 endfunction
 
