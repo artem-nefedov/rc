@@ -15,6 +15,7 @@ if !exists('s:no_plug_manager')
 	Plug 'tpope/vim-fugitive'
 	Plug 'tpope/vim-vinegar'
 	Plug 'tpope/vim-unimpaired'
+	"Plug 'luochen1990/rainbow'
 	Plug 'tyru/open-browser.vim'
 	Plug 'scrooloose/nerdcommenter'
 	Plug 'PProvost/vim-ps1'
