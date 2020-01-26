@@ -172,17 +172,13 @@ EOF
 		augroup END
 
 		function! Set_git_branch(job_id, data, event) dict
-			let g:last_read_git_branch = substitute(trim(join(a:data)), '^refs/heads/', '', '')
+			let b:last_read_git_branch = substitute(trim(join(a:data)), '^refs/heads/', '', '')
 		endfunction
 
 		function! Get_git_branch()
 			call jobstart('git symbolic-ref HEAD 2>/dev/null || git rev-parse --short HEAD 2>/dev/null || echo --', {'on_stdout': 'Set_git_branch', 'stdout_buffered': 1})
-			return g:last_read_git_branch
+			return exists('b:last_read_git_branch') ? b:last_read_git_branch : '--'
 		endfunction
-
-		if !exists('g:last_read_git_branch')
-			let g:last_read_git_branch = '--'
-		endif
 
 		function! Terminal_airline(...)
 			if &buftype == 'terminal'
