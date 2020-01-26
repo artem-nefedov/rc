@@ -163,18 +163,18 @@ EOF
 
 		augroup Term
 			au!
-			au TermOpen * call Terminal_init()
 			au Filetype netrw vmap <buffer> E .call feedkeys("i<end>\<lt>c-a>") \| term<cr>
 			au Filetype netrw nmap <buffer> E VE
 			au BufReadPre,FileReadPre * call InheritExitRemap()
 			au FileType netrw call InheritExitRemap()
-			au WinEnter term://* stopinsert
+			au WinEnter  term://* stopinsert
 			au TermEnter term://* let b:allow_git_refresh = 1
-			au TermLeave term://* unlet b:allow_git_refresh
+			au TermLeave term://* let b:allow_git_refresh = 0
+			au TermOpen  term://*/zsh call Terminal_init()
 		augroup END
 
 		function! Get_git_branch(force)
-			if exists('b:allow_git_refresh') || a:force
+			if ( exists('b:allow_git_refresh') && b:allow_git_refresh ) || a:force
 				let b:last_read_git_branch = substitute(systemlist('git symbolic-ref HEAD 2>/dev/null || git rev-parse --short HEAD 2>/dev/null || echo --')[0], '^refs/heads/', '', '')
 				return b:last_read_git_branch
 			else
