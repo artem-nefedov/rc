@@ -171,6 +171,37 @@ EOF
 			au WinEnter term://* stopinsert
 		augroup END
 
+		function! Set_git_branch(job_id, data, event) dict
+			let g:last_read_git_branch = substitute(trim(join(a:data)), '^refs/heads/', '', '')
+		endfunction
+
+		function! Get_git_branch()
+			call jobstart('git symbolic-ref HEAD 2>/dev/null || git rev-parse --short HEAD 2>/dev/null || echo --', {'on_stdout': 'Set_git_branch', 'stdout_buffered': 1})
+			return g:last_read_git_branch
+		endfunction
+
+		if !exists('g:last_read_git_branch')
+			let g:last_read_git_branch = '--'
+		endif
+
+		function! Terminal_airline(...)
+			if &buftype == 'terminal'
+				let l:spc = g:airline_symbols.space
+				call a:1.add_section('airline_a', l:spc . g:airline_section_a . l:spc)
+				call a:1.add_section('airline_b', l:spc . "%{Get_git_branch()}" . l:spc)
+				call a:1.add_section('airline_c', l:spc . '%{fnamemodify(getcwd(), ":~:.")}')
+				call a:1.split()
+				call a:1.add_section('airline_y', l:spc . matchstr(expand('%'), 'term.*:\zs.*') . l:spc)
+				call a:1.add_section('airline_z', l:spc . airline#section#create_right(['linenr', 'maxlinenr']))
+				return 1
+			endif
+		endfunction
+
+		if !exists('g:airline_terminal_function_added')
+			call airline#add_statusline_func('Terminal_airline')
+			let g:airline_terminal_function_added = 1
+		endif
+
 		" hack fix for TERM=putty
 		if $TERM == 'putty-256color' && empty(maparg("<s-left>", 'n'))
 			noremap  <s-left>  <c-left>
@@ -228,33 +259,6 @@ EOF
 	nnoremap <c-p>r :Rg<space>
 	nnoremap <c-p><c-r> :Rg <c-r>/
 	nnoremap <c-p>G :GGrep<space>
-
-	function! Set_git_branch(job_id, data, event) dict
-		let g:last_read_git_branch = substitute(trim(join(a:data)), '^refs/heads/', '', '')
-	endfunction
-
-	function! Get_git_branch()
-		call jobstart('git symbolic-ref HEAD 2>/dev/null || git rev-parse --short HEAD 2>/dev/null || echo --', {'on_stdout': 'Set_git_branch', 'stdout_buffered': 1})
-		return exists('g:last_read_git_branch') ? g:last_read_git_branch : '--'
-	endfunction
-
-	function! Terminal_airline(...)
-		if &buftype == 'terminal'
-			let l:spc = g:airline_symbols.space
-			call a:1.add_section('airline_a', l:spc . g:airline_section_a . l:spc)
-			call a:1.add_section('airline_b', l:spc . "%{Get_git_branch()}" . l:spc)
-			call a:1.add_section('airline_c', l:spc . '%{fnamemodify(getcwd(), ":~:.")}')
-			call a:1.split()
-			call a:1.add_section('airline_y', l:spc . matchstr(expand('%'), 'term.*:\zs.*') . l:spc)
-			call a:1.add_section('airline_z', l:spc . airline#section#create_right(['linenr', 'maxlinenr']))
-			return 1
-		endif
-	endfunction
-
-	if !exists('g:airline_terminal_function_added')
-		call airline#add_statusline_func('Terminal_airline')
-		let g:airline_terminal_function_added = 1
-	endif
 
 	highlight GitGutterAdd    guifg=#009900 guibg=#073642 ctermfg=2 ctermbg=0
 	highlight GitGutterChange guifg=#bbbb00 guibg=#073642 ctermfg=3 ctermbg=0
