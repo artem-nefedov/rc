@@ -12,6 +12,7 @@ if !exists('s:no_plug_manager')
 	Plug 'tpope/vim-sensible'
 	Plug 'tpope/vim-surround'
 	Plug 'tpope/vim-repeat'
+	Plug 'tpope/vim-dispatch'
 	Plug 'tpope/vim-fugitive'
 	Plug 'tpope/vim-vinegar'
 	Plug 'tpope/vim-unimpaired'
