@@ -288,13 +288,17 @@ function! Tags_regenerate()
 			echohl WarningMsg
 			echo 'Could not find git root'
 			echohl NONE
-			exec 'lcd ' . l:cwd
+			silent exec 'lcd ' . l:cwd
 			return
 		endif
 	endwhile
 
 	echom 'Started re-generating tags'
 	call jobstart('ctags -R -f .git/tags .', {'on_exit': 'Tags_regenerate_done'})
+
+	if &buftype == 'terminal'
+		silent exec 'lcd ' . l:cwd
+	endif
 endfunction
 
 function! Run_File(args)
