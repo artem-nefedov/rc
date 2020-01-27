@@ -41,8 +41,10 @@ dirdiff ()
 
 	if [ "$(uname)" = Darwin ]; then
 		local -a stat=( xargs -0 stat -f $'%z\t%N' )
+		gstat=gstat
 	else
 		local -a stat=( xargs -0 stat -c $'%s\t%n' )
+		gstat=stat
 	fi
 
 	case "$1" in
@@ -89,8 +91,8 @@ dirdiff ()
 					<(cd "$2" && "${find[@]}" -print0 | sort -z | xargs -0 file)
 				;;
 			stat)
-				$diff   <(cd "$1" && "${find[@]}" -print0 | sort -z | xargs -0 stat -c $'%A %h %U %G\t%n') \
-					<(cd "$2" && "${find[@]}" -print0 | sort -z | xargs -0 stat -c $'%A %h %U %G\t%n')
+				$diff   <(cd "$1" && "${find[@]}" -print0 | sort -z | xargs -0 "$gstat" -c $'%A %h %U %G\t%n') \
+					<(cd "$2" && "${find[@]}" -print0 | sort -z | xargs -0 "$gstat" -c $'%A %h %U %G\t%n')
 				;;
 			rm)
 				( 'diff' <(cd "$1" && "${find[@]}" | sort) <(cd "$2" && "${find[@]}" | sort) | \
