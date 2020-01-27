@@ -299,7 +299,7 @@ function! Tags_regenerate()
 	endwhile
 
 	echom 'Started re-generating tags'
-	call jobstart('ctags -R -f .git/tags .', {'on_exit': 'Tags_regenerate_done'})
+	call jobstart('ctags --tag-relative=yes --exclude=.git -R -f .git/tags .', {'on_exit': 'Tags_regenerate_done'})
 
 	if &buftype == 'terminal'
 		silent exec 'lcd ' . l:cwd
