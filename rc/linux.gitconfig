@@ -36,10 +36,15 @@
 	alias = !git config --get-regexp '^alias\\.' | sed 's/\\t\\+//g'
 	sw = "!f() { git checkout $(if [ -z \"$1\" ]; then \
 		b=$(git branch); \
-		if echo \"$b\" | grep -q '^\\* master'; then \
+		if echo \"$b\" | grep -q -w master; then \
+			m=master; \
+		else \
+			m=develop; \
+		fi; \
+		if echo \"$b\" | grep -q '^\\* '$m; then \
 			echo \"$b\" | grep -v '^\\*' | tail -n 1; \
 		else \
-			echo master; \
+			echo $m; \
 		fi; else echo \"$1\"; fi) && git branch; } ; f"
 
 [svn]
