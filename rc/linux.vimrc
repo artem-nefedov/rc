@@ -164,6 +164,11 @@ EOF
 		nnoremap <c-x><c-y> :let @* = @"<cr>
 		tnoremap <c-x>b <c-\><c-n>:call chansend(b:terminal_job_id, Get_git_branch(0)) \| startinsert<cr>
 
+		function! Terminal_enter()
+			let b:allow_git_refresh = 1
+			exec 'lcd ' . b:terminal_pwd
+		endfunction
+
 		augroup Term
 			au!
 			au Filetype netrw vmap <buffer> E .call feedkeys("i<end>\<lt>c-a>") \| term<cr>
@@ -171,7 +176,7 @@ EOF
 			au BufReadPre,FileReadPre * call InheritExitRemap()
 			au FileType netrw call InheritExitRemap()
 			au WinEnter  term://* stopinsert
-			au TermEnter term://*/zsh let b:allow_git_refresh = 1
+			au TermEnter term://*/zsh call Terminal_enter()
 			au TermLeave term://*/zsh let b:allow_git_refresh = 0
 			au TermOpen  term://*/zsh call Terminal_init()
 		augroup END
@@ -551,6 +556,7 @@ function! Terminal_modify(ncmd)
 endfunction
 
 function! Terminal_init()
+	let b:terminal_pwd = getcwd()
 	setlocal sidescrolloff=0
 	setlocal scrolloff=0
 	nmap <buffer> o i

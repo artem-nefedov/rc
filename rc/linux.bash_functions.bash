@@ -286,7 +286,9 @@ chpwd()
 {
 	if [ -n "$NVIM_LISTEN_ADDRESS" ] && [ -z "$WIDGET" ]; then
 		setopt LOCAL_OPTIONS NO_NOTIFY NO_MONITOR
-		nvr --nostart --remote "+lcd $PWD" >/dev/null 2>&1 & disown >/dev/null 2>&1
+		nvr --nostart --remote \
+			-c "let b:terminal_pwd = '$PWD'" \
+			-c "lcd $PWD" >/dev/null 2>&1 & disown >/dev/null 2>&1
 	fi
 }
 
