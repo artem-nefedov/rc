@@ -270,6 +270,33 @@ else
 	nnoremap Q <nop>
 endif
 
+function! Tags_regenerate_done(...)
+	echom 'Done re-generating tags'
+endfunction
+
+function! Tags_regenerate()
+	let l:cwd = getcwd()
+
+	while 1
+		if isdirectory('.git')
+			break
+		endif
+
+		lcd ..
+
+		if getcwd() == '/'
+			echohl WarningMsg
+			echo 'Could not find git root'
+			echohl NONE
+			exec 'lcd ' . l:cwd
+			return
+		endif
+	endwhile
+
+	echom 'Started re-generating tags'
+	call jobstart('ctags -R -f .git/tags .', {'on_exit': 'Tags_regenerate_done'})
+endfunction
+
 function! Run_File(args)
 	write
 	vsplit
@@ -406,9 +433,11 @@ nnoremap <c-x><c-a> <c-a>
 nnoremap <Space><Space> @q
 nnoremap <Space>d "_dd
 vnoremap <Space>d "_d
-nnoremap <space>r :call Run_File('')<cr>
-nnoremap <space>R :call Run_File('')<left><left>
+nnoremap <space>r :echo 'Not runnable file'<cr>
+nmap <space>R <space>r
 nnoremap <space>m :make<cr>
+nnoremap <space>t :TagbarOpen fj<cr>
+nnoremap <space>T :<c-u>call Tags_regenerate()<cr>
 
 " make :W equal to :w
 command! -bang -range=% -complete=file -nargs=* W <line1>,<line2>write<bang> <args>
@@ -637,6 +666,10 @@ if has('autocmd')
 		au FileType ps1 setlocal ignorecase smartcase
 
 		au FileType rmd,yaml,json,ps1 call MyExpandTab(2)
+
+
+		au FileType sh,python nnoremap <buffer> <space>r :call Run_File('')<cr>
+		au FileType sh,python nnoremap <buffer> <space>R :call Run_File('')<left><left>
 
 		au BufWritePost *.vimrc source %
 
