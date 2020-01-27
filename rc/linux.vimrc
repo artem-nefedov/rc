@@ -276,7 +276,13 @@ else
 endif
 
 function! Tags_regenerate_done(...)
-	echom 'Done re-generating tags'
+	if a:2 == 0
+		echom 'Done re-generating tags'
+	else
+		echohl WarningMsg
+		echom 'ctags exited with code ' . a:2
+		echohl NONE
+	endif
 endfunction
 
 function! Tags_regenerate()
