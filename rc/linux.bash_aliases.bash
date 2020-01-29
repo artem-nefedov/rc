@@ -77,7 +77,8 @@ fi
 alias cdp='cd $HOME/git/personal'
 alias cdP=cdp
 alias cdg='cd ~/git'
-alias cdd='cd ~/Desktop'
+alias cdd='cd ~/Downloads'
+alias cdD='cd ~/Desktop'
 
 #alias sudo='sudo_wrapper'
 alias cd..='cd ..'
