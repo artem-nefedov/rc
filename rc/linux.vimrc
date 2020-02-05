@@ -183,7 +183,7 @@ EOF
 
 		function! Get_git_branch(force)
 			if ( exists('b:allow_git_refresh') && b:allow_git_refresh ) || a:force
-				let b:last_read_git_branch = substitute(systemlist('git symbolic-ref HEAD 2>/dev/null || git rev-parse --short HEAD 2>/dev/null || echo --')[0], '^refs/heads/', '', '')
+				let b:last_read_git_branch = systemlist('git symbolic-ref --short HEAD 2>/dev/null || git rev-parse --short HEAD 2>/dev/null || echo --')[0]
 				return b:last_read_git_branch
 			else
 				return exists('b:last_read_git_branch') ? b:last_read_git_branch : '--'
