@@ -268,6 +268,10 @@ v()
 			fi
 		fi
 
+		if ! pgrep -q nvim; then
+			rm -f /tmp/nvimsocket
+		fi
+
 		abduco -A nvim nvim --listen /tmp/nvimsocket +term
 		if [ -n "$oldterm" ]; then
 			TERM=$oldterm
