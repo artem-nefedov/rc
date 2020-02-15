@@ -162,6 +162,8 @@ EOF
 		nmap <c-x>Y "*Y
 		vmap <c-x>y "*y
 		nnoremap <c-x><c-y> :let @* = @"<cr>
+		nnoremap <c-x>/ :let @* = @/<cr>
+		nmap <c-x>* g*<c-x>/
 		nmap <c-x>g gJ"*yy
 		vmap <c-x>g gJ"*yy
 		tnoremap <c-x>b <c-\><c-n>:call chansend(b:terminal_job_id, Get_git_branch(0)) \| startinsert<cr>
