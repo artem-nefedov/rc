@@ -598,9 +598,11 @@ function! Terminal_reset()
 	startinsert
 endfunction
 
+" reset b:terminal_pwd to avoid race condition
 function! Terminal_cd()
 	if &buftype == 'terminal' && expand('%') =~# '[\/]zsh$'
-		call chansend(b:terminal_job_id, 'NVIM_LISTEN_ADDRESS= cd "' . getcwd() . "\"\<cr>")
+		let b:terminal_pwd = getcwd()
+		call chansend(b:terminal_job_id, 'NVIM_LISTEN_ADDRESS= cd "' . b:terminal_pwd . "\"\<cr>")
 	endif
 endfunction
 
