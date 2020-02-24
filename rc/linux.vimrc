@@ -152,8 +152,8 @@ EOF
 		imap <c-x>0 <esc><c-x>0
 		nnoremap <c-x>I :PlugInstall<cr>
 		nnoremap <c-x>U :PlugUpgrade \| PlugUpdate<cr>
-		nnoremap <c-x><c-e> :exec "if exists('b:nvr_term') \|
-					\ exec 'b ' . b:nvr_term \|
+		nnoremap <c-x><c-e> :exec "if exists('w:nvr_term') \|
+					\ exec 'b ' . w:nvr_term \|
 					\ startinsert \| else \|
 					\ echo 'No bound terminal' \| endif"<cr>
 		tmap <c-x>y <c-\><c-n>GkV?➜<cr>j"*y<c-l>i
@@ -340,7 +340,6 @@ function! InheritExitRemap()
 	endif
 	try
 		let l:altbuf = bufnr('#')
-		let b:nvr_term = nvim_buf_get_var(l:altbuf, 'nvr_term')
 		let b:nvr_jump = l:altbuf
 		nnoremap <buffer> ZQ :call Go_Back(0)<cr>
 		nnoremap <buffer> ZZ :call Go_Back(1)<cr>
@@ -566,6 +565,7 @@ function! Terminal_modify(ncmd)
 endfunction
 
 function! Terminal_init()
+	let w:nvr_term = bufnr('%')
 	let b:terminal_pwd = getcwd()
 	setlocal sidescrolloff=0
 	setlocal scrolloff=0

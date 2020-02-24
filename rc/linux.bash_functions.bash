@@ -226,8 +226,7 @@ v()
 				v+=( --remote-tab )
 			else
 				v+=(
-				-c "let b:nvr_term = bufnr('#')"
-				-c 'let b:nvr_jump = b:nvr_term'
+				-c "let b:nvr_jump = bufnr('#')"
 				-c 'nnoremap <buffer> ZQ :call Go_Back(0)<cr>i'
 				-c 'nnoremap <buffer> ZZ :call Go_Back(1)<cr>i'
 				--remote
