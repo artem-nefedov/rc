@@ -557,6 +557,11 @@ function! Terminal_modify(ncmd)
 	exec 'norm ' . a:ncmd
 endfunction
 
+function! Terminal_regsub()
+	let l:newval = substitute(@", '^➜ ', '', '')
+	let @" = substitute(l:newval, '\n$', '', '')
+endfunction
+
 function! Terminal_init()
 	let w:nvr_term = bufnr('%')
 	let b:terminal_pwd = getcwd()
@@ -572,6 +577,7 @@ function! Terminal_init()
 	vnoremap <buffer> J :<c-u>call Terminal_modify('J')<cr>
 	nnoremap <buffer> gJ :<c-u>call Terminal_modify('gJ')<cr>
 	vnoremap <buffer> gJ :<c-u>call Terminal_modify('gJ')<cr>
+	nnoremap <buffer> <silent> yy yy:<c-u>call Terminal_regsub()<cr>
 	call Get_git_branch(1)
 	AirlineRefresh
 endfunction
