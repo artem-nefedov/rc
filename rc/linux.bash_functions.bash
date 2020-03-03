@@ -353,6 +353,22 @@ cdw()
 	fi
 }
 
+cdr()
+{
+	local d="$PWD"
+	while [ ! -d "$d/.git" ]; do
+		d=${d%/*}
+		test -n "$d" || break
+	done
+
+	if [ -n "$d" ]; then
+		cd "$d"
+	else
+		echo >&2 "Git root not found"
+		return 1
+	fi
+}
+
 renew_kpass()
 {
 	local pass kt
