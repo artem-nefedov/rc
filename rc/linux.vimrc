@@ -32,8 +32,7 @@ if !exists('s:no_plug_manager')
 	Plug 'junegunn/vim-easy-align'
 	Plug 'junegunn/gv.vim'
 	"Plug 'junegunn/vim-peekaboo'
-	"Plug '~/git/fzf'
-	Plug '/usr/local/opt/fzf'
+	Plug 'junegunn/fzf', { 'do': './install --bin' }
 	Plug 'junegunn/fzf.vim'
 	Plug 'artem-nefedov/vim-docker-tools', { 'on': 'DockerToolsOpen' }
 	let g:maximizer_set_default_mapping = 0

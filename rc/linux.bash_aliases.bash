@@ -11,6 +11,8 @@ if [ -f "$HOME/.local_creds" ]; then
 	. "$HOME/.local_creds"
 fi
 
+PATH="$HOME/.config/nvim/plugged/fzf/bin:$PATH"
+
 if [[ $(uname) == CYGWIN* ]]; then
 	PATH=${PATH//\:\/cygdrive\/c\/MinGW\/bin/}
 	PATH=${PATH//\:\/cygdrive\/c\/MinGW\/msys\/1.0\/bin/}
