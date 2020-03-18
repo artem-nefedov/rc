@@ -219,6 +219,10 @@ v()
 {
 	local -a v
 
+	if [ "$1" = '-r' ] && [ $# -eq 3 ]; then
+		set -- "scp://$2/$3"
+	fi
+
 	if [ -n "$NVIM_LISTEN_ADDRESS" ]; then
 		v=( nvr --nostart )
 		if [ "$1" != '--remote-tab' ]; then
