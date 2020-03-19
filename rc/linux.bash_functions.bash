@@ -293,7 +293,7 @@ vv()
 
 chpwd()
 {
-	if [ -n "$NVIM_LISTEN_ADDRESS" ] && [ -z "$WIDGET" ]; then
+	if [ -n "$NVIM_LISTEN_ADDRESS" ] && [ -z "$WIDGET" ] && [ $ZSH_SUBSHELL -eq 0 ]; then
 		setopt LOCAL_OPTIONS NO_NOTIFY NO_MONITOR
 		nvr --nostart --remote \
 			-c "let b:terminal_pwd = '$PWD'" \
