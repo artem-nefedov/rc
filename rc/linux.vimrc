@@ -42,6 +42,7 @@ if !exists('s:no_plug_manager')
 	" with coc-vim, we don't need vim-go highlighting
 	let g:go_highlight_diagnostic_errors = 0
 	let g:go_highlight_diagnostic_warnings = 0
+	let g:go_term_enabled = 1
 	Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 	"Plug 'bling/vim-bufferline'
 	if (v:version >= 800) || has('nvim')
