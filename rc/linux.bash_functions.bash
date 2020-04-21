@@ -375,7 +375,7 @@ cdr()
 
 renew_kpass()
 {
-	local pass kt
+	local pass kt principal
 	if [ -n "$1" ]; then
 		pass="$1"
 	else
@@ -383,14 +383,26 @@ renew_kpass()
 		read -r -s pass
 	fi
 
-	kt="$HOME/nefedov.keytab"
-	rm -f "$kt"
+	if [ "$(uname)" = Darwin ]; then
+		principal=anefedov-admin
+		kt="$HOME/${principal}.keytab"
+		rm -f "$kt"
 
-	printf '%s\n%s\n%s\n%s\n' \
-		'addent -password -p nefedov -k 1 -e aes256-cts' \
-		"$pass" \
-		"wkt $kt" \
-		'quit' | ktutil
+		ktutil -k "$kt" add \
+			--password="$pass" \
+			-p ${principal}@ALIGNTECH.COM \
+			-e aes256-cts-hmac-sha1-96 \
+			-V 1
+	else
+		kt="$HOME/nefedov.keytab"
+		rm -f "$kt"
+
+		printf '%s\n%s\n%s\n%s\n' \
+			'addent -password -p nefedov -k 1 -e aes256-cts' \
+			"$pass" \
+			"wkt $kt" \
+			'quit' | ktutil
+	fi
 }
 
 xdocker()
@@ -428,6 +440,15 @@ gpr()
 			open "$f2"
 		fi
 	done < <(git push -u 2>&1)
+}
+
+aws()
+{
+	if [[ "$*" == *help* ]]; then
+		/usr/local/bin/aws "$@"
+	else
+		PAGER='' /usr/local/bin/aws "$@"
+	fi
 }
 
 funcgrep ()

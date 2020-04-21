@@ -308,7 +308,7 @@ function! Tags_regenerate()
 		endif
 	endwhile
 
-	echom 'Started re-generating tags'
+	echom 'Started re-generating tags in ' . getcwd()
 	call jobstart('ctags --tag-relative=yes --exclude=.git -R -f .git/tags .', {'on_exit': 'Tags_regenerate_done'})
 
 	if &buftype == 'terminal'

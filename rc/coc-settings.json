@@ -5,5 +5,6 @@
       "rootPatterns": ["go.mod", ".vim/", ".git/"],
       "filetypes": ["go"]
     }
-  }
+  },
+  "java.jdt.ls.vmargs": "-javaagent:/Users/anefedov/.m2/repository/org/projectlombok/lombok/1.18.12/lombok-1.18.12.jar -Xbootclasspath/a:/Users/anefedov/.m2/repository/org/projectlombok/lombok/1.18.12/lombok-1.18.12.jar"
 }
