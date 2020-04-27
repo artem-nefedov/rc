@@ -13,6 +13,8 @@ fi
 
 PATH="$HOME/.config/nvim/plugged/fzf/bin:$PATH"
 
+export TF_PLUGIN_CACHE_DIR="$HOME/.terraform.d/plugins"
+
 if [[ $(uname) == CYGWIN* ]]; then
 	PATH=${PATH//\:\/cygdrive\/c\/MinGW\/bin/}
 	PATH=${PATH//\:\/cygdrive\/c\/MinGW\/msys\/1.0\/bin/}
