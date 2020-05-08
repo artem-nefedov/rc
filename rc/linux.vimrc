@@ -347,6 +347,14 @@ function! InheritExitRemap()
 	endtry
 endfunction
 
+function! Unmap_Z()
+	try
+		nunmap <buffer> ZQ
+		nunmap <buffer> ZZ
+	catch
+	endtry
+endfunction
+
 nnoremap <c-x>> :<c-u>call Tab_Move('+')<cr>
 nnoremap <c-x>< :<c-u>call Tab_Move('-')<cr>
 

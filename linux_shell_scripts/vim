@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [ -n "$NVIM_LISTEN_ADDRESS" ] && which nvr >/dev/null 2>&1; then
-	nvr --remote-tab --nostart "$@"
+	nvr --remote-tab --nostart -c 'call Unmap_Z()' "$@"
 elif which nvim >/dev/null 2>&1; then
 	nvim "$@"
 else
