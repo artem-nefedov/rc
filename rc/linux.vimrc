@@ -681,6 +681,7 @@ if has('autocmd')
 
 		au FileType rmd,yaml,json,ps1,tf call MyExpandTab(2)
 		au BufReadPost */ccbl/*.sh call MyExpandTab(2)
+		au BufReadPost */ccbl/*.java call MyExpandTab(4)
 
 
 		au FileType sh,python nnoremap <buffer> <space>r :call Run_File('')<cr>
