@@ -680,6 +680,7 @@ if has('autocmd')
 		au FileType ps1 setlocal ignorecase smartcase
 
 		au FileType rmd,yaml,json,ps1,tf call MyExpandTab(2)
+		au BufReadPost */ccbl/*.sh call MyExpandTab(2)
 
 
 		au FileType sh,python nnoremap <buffer> <space>r :call Run_File('')<cr>
