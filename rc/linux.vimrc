@@ -39,12 +39,8 @@ if !exists('s:no_plug_manager')
 	Plug 'szw/vim-maximizer'
 	Plug 'moll/vim-bbye'
 	Plug 'aymericbeaumet/symlink.vim'
-
-	"Plug 'neomake/neomake'
-	"Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-	"Plug 'hashivim/vim-terraform'
-	"Plug 'vim-syntastic/syntastic'
-	"Plug 'juliosueiras/vim-terraform-completion'
+	let g:terraform_align = 1
+	Plug 'hashivim/vim-terraform'
 
 	" with coc-vim, we don't need vim-go highlighting
 	let g:go_highlight_diagnostic_errors = 0
@@ -679,7 +675,7 @@ if has('autocmd')
 
 		au FileType ps1 setlocal ignorecase smartcase
 
-		au FileType rmd,yaml,json,ps1,tf call MyExpandTab(2)
+		au FileType rmd,yaml,json,ps1,tf,terraform call MyExpandTab(1)
 		au BufReadPost */ccbl/*.sh call MyExpandTab(2)
 		au BufReadPost */ccbl/*.java call MyExpandTab(4)
 
