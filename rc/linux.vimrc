@@ -238,6 +238,7 @@ EOF
 
 	set list
 	let g:NERDDefaultAlign = 'left'
+	let g:NERDSpaceDelims = 1
 	let g:ale_lint_on_enter = 0
 	let g:ale_lint_delay = 1000
 	let g:airline#extensions#tabline#enabled = 1
