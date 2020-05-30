@@ -39,6 +39,13 @@ if !exists('s:no_plug_manager')
 	Plug 'szw/vim-maximizer'
 	Plug 'moll/vim-bbye'
 	Plug 'aymericbeaumet/symlink.vim'
+
+	"Plug 'neomake/neomake'
+	"Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+	"Plug 'hashivim/vim-terraform'
+	"Plug 'vim-syntastic/syntastic'
+	"Plug 'juliosueiras/vim-terraform-completion'
+
 	" with coc-vim, we don't need vim-go highlighting
 	let g:go_highlight_diagnostic_errors = 0
 	let g:go_highlight_diagnostic_warnings = 0
