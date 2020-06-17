@@ -376,6 +376,17 @@ cdr()
 renew_kpass()
 {
 	local pass kt principal
+	local admin='-admin'
+
+	if [ "$1" = '-u' ]; then
+		admin=''
+		shift
+	fi
+
+	principal="$(whoami)${admin}"
+	kt="$HOME/${principal}.keytab"
+	echo "Renewing $kt"
+
 	if [ -n "$1" ]; then
 		pass="$1"
 	else
@@ -383,26 +394,39 @@ renew_kpass()
 		read -r -s pass
 	fi
 
-	if [ "$(uname)" = Darwin ]; then
-		principal=anefedov-admin
-		kt="$HOME/${principal}.keytab"
-		rm -f "$kt"
+	rm -f "$kt"
 
+	if [ "$(uname)" = Darwin ]; then
 		ktutil -k "$kt" add \
 			--password="$pass" \
-			-p ${principal}@ALIGNTECH.COM \
+			-p "${principal}@ALIGNTECH.COM" \
 			-e aes256-cts-hmac-sha1-96 \
 			-V 1
 	else
-		kt="$HOME/nefedov.keytab"
-		rm -f "$kt"
-
 		printf '%s\n%s\n%s\n%s\n' \
-			'addent -password -p nefedov -k 1 -e aes256-cts' \
+			"addent -password -p ${principal} -k 1 -e aes256-cts" \
 			"$pass" \
 			"wkt $kt" \
 			'quit' | ktutil
 	fi
+}
+
+ki()
+{
+	local principal
+	local admin='-admin'
+
+	if [ "$1" = '-u' ]; then
+		admin=''
+		shift
+	fi
+
+	principal="$(whoami)${admin}"
+	kt="$HOME/${principal}.keytab"
+	echo "Using $kt"
+
+	kinit -t "$kt" "${principal}@ALIGNTECH.COM"
+	klist
 }
 
 xdocker()

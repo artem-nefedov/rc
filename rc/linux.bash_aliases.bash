@@ -75,9 +75,6 @@ if [ "$(uname)" != Darwin ]; then
 	else
 		alias nvim='TERM=screen-256color vim'
 	fi
-	alias ki='kinit anefedov -k -t $HOME/anefedov.keytab && klist'
-else
-	alias ki='kinit -t ~/anefedov-admin.keytab anefedov-admin@ALIGNTECH.COM'
 fi
 
 alias cdp='cd $HOME/git/personal'
