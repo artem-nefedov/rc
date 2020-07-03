@@ -443,6 +443,7 @@ xdocker()
 f()
 {
 	local b
+	test -n "${2-}" || { echo >&2 bad format; return 1; }
 	b=$(echo "${*// /_}" | tr '[:upper:]' '[:lower:]' \
 		| awk -F- '{print toupper($1)"-"$2}')
 	b="feature/$b"

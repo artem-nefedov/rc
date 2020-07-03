@@ -157,3 +157,6 @@ if [ -f "$git_comp" ] && ! grep -q '^_git_sw ' "$git_comp"; then
 	sed -i.bu 's/-d|--delete|-m|--move)/-D|&/' "$git_comp"
 	echo '_git_sw () { __gitcomp_direct "$(__git_heads "" "$track" " ")"; }' >> "$git_comp"
 fi
+
+mkdir -p "$HOME"/.config/alacritty
+ln -sf "$PWD"/alacritty.yml "$HOME"/.config/alacritty/alacritty.yml
