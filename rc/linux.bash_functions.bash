@@ -469,15 +469,21 @@ gpr()
 
 aws()
 {
-	if [ "$1" = c ] || [ "$1" = '-c' ]; then
+	local -a cmd
+
+	while [ $# -ne 0 ]; do
+		if [ "$1" = c ] || [ "$1" = '-c' ]; then
+			cmd+=( '--region' 'cn-north-1' )
+		else
+			cmd+=( "$1" )
+		fi
 		shift
-		set -- '--region' 'cn-north-1' "$@"
-	fi
+	done
 
 	if [[ "$*" == *help* ]]; then
-		/usr/local/bin/aws "$@"
+		/usr/local/bin/aws "${cmd[@]}"
 	else
-		PAGER='' /usr/local/bin/aws "$@"
+		PAGER='' /usr/local/bin/aws "${cmd[@]}"
 	fi
 }
 
