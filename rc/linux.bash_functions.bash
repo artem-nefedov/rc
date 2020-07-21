@@ -469,6 +469,7 @@ gpr()
 
 aws()
 {
+	local help=false
 	local -a cmd
 
 	while [ $# -ne 0 ]; do
@@ -476,11 +477,14 @@ aws()
 			cmd+=( '--region' 'cn-north-1' )
 		else
 			cmd+=( "$1" )
+			if [ "$1" = help ]; then
+				help=true
+			fi
 		fi
 		shift
 	done
 
-	if [[ "$*" == *help* ]]; then
+	if $help; then
 		/usr/local/bin/aws "${cmd[@]}"
 	else
 		PAGER='' /usr/local/bin/aws "${cmd[@]}"
