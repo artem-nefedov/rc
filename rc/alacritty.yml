@@ -666,6 +666,7 @@ key_bindings:
   - { key: B,  mods: Alt,           chars: "\x1bb"                       }
   # https://github.com/jwilm/alacritty/issues/93#issuecomment-427592040
   - { key: D,  mods: Alt,           chars: "\x1bd"                       }
+  - { key: C,  mods: Alt,           chars: "\x1bc"                       }
 
   - { key: Up,       mods: Alt,     chars: "\x1b[1;5A"                   }
   - { key: Down,     mods: Alt,     chars: "\x1b[1;5B"                   }

@@ -469,6 +469,11 @@ gpr()
 
 aws()
 {
+	if [ "$1" = c ] || [ "$1" = '-c' ]; then
+		shift
+		set -- '--region' 'cn-north-1' "$@"
+	fi
+
 	if [[ "$*" == *help* ]]; then
 		/usr/local/bin/aws "$@"
 	else
