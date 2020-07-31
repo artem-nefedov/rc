@@ -99,3 +99,8 @@ alias docker-lsi='docker image ls --format="{{.Repository}}:{{.Tag}}"'
 alias gg='git grep -Ovi'
 alias p=python3
 
+alias k='kubectl'
+alias ka='k apply -f'
+alias kd='k delete -f'
+alias kg='k get'
+

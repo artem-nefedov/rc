@@ -79,7 +79,7 @@ if !exists('s:no_plug_manager')
 
 		nmap <silent> gd <Plug>(coc-definition)
 		nmap <silent> gy <Plug>(coc-type-definition)
-		nmap <silent> gi <Plug>(coc-implementation)
+		" nmap <silent> gi <Plug>(coc-implementation)
 		nmap <silent> gr <Plug>(coc-references)
 
 		" Use K to show documentation in preview window.
@@ -153,7 +153,7 @@ if !exists('s:no_plug_manager')
 
 	augroup plugins
 		au!
-		au FileType go nnoremap <buffer> <space>r :GoRun<cr>
+		au FileType go nnoremap <buffer> <expr> <space>r ":\<c-u>call Golang_R('" . airline#extensions#tagbar#currenttag() . "')\<cr>"
 		au FileType python ALEDisableBuffer
 	augroup END
 
@@ -354,6 +354,18 @@ else
 	filetype plugin indent on
 	nnoremap Q <nop>
 endif
+
+function! Golang_R(fname)
+	if expand('%') =~# '._test\.go$'
+		if a:fname =~# '^Test[[:upper:]].*()$'
+			GoTestFunc
+		else
+			GoTest
+		endif
+	else
+		GoRun
+	endif
+endfunction
 
 function! Tags_regenerate_done(...)
 	if a:2 == 0

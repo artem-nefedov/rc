@@ -472,15 +472,33 @@ aws()
 	local help=false
 	local -a cmd
 
+	case "$1" in
+		cfn)
+			shift
+			set -- cloudformation "$@"
+			;;
+		r53)
+			shift
+			set -- route53 "$@"
+			;;
+	esac
+
 	while [ $# -ne 0 ]; do
-		if [ "$1" = c ] || [ "$1" = '-c' ]; then
-			cmd+=( '--region' 'cn-north-1' )
-		else
-			cmd+=( "$1" )
-			if [ "$1" = help ]; then
+		case "$1" in
+			c|-c)
+				cmd+=( '--region' 'cn-north-1' )
+				;;
+			-p)
+				cmd+=( '--profile' )
+				;;
+			h|-h|help|--help)
+				cmd+=( help )
 				help=true
-			fi
-		fi
+				;;
+			*)
+				cmd+=( "$1" )
+				;;
+		esac
 		shift
 	done
 
