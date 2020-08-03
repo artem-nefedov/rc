@@ -46,6 +46,8 @@ if !exists('s:no_plug_manager')
 	let g:go_highlight_diagnostic_errors = 0
 	let g:go_highlight_diagnostic_warnings = 0
 	let g:go_term_enabled = 1
+	let g:go_term_close_on_exit = 0
+
 	Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 	"Plug 'bling/vim-bufferline'
 	if (v:version >= 800) || has('nvim')
