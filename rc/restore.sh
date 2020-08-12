@@ -63,7 +63,7 @@ if ! grep -Fq .bash_aliases.bash "$rc" || ! grep -Fq .bash_functions.bash "$rc";
 		. ~/.bash_functions.bash
 	fi
 
-	PATH="$HOME/git/personal/linux_shell_scripts:$HOME/bin:\$PATH"
+	PATH="$HOME/git/personal/linux_shell_scripts:$HOME/bin:$PATH"
 
 	EOF
 fi
@@ -147,7 +147,7 @@ if [ -d "$HOME/git" ]; then
 	fi
 
 	if ! grep -Fq '$HOME/git/diff-so-fancy' "$rc"; then
-		echo 'PATH="$HOME/git/diff-so-fancy:\$PATH"' >> "$rc"
+		echo 'PATH="$HOME/git/diff-so-fancy:$PATH"' >> "$rc"
 	fi
 fi
 
