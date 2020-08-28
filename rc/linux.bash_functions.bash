@@ -509,6 +509,44 @@ aws()
 	fi
 }
 
+kconf_unset() {
+	# $1 = cluster name, $2-$... = region(s)
+	if [ $# -lt 2 ]; then
+		echo >&2 "Usage: ${FUNCNAME[0]} cluster region_1 [region_2 ...]"
+		return 1
+	fi
+
+	if [[ "$SHELL" == */zsh ]]; then
+		setopt local_options BASH_REMATCH KSH_ARRAYS
+	fi
+
+	local user line type region
+	local aws_name_pattern eksctl_cluster_name_pattern eksctl_other_name_pattern
+	local type_pattern='^([[:lower:]]+):$'
+	local cluster=$1
+	shift
+	user=$(whoami)
+
+	while [ $# -ne 0 ]; do
+		region=$1
+		aws_name_pattern=" name: (arn:aws(-cn)?:eks:${region}:[0-9]+:cluster/${cluster})\$"
+		eksctl_cluster_name_pattern=" name: (${cluster}\\.${region}\\.eksctl\\.io)\$"
+		eksctl_other_name_pattern=" name: (${user}@aligntech\\.com@${cluster}\\.${region}\\.eksctl\\.io)\$"
+
+		while IFS='' read -r line; do
+			if [[ "$line" =~ $type_pattern ]]; then
+				type=${BASH_REMATCH[1]}
+			elif [[ "$line" =~ $aws_name_pattern ]] \
+			|| [[ "$line" =~ $eksctl_cluster_name_pattern ]] \
+			|| [[ "$line" =~ $eksctl_other_name_pattern ]]; then
+				kubectl config unset "${type}.${BASH_REMATCH[1]}"
+			fi
+		done < <(kubectl config view)
+
+		shift
+	done
+}
+
 funcgrep ()
 {
 	local opt cmd
@@ -530,4 +568,3 @@ funcgrep ()
 	fi
 	sed -r $opt "/$func\\s*\\(\\)/,/^\\s*}/$cmd" "$@"
 }
-
