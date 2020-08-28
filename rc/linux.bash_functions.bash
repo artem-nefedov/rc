@@ -511,8 +511,9 @@ aws()
 
 kconf_unset() {
 	# $1 = cluster name, $2-$... = region(s)
-	if [ $# -lt 2 ]; then
-		echo >&2 "Usage: ${FUNCNAME[0]} cluster region_1 [region_2 ...]"
+	if [ $# -lt 1 ]; then
+		echo >&2 "Usage: kconf_unset cluster region_1 [region_2 ...]"
+		echo >&2 "       kconf_unset context_name"
 		return 1
 	fi
 
@@ -520,25 +521,42 @@ kconf_unset() {
 		setopt local_options BASH_REMATCH KSH_ARRAYS
 	fi
 
-	local user line type region
-	local aws_name_pattern eksctl_cluster_name_pattern eksctl_other_name_pattern
+	local user line type region cluster
+	local aws_name_pattern eksctl_cluster_name_pattern eksctl_context_name_pattern
 	local type_pattern='^([[:lower:]]+):$'
-	local cluster=$1
-	shift
 	user=$(whoami)
+
+	if [ $# -eq 1 ]; then
+		aws_name_pattern='^arn:aws(-cn)?:eks:([^:]+):[0-9]+:cluster/(.+)$'
+		eksctl_context_name_pattern="^$user"'@aligntech\.com@([^.]+)\.([^.]+)\.eksctl\.io$'
+
+		if [[ "$1" =~ $aws_name_pattern ]]; then
+			cluster=${BASH_REMATCH[3]}
+		elif [[ "$1" =~ $eksctl_context_name_pattern ]]; then
+			cluster=${BASH_REMATCH[1]}
+		else
+			echo >&2 "Bad context name: $1"
+			return 1
+		fi
+
+		set -- "${BASH_REMATCH[2]}"
+	else
+		cluster=$1
+		shift
+	fi
 
 	while [ $# -ne 0 ]; do
 		region=$1
 		aws_name_pattern=" name: (arn:aws(-cn)?:eks:${region}:[0-9]+:cluster/${cluster})\$"
 		eksctl_cluster_name_pattern=" name: (${cluster}\\.${region}\\.eksctl\\.io)\$"
-		eksctl_other_name_pattern=" name: (${user}@aligntech\\.com@${cluster}\\.${region}\\.eksctl\\.io)\$"
+		eksctl_context_name_pattern=" name: (${user}@aligntech\\.com@${cluster}\\.${region}\\.eksctl\\.io)\$"
 
 		while IFS='' read -r line; do
 			if [[ "$line" =~ $type_pattern ]]; then
 				type=${BASH_REMATCH[1]}
 			elif [[ "$line" =~ $aws_name_pattern ]] \
 			|| [[ "$line" =~ $eksctl_cluster_name_pattern ]] \
-			|| [[ "$line" =~ $eksctl_other_name_pattern ]]; then
+			|| [[ "$line" =~ $eksctl_context_name_pattern ]]; then
 				kubectl config unset "${type}.${BASH_REMATCH[1]}"
 			fi
 		done < <(kubectl config view)
