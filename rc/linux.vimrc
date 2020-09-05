@@ -49,6 +49,7 @@ if !exists('s:no_plug_manager')
 	let g:go_term_close_on_exit = 0
 	let g:go_gopls_enabled = 0 " use gopls with coc-vim
 	let g:go_fmt_autosave = 0  " breaks gopls+coc-vim on save
+	let g:go_doc_keywordprg_enabled = 0 " do not map K to GoDoc (doesn't work)
 
 	Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 	"Plug 'bling/vim-bufferline'

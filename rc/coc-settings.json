@@ -1,4 +1,5 @@
 {
+  "coc.preferences.hoverTarget": "echo",
   "languageserver": {
     "golang": {
       "command": "gopls",
