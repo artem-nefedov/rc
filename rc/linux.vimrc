@@ -766,7 +766,7 @@ if has('autocmd')
 
 		au FileType ps1 setlocal ignorecase smartcase
 
-		au FileType rmd,yaml,json,ps1,tf,terraform call MyExpandTab(1)
+		au FileType rmd,yaml,json,ps1,tf,terraform call MyExpandTab(2)
 		au BufReadPost */ccbl/*.sh call MyExpandTab(2)
 		au BufReadPost */ccbl/*.java call MyExpandTab(4)
 
