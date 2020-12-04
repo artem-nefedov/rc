@@ -110,7 +110,6 @@ x11_toggle ()
 		done
 		pstree
 		unset DISPLAY
-		export DISPLAY
 	else
 		echo -n 'Start X server? '
 		read -r
