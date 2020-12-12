@@ -63,6 +63,7 @@ if !exists('s:no_plug_manager')
 		Plug 'artem-nefedov/nvim-editcommand'
 		Plug 'Vigemus/nvimux'
 		Plug 'neoclide/coc.nvim', {'branch': 'release'}
+		Plug 'pappasam/coc-jedi', { 'do': 'yarn install --frozen-lockfile && yarn build' }
 
 		set shortmess+=c
 
