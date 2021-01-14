@@ -41,6 +41,7 @@ if !exists('s:no_plug_manager')
 	Plug 'aymericbeaumet/symlink.vim'
 	let g:terraform_align = 1
 	Plug 'hashivim/vim-terraform'
+	Plug 'junegunn/goyo.vim'
 
 	" with coc-vim, we don't need vim-go highlighting
 	let g:go_highlight_diagnostic_errors = 0
