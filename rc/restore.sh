@@ -161,3 +161,23 @@ fi
 
 mkdir -p "$HOME"/.config/alacritty
 ln -sf "$script_dir"/alacritty.yml "$HOME"/.config/alacritty/alacritty.yml
+
+if ! grep -qx '# RC AUTOJUMP' "$rc"; then
+cat >> "$rc" <<'EOF'
+
+# RC AUTOJUMP
+if [ -f /usr/local/etc/profile.d/autojump.sh ]; then
+  . /usr/local/etc/profile.d/autojump.sh
+fi
+EOF
+fi
+
+if ! grep -qx '# RC ASDF' "$rc"; then
+cat >> "$rc" <<'EOF'
+
+# RC ASDF
+PATH="$HOME/.asdf/shims:$PATH"
+# see https://github.com/asdf-vm/asdf/issues/428
+export ASDF_DIR=/usr/local/opt/asdf
+EOF
+fi
