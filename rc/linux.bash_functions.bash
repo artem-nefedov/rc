@@ -454,6 +454,8 @@ f()
 	fi
 }
 
+unalias gpr 2>/dev/null || true
+
 gpr()
 {
 	local f1 f2 line

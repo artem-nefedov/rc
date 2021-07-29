@@ -1,6 +1,8 @@
 #!/bin/bash
 trap 'echo "$0: Error at $LINENO"; exit 1;' ERR
 
+script_dir=$(cd "$(dirname "$0")" && pwd)
+
 hash curl
 hash git
 
@@ -38,7 +40,7 @@ fi
 cd "$(dirname "$0")"
 
 for f in linux.{vimrc,gitconfig,ctags} linux.bash_{aliases,functions}.bash linux.tmux.conf; do
-	ln -f -s "$PWD/$f" "$HOME/${f#linux}"
+	ln -f -s "$script_dir/$f" "$HOME/${f#linux}"
 done
 
 if [ -d "$ZSH" ] && [ -e "$HOME/.zshrc" ]; then
@@ -78,7 +80,7 @@ if hash nvim 2>/dev/null; then
 		ln -s "$HOME/.vimrc" "$HOME/.config/nvim/init.vim"
 	fi
 	if [ ! -e "$HOME/.config/nvim/coc-settings.json" ]; then
-		ln -s "$PWD/coc-settings.json" "$HOME/.config/nvim/coc-settings.json"
+		ln -s "$script_dir/coc-settings.json" "$HOME/.config/nvim/coc-settings.json"
 	fi
 else
 	hash vim
@@ -131,7 +133,7 @@ fi
 fi
 
 if [ -d "$HOME/.jira.d/" ]; then
-	ln -s "$PWD/jira.config.yml" "$HOME/.jira.d/config.yml"
+	ln -s "$script_dir/jira.config.yml" "$HOME/.jira.d/config.yml"
 fi
 
 if [ ! -e "$HOME/git" ]; then
@@ -158,4 +160,4 @@ if [ -f "$git_comp" ] && ! grep -q '^_git_sw ' "$git_comp"; then
 fi
 
 mkdir -p "$HOME"/.config/alacritty
-ln -sf "$PWD"/alacritty.yml "$HOME"/.config/alacritty/alacritty.yml
+ln -sf "$script_dir"/alacritty.yml "$HOME"/.config/alacritty/alacritty.yml
