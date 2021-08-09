@@ -95,8 +95,10 @@ if !exists('s:no_plug_manager')
 		function! s:show_documentation()
 			if (index(['vim','help'], &filetype) >= 0)
 				execute 'h '.expand('<cword>')
+			elseif (coc#rpc#ready())
+				call CocActionAsync('doHover')
 			else
-				call CocAction('doHover')
+				execute '!' . &keywordprg . " " . expand('<cword>')
 			endif
 		endfunction
 
@@ -580,6 +582,11 @@ set tabpagemax=100
 set splitbelow
 set splitright
 " set spell spelllang=en_us
+
+if has("nvim-0.5.0") || has("patch-8.1.1564")
+  " Recently vim can merge signcolumn and number column into one
+  set signcolumn=number
+endif
 
 " emacs-like shortcuts for insert/command mode (and some for normal)
 nnoremap <c-a> ^
