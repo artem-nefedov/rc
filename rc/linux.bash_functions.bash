@@ -511,7 +511,8 @@ aws()
 	fi
 }
 
-kconf_unset() {
+kconf_unset()
+{
 	# $1 = cluster name, $2-$... = region(s)
 	if [ $# -lt 1 ]; then
 		echo >&2 "Usage: kconf_unset cluster region_1 [region_2 ...]"
@@ -565,6 +566,38 @@ kconf_unset() {
 
 		shift
 	done
+}
+
+clean_asdf_versions()
+{
+	local name version source
+	local -A versions
+
+	if [[ "$1" != '-f' ]]; then
+		echo >&2 "'-f' not specified - performing dry-run"
+	fi
+
+	# shellcheck disable=2034
+	while read -r name version source; do
+		versions[$name]="$version"
+	done < <(asdf current)
+
+	name=''
+
+	while IFS='' read -r version; do
+		if [[ "$version" == ' '* ]]; then
+			read -r version <<< "$version"
+			if [[ "${versions[${name:?}]}" != "$version" ]]; then
+				if [[ "$1" == '-f' ]]; then
+					asdf uninstall "$name" "$version"
+				else
+					echo asdf uninstall "$name" "$version"
+				fi
+			fi
+		else
+			name=$version
+		fi
+	done < <(asdf list)
 }
 
 funcgrep ()
