@@ -53,7 +53,7 @@ if !exists('s:no_plug_manager')
 	let g:go_doc_keywordprg_enabled = 0 " do not map K to GoDoc (doesn't work)
 	let g:go_def_mapping_enabled = 0 " fix ctrl-t
 
-	Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+	Plug 'fatih/vim-go'
 	"Plug 'bling/vim-bufferline'
 	if (v:version >= 800) || has('nvim')
 		Plug 'w0rp/ale'
