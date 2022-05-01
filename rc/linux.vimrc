@@ -62,7 +62,8 @@ if !exists('s:no_plug_manager')
 	endif
 	if has('nvim')
 		Plug 'artem-nefedov/nvim-editcommand'
-		Plug 'Vigemus/nvimux'
+		" Plug 'hkupty/nvimux'
+		Plug 'artem-nefedov/nvimux' " fix esc undefined
 		Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 		set shortmess+=c
@@ -168,15 +169,16 @@ if !exists('s:no_plug_manager')
 
 	if has('nvim')
 		lua << EOF
-		local nvimux = require('nvimux')
-
 		-- Nvimux configuration
-		nvimux.config.set_all{
-		prefix = '<C-x>',
-		new_window = 'term',
+		local nvimux = require('nvimux')
+		nvimux.setup{
+			config = {
+				prefix = '<C-x>',
+				new_window = 'term',
+				new_tab = 'term',
+			},
+			bindings = {}
 		}
-
-		nvimux.bootstrap()
 EOF
 
 		let g:editcommand_prompt = '➜'
