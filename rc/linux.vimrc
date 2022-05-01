@@ -8,7 +8,7 @@ let g:mapleader = ','
 
 if !exists('s:no_plug_manager')
 	"let g:netrw_nogx = 1
-	Plug 'artem-nefedov/netrw'
+	" Plug 'artem-nefedov/netrw'
 	Plug 'tpope/vim-sensible'
 	Plug 'tpope/vim-surround'
 	Plug 'tpope/vim-repeat'
