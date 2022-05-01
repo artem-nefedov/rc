@@ -331,7 +331,7 @@ EOF
 
 	nnoremap <leader>r :RainbowToggle<cr>
 	nnoremap <leader>u :UndotreeToggle<CR>
-	nnoremap gs :Gstatus<CR>
+	nnoremap gs :Git<CR>
 	nnoremap <leader>gd :Gvdiff<CR>
 	nnoremap <leader>t :TagbarToggle<CR>
 	nmap Q <Plug>(easymotion-s)
