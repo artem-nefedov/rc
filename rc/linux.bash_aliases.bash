@@ -8,10 +8,9 @@ case "$TERM" in
 esac
 
 if [ -f "$HOME/.local_creds" ]; then
+	# shellcheck disable=1091
 	. "$HOME/.local_creds"
 fi
-
-PATH="$HOME/.config/nvim/plugged/fzf/bin:$PATH"
 
 export TF_PLUGIN_CACHE_DIR="$HOME/.terraform.d/plugins"
 
@@ -63,10 +62,6 @@ elif [ -n "$ZSH_VERSION" ]; then
 	if [ -n "$TMUX" ]; then
 		bindkey '^s' backward-word
 	fi
-fi
-
-if [ -f /usr/share/arcanist/resources/shell/arcanist.bash-completion ]; then
-	. /usr/share/arcanist/resources/shell/arcanist.bash-completion
 fi
 
 if [ "$(uname)" != Darwin ]; then
