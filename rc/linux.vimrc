@@ -62,8 +62,7 @@ if !exists('s:no_plug_manager')
 	endif
 	if has('nvim')
 		Plug 'artem-nefedov/nvim-editcommand'
-		" Plug 'hkupty/nvimux'
-		Plug 'artem-nefedov/nvimux' " fix esc undefined
+		Plug 'hkupty/nvimux'
 		Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 		set shortmess+=c
