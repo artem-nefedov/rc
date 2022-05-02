@@ -181,3 +181,7 @@ PATH="$HOME/.asdf/shims:$PATH"
 export ASDF_DIR=/usr/local/opt/asdf
 EOF
 fi
+
+if [ "$(uname)" = Darwin ]; then
+	ln -s "$script_dir/Brewfile" "$HOME/.Brewfile"
+fi
