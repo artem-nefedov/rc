@@ -12,7 +12,7 @@ if [ -f "$HOME/.local_creds" ]; then
 	. "$HOME/.local_creds"
 fi
 
-export TF_PLUGIN_CACHE_DIR="$HOME/.terraform.d/plugins"
+# export TF_PLUGIN_CACHE_DIR="$HOME/.terraform.d/plugins"
 
 if [[ $(uname) == CYGWIN* ]]; then
 	PATH=${PATH//\:\/cygdrive\/c\/MinGW\/bin/}

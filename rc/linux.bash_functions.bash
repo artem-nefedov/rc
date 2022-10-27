@@ -600,6 +600,14 @@ clean_asdf_versions()
 	done < <(asdf list)
 }
 
+crossplane_query() {
+	local refs no_name
+	refs=$(set -x; kubectl get "$1" -l "crossplane.io/claim-namespace=$2,crossplane.io/claim-name=$3" -o jsonpath='{.items[*].spec.resourceRefs}')
+	kubectl get $(jq -r '.[] | select(.name) | .kind + "." + (.apiVersion|split("/")[0]) + "/" + .name' <<< "$refs")
+	no_name=$(jq -r '.[] | select(.name == null)' <<< "$refs")
+	test -z "$no_name" || printf '\n === RESOURCES WITH NO NAME ===\n\n%s\n' "$no_name"
+}
+
 funcgrep ()
 {
 	local opt cmd
