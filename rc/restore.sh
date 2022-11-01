@@ -176,9 +176,7 @@ if ! grep -qx '# RC ASDF' "$rc"; then
 cat >> "$rc" <<'EOF'
 
 # RC ASDF
-PATH="$HOME/.asdf/shims:$PATH"
-# see https://github.com/asdf-vm/asdf/issues/428
-export ASDF_DIR=/usr/local/opt/asdf
+. /opt/homebrew/opt/asdf/libexec/asdf.sh
 EOF
 fi
 
