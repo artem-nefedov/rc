@@ -719,7 +719,7 @@ endfunction
 function! Terminal_cd()
 	if &buftype == 'terminal' && expand('%') =~# '[\/]zsh$'
 		let b:terminal_pwd = getcwd()
-		call chansend(b:terminal_job_id, 'NVIM_LISTEN_ADDRESS= cd "' . b:terminal_pwd . "\"\<cr>")
+		call chansend(b:terminal_job_id, 'NVIM= cd "' . b:terminal_pwd . "\"\<cr>")
 	endif
 endfunction
 

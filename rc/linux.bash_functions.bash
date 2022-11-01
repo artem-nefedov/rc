@@ -223,7 +223,7 @@ v()
 		set -- "scp://$2/$3"
 	fi
 
-	if [ -n "$NVIM_LISTEN_ADDRESS" ]; then
+	if [ -n "$NVIM" ]; then
 		v=( nvr --nostart )
 		if [ "$1" != '--remote-tab' ]; then
 			if [ $# -gt 1 ]; then
@@ -241,7 +241,7 @@ v()
 		v=( vim -p )
 	fi
 
-	if [ $# -eq 0 ] && [ -z "$NVIM_LISTEN_ADDRESS" ]; then
+	if [ $# -eq 0 ] && [ -z "$NVIM" ]; then
 		if [ "$(uname)" != Darwin ]; then
 			local oldterm=$TERM
 			TERM=putty-256color
@@ -293,7 +293,7 @@ vv()
 
 chpwd()
 {
-	if [ -n "$NVIM_LISTEN_ADDRESS" ] && [ -z "$WIDGET" ] && [ $ZSH_SUBSHELL -eq 0 ]; then
+	if [ -n "$NVIM" ] && [ -z "$WIDGET" ] && [ "$ZSH_SUBSHELL" -eq 0 ]; then
 		setopt LOCAL_OPTIONS NO_NOTIFY NO_MONITOR
 		nvr --nostart --remote \
 			-c "let b:terminal_pwd = '$PWD'" \
@@ -301,7 +301,7 @@ chpwd()
 	fi
 }
 
-if [ -n "$NVIM_LISTEN_ADDRESS" ]; then
+if [ -n "$NVIM" ]; then
 	export VISUAL="nvr-wrapper.sh"
 else
 	export VISUAL="nvim -p"

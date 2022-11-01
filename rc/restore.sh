@@ -166,8 +166,8 @@ if ! grep -qx '# RC AUTOJUMP' "$rc"; then
 cat >> "$rc" <<'EOF'
 
 # RC AUTOJUMP
-if [ -f /usr/local/etc/profile.d/autojump.sh ]; then
-  . /usr/local/etc/profile.d/autojump.sh
+if [ -f /opt/homebrew/etc/profile.d/autojump.sh ]; then
+  . /opt/homebrew/etc/profile.d/autojump.sh
 fi
 EOF
 fi
