@@ -505,9 +505,9 @@ aws()
 	done
 
 	if $help; then
-		/usr/local/bin/aws "${cmd[@]}"
+		/opt/homebrew/bin/aws "${cmd[@]}"
 	else
-		PAGER='' /usr/local/bin/aws "${cmd[@]}"
+		PAGER='' /opt/homebrew/bin/aws "${cmd[@]}"
 	fi
 }
 
