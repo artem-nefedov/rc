@@ -55,11 +55,11 @@ if !exists('s:no_plug_manager')
 
 	Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 	"Plug 'bling/vim-bufferline'
-	" if (v:version >= 800) || has('nvim')
-	"         Plug 'dense-analysis/ale'
-	"         nnoremap <Space>a :ALENextWrap<CR>
-	"         nnoremap <Space>q :ALEPreviousWrap<CR>
-	" endif
+	if (v:version >= 800) || has('nvim')
+		Plug 'dense-analysis/ale'
+		nnoremap <Space>a :ALENextWrap<CR>
+		nnoremap <Space>q :ALEPreviousWrap<CR>
+	endif
 
 	if has('nvim')
 		Plug 'artem-nefedov/nvim-editcommand'
@@ -163,7 +163,7 @@ if !exists('s:no_plug_manager')
 
 		" Mappings for CoCList
 		" Show all diagnostics
-		nnoremap <silent><nowait> <space>a  :<C-u>CocList diagnostics<cr>
+		" nnoremap <silent><nowait> <space>a  :<C-u>CocList diagnostics<cr>
 		" Manage extensions
 		nnoremap <silent><nowait> <space>e  :<C-u>CocList extensions<cr>
 		" Show commands
@@ -195,7 +195,7 @@ if !exists('s:no_plug_manager')
 	augroup plugins
 		au!
 		au FileType go nnoremap <buffer> <expr> <space>r ":\<c-u>call Golang_R('" . airline#extensions#tagbar#currenttag() . "')\<cr>"
-		" au FileType python ALEDisableBuffer
+		au FileType python ALEDisableBuffer
 	augroup END
 
 	if has('nvim')
