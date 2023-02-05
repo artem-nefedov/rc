@@ -53,13 +53,14 @@ if !exists('s:no_plug_manager')
 	let g:go_doc_keywordprg_enabled = 0 " do not map K to GoDoc (doesn't work)
 	let g:go_def_mapping_enabled = 0 " fix ctrl-t
 
-	Plug 'fatih/vim-go'
+	Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 	"Plug 'bling/vim-bufferline'
-	if (v:version >= 800) || has('nvim')
-		Plug 'dense-analysis/ale'
-		nnoremap <Space>a :ALENextWrap<CR>
-		nnoremap <Space>q :ALEPreviousWrap<CR>
-	endif
+	" if (v:version >= 800) || has('nvim')
+	"         Plug 'dense-analysis/ale'
+	"         nnoremap <Space>a :ALENextWrap<CR>
+	"         nnoremap <Space>q :ALEPreviousWrap<CR>
+	" endif
+
 	if has('nvim')
 		Plug 'artem-nefedov/nvim-editcommand'
 		Plug 'hkupty/nvimux'
@@ -67,26 +68,26 @@ if !exists('s:no_plug_manager')
 
 		set shortmess+=c
 
-		function! Check_back_space() abort
+		function! CheckBackspace() abort
 			let col = col('.') - 1
 			return !col || getline('.')[col - 1]  =~# '\s'
 		endfunction
 
-		inoremap <silent><expr> <tab>
-					\ pumvisible() ? "\<c-n>" :
-					\ Check_back_space() ? "\<tab>" :
-					\ coc#refresh()
-		inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+		inoremap <silent><expr> <TAB>
+			\ coc#pum#visible() ? coc#pum#next(1) :
+			\ CheckBackspace() ? "\<Tab>" :
+			\ coc#refresh()
+		inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
 
-		if exists('*complete_info')
-			inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
-		else
-			inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-		endif
+		inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
+			\: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+		nmap <silent> [g <Plug>(coc-diagnostic-prev)
+		nmap <silent> ]g <Plug>(coc-diagnostic-next)
 
 		nmap <silent> gd <Plug>(coc-definition)
 		nmap <silent> gy <Plug>(coc-type-definition)
-		" nmap <silent> gi <Plug>(coc-implementation)
+		nmap <silent> gi <Plug>(coc-implementation)
 		nmap <silent> gr <Plug>(coc-references)
 
 		" Use K to show documentation in preview window.
@@ -163,7 +164,7 @@ if !exists('s:no_plug_manager')
 	augroup plugins
 		au!
 		au FileType go nnoremap <buffer> <expr> <space>r ":\<c-u>call Golang_R('" . airline#extensions#tagbar#currenttag() . "')\<cr>"
-		au FileType python ALEDisableBuffer
+		" au FileType python ALEDisableBuffer
 	augroup END
 
 	if has('nvim')

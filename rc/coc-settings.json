@@ -2,7 +2,8 @@
   "languageserver": {
     "golang": {
       "command": "gopls",
-      "rootPatterns": ["go.mod", ".vim/", ".git/"],
+      "rootPatterns": ["go.mod"],
+      "trace.server": "verbose",
       "filetypes": ["go"]
     },
     "terraform": {
