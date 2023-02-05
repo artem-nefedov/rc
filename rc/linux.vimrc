@@ -62,6 +62,16 @@ if !exists('s:no_plug_manager')
 	endif
 
 	if has('nvim')
+		Plug 'nvim-lua/plenary.nvim'
+		Plug 'ThePrimeagen/harpoon'
+		nnoremap <silent><nowait> <space>§ :<C-u>lua require("harpoon.ui").toggle_quick_menu()<cr>
+		nnoremap <silent><nowait> <space>0 :<C-u>lua require("harpoon.mark").add_file()<cr>
+		nnoremap <silent><nowait> <space>1 :<C-u>lua require("harpoon.ui").nav_file(1)<cr>
+		nnoremap <silent><nowait> <space>2 :<C-u>lua require("harpoon.ui").nav_file(2)<cr>
+		nnoremap <silent><nowait> <space>3 :<C-u>lua require("harpoon.ui").nav_file(3)<cr>
+		nnoremap <silent><nowait> <space>4 :<C-u>lua require("harpoon.ui").nav_file(4)<cr>
+		nnoremap <silent><nowait> <space>5 :<C-u>lua require("harpoon.ui").nav_file(5)<cr>
+
 		Plug 'artem-nefedov/nvim-editcommand'
 		Plug 'hkupty/nvimux'
 		let g:loaded_ruby_provider = 0
