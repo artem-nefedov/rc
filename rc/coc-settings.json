@@ -10,5 +10,6 @@
       "filetypes": ["kotlin"]
     }
   },
-  "java.jdt.ls.vmargs": "-javaagent:/Users/anefedov/.m2/repository/org/projectlombok/lombok/1.18.22/lombok-1.18.22.jar -Xbootclasspath/a:/Users/anefedov/.m2/repository/org/projectlombok/lombok/1.18.22/lombok-1.18.22.jar"
+  "java.jdt.ls.vmargs": "-javaagent:/Users/anefedov/.m2/repository/org/projectlombok/lombok/1.18.22/lombok-1.18.22.jar -Xbootclasspath/a:/Users/anefedov/.m2/repository/org/projectlombok/lombok/1.18.22/lombok-1.18.22.jar",
+  "java.compile.nullAnalysis.mode": "disabled"
 }
