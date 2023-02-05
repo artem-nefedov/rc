@@ -91,15 +91,13 @@ if !exists('s:no_plug_manager')
 		nmap <silent> gr <Plug>(coc-references)
 
 		" Use K to show documentation in preview window.
-		nnoremap <silent> K :call <SID>show_documentation()<CR>
+		nnoremap <silent> K :call ShowDocumentation()<CR>
 
-		function! s:show_documentation()
-			if (index(['vim','help'], &filetype) >= 0)
-				execute 'h '.expand('<cword>')
-			elseif (coc#rpc#ready())
+		function! ShowDocumentation()
+			if CocAction('hasProvider', 'hover')
 				call CocActionAsync('doHover')
 			else
-				execute '!' . &keywordprg . " " . expand('<cword>')
+				call feedkeys('K', 'in')
 			endif
 		endfunction
 
@@ -117,11 +115,27 @@ if !exists('s:no_plug_manager')
 		nmap <leader>rn <Plug>(coc-rename)
 
 		" Formatting selected code.
-		xmap <leader>f  <Plug>(coc-format-selected)
-		nmap <leader>f  <Plug>(coc-format-selected)
+		xmap <leader>f <Plug>(coc-format-selected)
+		nmap <leader>f <Plug>(coc-format-selected)
+
+		" xmap <leader>a  <Plug>(coc-codeaction-selected)
+		" nmap <leader>a  <Plug>(coc-codeaction-selected)
+
+		" " Remap keys for applying code actions at the cursor position
+		" nmap <leader>ac  <Plug>(coc-codeaction-cursor)
+		" " Remap keys for apply code actions affect whole buffer
+		" nmap <leader>as  <Plug>(coc-codeaction-source)
+		" " Apply the most preferred quickfix action to fix diagnostic on the current line
+		" nmap <leader>qf  <Plug>(coc-fix-current)
 
 		" Map function and class text objects
 		" NOTE: Requires 'textDocument.documentSymbol' support from the language server.
+		" " Remap keys for applying refactor code actions
+		" nmap <silent> <leader>re <Plug>(coc-codeaction-refactor)
+		" xmap <silent> <leader>r  <Plug>(coc-codeaction-refactor-selected)
+		" nmap <silent> <leader>r  <Plug>(coc-codeaction-refactor-selected)
+
+
 		xmap if <Plug>(coc-funcobj-i)
 		omap if <Plug>(coc-funcobj-i)
 		xmap af <Plug>(coc-funcobj-a)
@@ -137,16 +151,31 @@ if !exists('s:no_plug_manager')
 		xmap <silent> <C-s> <Plug>(coc-range-select)
 
 		" Add `:Format` command to format current buffer.
-		command! -nargs=0 Format :call CocAction('format')
+		command! -nargs=0 Format :call CocActionAsync('format')
 
 		" Add `:Fold` command to fold current buffer.
 		command! -nargs=? Fold :call CocAction('fold', <f-args>)
 
 		" Add `:OR` command for organize imports of the current buffer.
-		command! -nargs=0 OR :call CocAction('runCommand', 'editor.action.organizeImport')
+		command! -nargs=0 OR :call CocActionAsync('runCommand', 'editor.action.organizeImport')
 
-		nmap <Space>s <Plug>(coc-diagnostic-next)
-		nmap <Space>w <Plug>(coc-diagnostic-prev)
+		" Mappings for CoCList
+		" Show all diagnostics
+		nnoremap <silent><nowait> <space>a  :<C-u>CocList diagnostics<cr>
+		" Manage extensions
+		nnoremap <silent><nowait> <space>e  :<C-u>CocList extensions<cr>
+		" Show commands
+		nnoremap <silent><nowait> <space>c  :<C-u>CocList commands<cr>
+		" Find symbol of current document
+		nnoremap <silent><nowait> <space>o  :<C-u>CocList outline<cr>
+		" Search workspace symbols
+		nnoremap <silent><nowait> <space>s  :<C-u>CocList -I symbols<cr>
+		" Do default action for next item
+		nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
+		" Do default action for previous item
+		nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
+		" Resume latest coc list
+		nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 	else
 		let g:SuperTabDefaultCompletionType = "<c-n>"
 		Plug 'ervandew/supertab'
