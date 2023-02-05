@@ -56,7 +56,7 @@ if !exists('s:no_plug_manager')
 	Plug 'fatih/vim-go'
 	"Plug 'bling/vim-bufferline'
 	if (v:version >= 800) || has('nvim')
-		Plug 'w0rp/ale'
+		Plug 'dense-analysis/ale'
 		nnoremap <Space>a :ALENextWrap<CR>
 		nnoremap <Space>q :ALEPreviousWrap<CR>
 	endif
@@ -67,14 +67,14 @@ if !exists('s:no_plug_manager')
 
 		set shortmess+=c
 
-		function! s:check_back_space() abort
+		function! Check_back_space() abort
 			let col = col('.') - 1
 			return !col || getline('.')[col - 1]  =~# '\s'
 		endfunction
 
 		inoremap <silent><expr> <tab>
 					\ pumvisible() ? "\<c-n>" :
-					\ <sid>check_back_space() ? "\<tab>" :
+					\ Check_back_space() ? "\<tab>" :
 					\ coc#refresh()
 		inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
