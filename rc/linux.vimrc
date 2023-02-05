@@ -152,7 +152,7 @@ if !exists('s:no_plug_manager')
 	endif
 	call plug#end()
 
-	nnoremap <space>b :Gblame<cr>
+	nnoremap <space>b :Git blame<cr>
 
 	"nmap gx <Plug>(openbrowser-smart-search)
 	"vmap gx <Plug>(openbrowser-smart-search)
