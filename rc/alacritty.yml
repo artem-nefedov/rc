@@ -689,6 +689,13 @@ key_bindings:
   - { key: Down,   mods: Command,  chars: "\x18j"     }
   - { key: Up,     mods: Command,  chars: "\x18k"     }
   - { key: Right,  mods: Command,  chars: "\x18l"     }
+  - { key: Caret,  mods: Command,  chars: "\x18A"     }
+  - { key: Key0,   mods: Command,  chars: "\x18S"     }
+  - { key: Key1,   mods: Command,  chars: "\x18Q"     }
+  - { key: Key2,   mods: Command,  chars: "\x18W"     }
+  - { key: Key3,   mods: Command,  chars: "\x18E"     }
+  - { key: Key4,   mods: Command,  chars: "\x18R"     }
+  - { key: Key5,   mods: Command,  chars: "\x18T"     }
 
 
 #debug:
