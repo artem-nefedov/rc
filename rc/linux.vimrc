@@ -62,30 +62,6 @@ if !exists('s:no_plug_manager')
 	endif
 
 	if has('nvim')
-		Plug 'nvim-lua/plenary.nvim'
-		Plug 'ThePrimeagen/harpoon'
-		nnoremap <silent><nowait> <c-x>A :<C-u>lua require("harpoon.ui").toggle_quick_menu()<cr>
-		nnoremap <silent><nowait> <c-x>S :<C-u>lua require("harpoon.mark").add_file()<cr>
-		nnoremap <silent><nowait> <c-x>Q :<C-u>lua require("harpoon.ui").nav_file(1)<cr>
-		nnoremap <silent><nowait> <c-x>W :<C-u>lua require("harpoon.ui").nav_file(2)<cr>
-		nnoremap <silent><nowait> <c-x>E :<C-u>lua require("harpoon.ui").nav_file(3)<cr>
-		nnoremap <silent><nowait> <c-x>R :<C-u>lua require("harpoon.ui").nav_file(4)<cr>
-		nnoremap <silent><nowait> <c-x>T :<C-u>lua require("harpoon.ui").nav_file(5)<cr>
-		imap <silent><nowait> <c-x>A <esc><c-x>A
-		imap <silent><nowait> <c-x>S <esc><c-x>S
-		imap <silent><nowait> <c-x>Q <esc><c-x>Q
-		imap <silent><nowait> <c-x>W <esc><c-x>W
-		imap <silent><nowait> <c-x>E <esc><c-x>E
-		imap <silent><nowait> <c-x>R <esc><c-x>R
-		imap <silent><nowait> <c-x>T <esc><c-x>T
-		tmap <silent><nowait> <c-x>A <c-\><c-n><c-x>A
-		tmap <silent><nowait> <c-x>S <c-\><c-n><c-x>S
-		tmap <silent><nowait> <c-x>Q <c-\><c-n><c-x>Q
-		tmap <silent><nowait> <c-x>W <c-\><c-n><c-x>W
-		tmap <silent><nowait> <c-x>E <c-\><c-n><c-x>E
-		tmap <silent><nowait> <c-x>R <c-\><c-n><c-x>R
-		tmap <silent><nowait> <c-x>T <c-\><c-n><c-x>T
-
 		Plug 'artem-nefedov/nvim-editcommand'
 		Plug 'hkupty/nvimux'
 		let g:loaded_ruby_provider = 0
