@@ -459,6 +459,8 @@ function! Go_Back(write)
 	endif
 	if &bufhidden == 'delete' || &bufhidden == 'wipe'
 		q!
+	elseif b:nvr_jump == -1
+		q
 	else
 		exec "b! " . b:nvr_jump
 	endif
