@@ -708,12 +708,9 @@ function! Terminal_regsub()
 endfunction
 
 function! Terminal_init()
-	setlocal nonumber
-	setlocal norelativenumber
+	setlocal nonumber norelativenumber sidescrolloff=0 scrolloff=0
 	let w:nvr_term = bufnr('%')
 	let b:terminal_pwd = getcwd()
-	setlocal sidescrolloff=0
-	setlocal scrolloff=0
 	nmap <buffer> o i
 	nmap <buffer> O i
 	nmap <buffer> R :call chansend(b:terminal_job_id, "\<lt>c-a>\<lt>c-k>. ~/.zshrc\<lt>cr>")<cr>
