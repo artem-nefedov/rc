@@ -708,6 +708,8 @@ function! Terminal_regsub()
 endfunction
 
 function! Terminal_init()
+	setlocal nonumber
+	setlocal norelativenumber
 	let w:nvr_term = bufnr('%')
 	let b:terminal_pwd = getcwd()
 	setlocal sidescrolloff=0
