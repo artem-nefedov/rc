@@ -1,13 +1,14 @@
 {
   "languageserver": {
     "terraform": {
-      "command": "terraform-lsp",
-      "filetypes": ["terraform", "tf"],
-      "initializationOptions": {}
-    },
-    "kotlin": {
-      "command": "/Users/anefedov/git/kotlin-language-server/server/build/install/server/bin/kotlin-language-server",
-      "filetypes": ["kotlin"]
+      "command": "terraform-ls",
+      "args": ["serve"],
+      "filetypes": [
+        "terraform",
+        "tf"
+      ],
+      "initializationOptions": {},
+      "settings": {}
     }
   },
   "java.jdt.ls.vmargs": "-javaagent:/Users/anefedov/.m2/repository/org/projectlombok/lombok/1.18.22/lombok-1.18.22.jar -Xbootclasspath/a:/Users/anefedov/.m2/repository/org/projectlombok/lombok/1.18.22/lombok-1.18.22.jar",
