@@ -271,7 +271,7 @@ v()
 			fi
 		fi
 
-		if ! pgrep -q nvim; then
+		if ! killall -0 nvim 2>/dev/null; then
 			rm -f /tmp/nvimsocket
 		fi
 
