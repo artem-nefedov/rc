@@ -180,6 +180,18 @@ cat >> "$rc" <<'EOF'
 EOF
 fi
 
+if [ "$with_sh" = zsh ] && ! grep -qx '# OPTIMIZE PERFORMANCE' "$rc"; then
+cat >> "$rc" <<'EOF'
+
+# OPTIMIZE PERFORMANCE
+add-zsh-hook -d precmd omz_termsupport_cwd
+add-zsh-hook -d precmd omz_termsupport_precmd
+
+export ZSH_AUTOSUGGEST_MANUAL_REBIND=1
+_zsh_autosuggest_bind_widgets # run manually if needed
+EOF
+fi
+
 if [ "$(uname)" = Darwin ]; then
 	ln -s "$script_dir/Brewfile" "$HOME/.Brewfile"
 fi
