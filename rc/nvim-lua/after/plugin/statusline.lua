@@ -17,12 +17,28 @@ local term_extension = {
   filetypes = {''}, -- terminal doesn't have a type
 }
 
+local trailing_whitespace_detect = function()
+  local space = vim.fn.search([[\s\+$]], 'nwc')
+  return space ~= 0 and "TW:"..space or ""
+end
+
 require('lualine').setup({
   options = {
     icons_enabled = false,
     theme = 'onedark',
     component_separators = '|',
     section_separators = '',
+  },
+  sections = {
+    lualine_z = {
+      {'location'},
+      {
+        trailing_whitespace_detect,
+        color={
+          bg = 'orange',
+        },
+      },
+    },
   },
   extensions = { term_extension },
 })

@@ -41,3 +41,6 @@ vim.o.splitbelow = true
 
 -- show 80 symbols border
 vim.o.colorcolumn = '80'
+
+-- show non-printable symbols
+vim.o.list = true
