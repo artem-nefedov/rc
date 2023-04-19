@@ -22,3 +22,8 @@ vim.keymap.set('c', '<c-a>', '<home>', { desc = 'Go to start' })
 
 -- spelling check
 vim.keymap.set('n', ',s', ':setlocal spell! spelllang=en_us | syntax spell toplevel<cr>', { desc = 'Toggle spellcheck' })
+
+-- yanks into clipboard
+vim.keymap.set({ 'n', 'v' }, '<c-x>y', '"*y', { desc = '[Y]ank into clipboard' })
+vim.keymap.set('n', '<c-x>Y', '"*Y', { desc = 'Shift-[Y]ank into clipboard' })
+vim.keymap.set('n', '<c-x><c-y>', ':let @* = @"<cr>', { desc = 'Copy unnamed register into clipboard' })
