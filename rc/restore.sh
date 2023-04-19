@@ -1,5 +1,7 @@
 #!/bin/bash
-trap 'echo "$0: Error at $LINENO"; exit 1;' ERR
+
+set -e
+trap 'echo >&2 "$0: Error at $LINENO: $BASH_COMMAND"' ERR
 
 script_dir=$(cd "$(dirname "$0")" && pwd)
 
@@ -39,7 +41,7 @@ fi
 
 cd "$(dirname "$0")"
 
-for f in linux.{vimrc,gitconfig,ctags} linux.bash_{aliases,functions}.bash linux.tmux.conf; do
+for f in linux.{gitconfig,ctags} linux.bash_{aliases,functions}.bash linux.tmux.conf; do
 	ln -f -s "$script_dir/$f" "$HOME/${f#linux}"
 done
 
@@ -70,31 +72,23 @@ if ! grep -Fq .bash_aliases.bash "$rc" || ! grep -Fq .bash_functions.bash "$rc";
 	EOF
 fi
 
-vim_plug='https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-tmux_plug='https://github.com/tmux-plugins/tpm'
+nvimdir="$HOME/.config/nvim-lua"
+mkdir -p "$nvimdir"
+(
+	cd "$script_dir/nvim-lua/" &&
+	for f in "$PWD"/*; do
+		if [ ! -e "$nvimdir/${f##*/}" ]; then
+			ln -s "$f" "$nvimdir/${f##*/}" || exit 1
+		fi
+	done
+)
 
-if hash nvim 2>/dev/null; then
-	plug_file="$HOME/.local/share/nvim/site/autoload/plug.vim"
-	mkdir -p "$HOME/.config/nvim/"
-	if [ ! -e "$HOME/.config/nvim/init.vim" ]; then
-		ln -s "$HOME/.vimrc" "$HOME/.config/nvim/init.vim"
-	fi
-	if [ ! -e "$HOME/.config/nvim/coc-settings.json" ]; then
-		ln -s "$script_dir/coc-settings.json" "$HOME/.config/nvim/coc-settings.json"
-	fi
-else
-	hash vim
-	plug_file="$HOME/.vim/autoload/plug.vim"
-fi
+tmux_plug='https://github.com/tmux-plugins/tpm'
 
 if hash tmux 2>/dev/null; then
 	if [ ! -d ~/.tmux/plugins/tpm ]; then
 		git clone "$tmux_plug" ~/.tmux/plugins/tpm
 	fi
-fi
-
-if [ ! -e "$plug_file" ]; then
-	curl -fLo "$plug_file" --create-dirs "$vim_plug"
 fi
 
 if uname | grep -q CYGWIN; then
@@ -147,6 +141,7 @@ if [ -d "$HOME/git" ]; then
 		git clone "https://github.com/so-fancy/diff-so-fancy"
 	fi
 
+	# shellcheck disable=2016
 	if ! grep -Fq '$HOME/git/diff-so-fancy' "$rc"; then
 		echo 'PATH="$HOME/git/diff-so-fancy:$PATH"' >> "$rc"
 	fi
@@ -156,6 +151,7 @@ git_comp='/usr/local/share/zsh/site-functions/git-completion.bash'
 
 if [ -f "$git_comp" ] && ! grep -q '^_git_sw ' "$git_comp"; then
 	#sed -i.bu 's/-d|--delete|-m|--move)/-D|&/' "$git_comp"
+	# shellcheck disable=2016
 	echo '_git_sw () { __gitcomp_direct "$(__git_heads "" "$track" " ")"; }' >> "$git_comp"
 fi
 
@@ -187,11 +183,15 @@ cat >> "$rc" <<'EOF'
 add-zsh-hook -d precmd omz_termsupport_cwd
 add-zsh-hook -d precmd omz_termsupport_precmd
 add-zsh-hook -d preexec omz_termsupport_preexec
-export ZSH_AUTOSUGGEST_MANUAL_REBIND=1
-_zsh_autosuggest_bind_widgets # run manually if needed
+# export ZSH_AUTOSUGGEST_MANUAL_REBIND=1
+# _zsh_autosuggest_bind_widgets # run manually if needed
 EOF
 fi
 
 if [ "$(uname)" = Darwin ]; then
 	ln -s "$script_dir/Brewfile" "$HOME/.Brewfile"
+fi
+
+if ! grep -qx 'NVIM_APPNAME' "$rc"; then
+	echo 'export NVIM_APPNAME=nvim-lua' >> "$rc"
 fi

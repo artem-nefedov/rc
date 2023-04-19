@@ -1,3 +1,6 @@
+" NOTE: UNUSED FILE !!!
+" Kept for reference (will be deleted later).
+
 try
 	call plug#begin()
 catch
