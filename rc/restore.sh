@@ -186,7 +186,7 @@ cat >> "$rc" <<'EOF'
 # OPTIMIZE PERFORMANCE
 add-zsh-hook -d precmd omz_termsupport_cwd
 add-zsh-hook -d precmd omz_termsupport_precmd
-
+add-zsh-hook -d preexec omz_termsupport_preexec
 export ZSH_AUTOSUGGEST_MANUAL_REBIND=1
 _zsh_autosuggest_bind_widgets # run manually if needed
 EOF

@@ -219,10 +219,6 @@ v()
 {
 	local -a v
 
-	if [ "$1" = '-r' ] && [ $# -eq 3 ]; then
-		set -- "scp://$2/$3"
-	fi
-
 	if [ -n "$NVIM" ]; then
 		v=( nvr --nostart )
 		if [ "$1" != '--remote-tab' ]; then
@@ -231,8 +227,8 @@ v()
 			else
 				v+=(
 				-c "let b:nvr_jump = bufnr('#')"
-				-c 'nnoremap <buffer> ZQ :call Go_Back(0)<cr>i'
-				-c 'nnoremap <buffer> ZZ :call Go_Back(1)<cr>i'
+				-c 'nnoremap <buffer> ZQ :call GoBack(0)<cr>i'
+				-c 'nnoremap <buffer> ZZ :call GoBack(1)<cr>i'
 				--remote
 				)
 			fi
@@ -242,40 +238,15 @@ v()
 	fi
 
 	if [ $# -eq 0 ] && [ -z "$NVIM" ]; then
-		if [ "$(uname)" != Darwin ]; then
-			local oldterm=$TERM
-			TERM=putty-256color
-
-			# fix weird bug with abduco detach and TERM=putty
-			if [ -e /tmp/nvimsocket ]; then
-				v=(
-				-c 'noremap  <s-left>  <left>'
-				-c 'noremap  <s-right> <right>'
-				-c 'noremap! <s-left>  <left>'
-				-c 'noremap! <s-right> <right>'
-				-c 'tnoremap <s-left>  <left>'
-				-c 'tnoremap <s-right> <right>'
-				-c 'noremap  <left>  <c-left>'
-				-c 'noremap  <right> <c-right>'
-				-c 'noremap! <left>  <c-left>'
-				-c 'noremap! <right> <c-right>'
-				-c 'tnoremap <left>  <c-left>'
-				-c 'tnoremap <right> <c-right>'
-				)
-				nvr --nostart --remote "${v[@]}"
-				nvr_reset_mouse
-			fi
-		else
-			if [ -e /tmp/nvimsocket ]; then
-				nvr_reset_mouse
-			fi
+		if [ -e /tmp/nvimsocket ]; then
+			nvr_reset_mouse
 		fi
 
 		if ! killall -0 nvim 2>/dev/null; then
 			rm -f /tmp/nvimsocket
 		fi
 
-		abduco -A nvim nvim --listen /tmp/nvimsocket +term
+		nvim --listen /tmp/nvimsocket +term
 		if [ -n "$oldterm" ]; then
 			TERM=$oldterm
 		fi

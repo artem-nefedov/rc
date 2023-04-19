@@ -194,7 +194,7 @@ if !exists('s:no_plug_manager')
 
 	augroup plugins
 		au!
-		au FileType go nnoremap <buffer> <expr> <space>r ":\<c-u>call Golang_R('" . airline#extensions#tagbar#currenttag() . "')\<cr>"
+		au FileType go nnoremap <buffer> <expr> <space>r ":\<c-u>call GolangR('" . airline#extensions#tagbar#currenttag() . "')\<cr>"
 		au FileType python ALEDisableBuffer
 	augroup END
 
@@ -241,7 +241,7 @@ EOF
 		nnoremap <c-x><c-d> :call DeleteHiddenBuffers()<cr>
 		nnoremap <c-x><c-s> :silent !test \\! -f ~/.vim-session \|\| mv ~/.vim-session ~/.vim-session.prev<cr>:call DeleteHiddenBuffers() \| mksession! ~/.vim-session<cr>
 		tmap <c-x><c-s> <c-\><c-n><c-x><c-s>i
-		nnoremap <c-x><c-r> :source ~/.vim-session \| call Terminal_restore()<cr>
+		nnoremap <c-x><c-r> :source ~/.vim-session \| call TerminalRestore()<cr>
 		tmap <c-x><c-r> <c-\><c-n><c-x><c-r>i
 		tnoremap <c-x><pageup> <c-\><c-n><pageup>
 		tmap <c-x><c-n> <c-x>n
@@ -285,7 +285,7 @@ EOF
 		vmap <c-x>g gJ"*yy
 		tnoremap <c-x>b <c-\><c-n>:call chansend(b:terminal_job_id, Get_git_branch(0)) \| startinsert<cr>
 
-		function! Terminal_enter()
+		function! TerminalEnter()
 			let b:allow_git_refresh = 1
 			exec 'lcd ' . b:terminal_pwd
 		endfunction
@@ -297,9 +297,9 @@ EOF
 			au BufReadPre,FileReadPre * call InheritExitRemap()
 			au FileType netrw call InheritExitRemap()
 			au WinEnter  term://* stopinsert
-			au TermEnter term://*/zsh call Terminal_enter()
+			au TermEnter term://*/zsh call TerminalEnter()
 			au TermLeave term://*/zsh let b:allow_git_refresh = 0
-			au TermOpen  term://*/zsh call Terminal_init()
+			au TermOpen  term://*/zsh call TerminalInit()
 		augroup END
 
 		function! Get_git_branch(force)
@@ -311,7 +311,7 @@ EOF
 			endif
 		endfunction
 
-		function! Terminal_airline(...)
+		function! TerminalAirline(...)
 			if &buftype == 'terminal'
 				let l:spc = g:airline_symbols.space
 				call a:1.add_section('airline_a', l:spc . g:airline_section_a . l:spc)
@@ -325,7 +325,7 @@ EOF
 		endfunction
 
 		if !exists('g:airline_terminal_function_added')
-			call airline#add_statusline_func('Terminal_airline')
+			call airline#add_statusline_func('TerminalAirline')
 			let g:airline_terminal_function_added = 1
 		endif
 
@@ -397,7 +397,7 @@ else
 	nnoremap Q <nop>
 endif
 
-function! Golang_R(fname)
+function! GolangR(fname)
 	if expand('%') =~# '._test\.go$'
 		if a:fname =~# '^Test[[:upper:]].*()$'
 			GoTestFunc
@@ -453,7 +453,7 @@ function! Run_File(args)
 	wincmd p
 endfunction
 
-function! Go_Back(write)
+function! GoBack(write)
 	if a:write == 1 && &readonly != 1
 		write
 	endif
@@ -473,8 +473,8 @@ function! InheritExitRemap()
 	try
 		let l:altbuf = bufnr('#')
 		let b:nvr_jump = l:altbuf
-		nnoremap <buffer> ZQ :call Go_Back(0)<cr>
-		nnoremap <buffer> ZZ :call Go_Back(1)<cr>
+		nnoremap <buffer> ZQ :call GoBack(0)<cr>
+		nnoremap <buffer> ZZ :call GoBack(1)<cr>
 	catch
 	endtry
 endfunction
@@ -693,7 +693,7 @@ endfunction
 "nnoremap <leader>e :Explore<CR>
 "nnoremap <leader>d :Vexplore<CR>
 
-function! Terminal_modify(ncmd)
+function! TerminalModify(ncmd)
 	setlocal modifiable
 	silent nunmap <buffer> J
 	silent vunmap <buffer> J
@@ -702,31 +702,31 @@ function! Terminal_modify(ncmd)
 	exec 'norm ' . a:ncmd
 endfunction
 
-function! Terminal_regsub()
+function! TerminalRegsub()
 	let l:newval = substitute(@", '^➜ ', '', '')
 	let @" = substitute(l:newval, '\n$', '', '')
 endfunction
 
-function! Terminal_init()
+function! TerminalInit()
 	setlocal nonumber norelativenumber sidescrolloff=0 scrolloff=0
 	let w:nvr_term = bufnr('%')
 	let b:terminal_pwd = getcwd()
 	nmap <buffer> o i
 	nmap <buffer> O i
 	nmap <buffer> R :call chansend(b:terminal_job_id, "\<lt>c-a>\<lt>c-k>. ~/.zshrc\<lt>cr>")<cr>
-	nnoremap <buffer> <c-w><c-l> :call Terminal_reset()<cr>
-	nnoremap <buffer> D "tyiW:call Terminal_open()<cr>
+	nnoremap <buffer> <c-w><c-l> :call TerminalReset()<cr>
+	nnoremap <buffer> D "tyiW:call TerminalOpen()<cr>
 	nnoremap <buffer> C "tyiW"tpi
-	nnoremap <buffer> J :<c-u>call Terminal_modify('J')<cr>
-	vnoremap <buffer> J :<c-u>call Terminal_modify('J')<cr>
-	nnoremap <buffer> gJ :<c-u>call Terminal_modify('gJ')<cr>
-	vnoremap <buffer> gJ :<c-u>call Terminal_modify('gJ')<cr>
-	nnoremap <buffer> <silent> yy yy:<c-u>call Terminal_regsub()<cr>
+	nnoremap <buffer> J :<c-u>call TerminalModify('J')<cr>
+	vnoremap <buffer> J :<c-u>call TerminalModify('J')<cr>
+	nnoremap <buffer> gJ :<c-u>call TerminalModify('gJ')<cr>
+	vnoremap <buffer> gJ :<c-u>call TerminalModify('gJ')<cr>
+	nnoremap <buffer> <silent> yy yy:<c-u>call TerminalRegsub()<cr>
 	call Get_git_branch(1)
 	AirlineRefresh
 endfunction
 
-function! Terminal_open()
+function! TerminalOpen()
 	let l:p = expand(@t)
 	if isdirectory(l:p)
 		call chansend(b:terminal_job_id, "\<c-a>\<c-k>cd " . l:p . "\<cr>")
@@ -740,7 +740,7 @@ function! Terminal_open()
 	endif
 endfunction
 
-function! Terminal_reset()
+function! TerminalReset()
 	setlocal scrollback=1
 	call chansend(b:terminal_job_id, "\<c-l>")
 	sleep 100m
@@ -749,17 +749,17 @@ function! Terminal_reset()
 endfunction
 
 " reset b:terminal_pwd to avoid race condition
-function! Terminal_cd()
+function! TerminalCD()
 	if &buftype == 'terminal' && expand('%') =~# '[\/]zsh$'
 		let b:terminal_pwd = getcwd()
 		call chansend(b:terminal_job_id, 'NVIM= cd "' . b:terminal_pwd . "\"\<cr>")
 	endif
 endfunction
 
-function! Terminal_restore()
+function! TerminalRestore()
 	let l:curtab = tabpagenr()
 	let l:curwin = winnr()
-	tabdo windo call Terminal_cd()
+	tabdo windo call TerminalCD()
 	exec l:curtab . 'tabn'
 	exec l:curwin . 'wincmd w'
 endfunction
@@ -849,3 +849,5 @@ if !has('nvim')
 endif
 
 set tags^=./.git/tags;
+
+let g:editorconfig = v:false
