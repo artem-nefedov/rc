@@ -17,6 +17,7 @@ function TerminalInit()
   vim.opt_local.sidescrolloff = 0
   vim.opt_local.scrolloff = 0
   vim.opt_local.timeoutlen = 3000
+  vim.opt_local.signcolumn = 'no'
   vim.w.nvr_term = vim.api.nvim_get_current_buf()
   vim.b.terminal_pwd = vim.fn.getcwd()
 
