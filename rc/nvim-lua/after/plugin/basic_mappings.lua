@@ -19,6 +19,7 @@ vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagn
 -- emacs-like shortcuts for insert/command mode (and some for normal)
 vim.keymap.set('n', '<c-a>', '^', { silent = true, desc = 'Go to start' })
 vim.keymap.set('c', '<c-a>', '<home>', { desc = 'Go to start' })
+vim.keymap.set('c', '<c-k>', '<c-\\>estrpart(getcmdline(),0,getcmdpos()-1)<cr>', { desc = 'Kill till the end of line' })
 
 -- spelling check
 vim.keymap.set('n', ',s', ':setlocal spell! spelllang=en_us | syntax spell toplevel<cr>', { desc = 'Toggle spellcheck' })
