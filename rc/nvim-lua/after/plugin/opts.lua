@@ -44,3 +44,7 @@ vim.o.colorcolumn = '80'
 
 -- show non-printable symbols
 vim.o.list = true
+
+-- highlight cursorline
+vim.o.cursorline = true
+-- vim.o.cursorlineopt = 'number' -- highlight only current line number
