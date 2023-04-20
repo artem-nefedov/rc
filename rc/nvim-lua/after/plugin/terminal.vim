@@ -6,11 +6,6 @@ function! TerminalCD()
   endif
 endfunction
 
-function! TerminalRegsub()
-  let l:newval = substitute(@", '^➜ ', '', '')
-  let @" = substitute(l:newval, '\n$', '', '')
-endfunction
-
 function! TerminalReset()
   setlocal scrollback=1
   call chansend(b:terminal_job_id, "\<c-l>")

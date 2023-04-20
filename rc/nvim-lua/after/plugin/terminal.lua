@@ -11,6 +11,12 @@ vim.g.editcommand_prompt = '➜'
 
 vim.keymap.set('t', '<c-x><c-x>', vim.cmd.stopinsert, { desc = 'Stop terminal insert' })
 
+function TerminalYank()
+  vim.cmd.yank()
+  local newval = vim.fn.substitute(vim.fn.getreg('"'), '^➜ ', '', '')
+  vim.fn.setreg('"', vim.fn.substitute(newval, '\n$', '', ''))
+end
+
 function TerminalInit()
   vim.opt_local.number = false
   vim.opt_local.relativenumber = false
@@ -23,7 +29,7 @@ function TerminalInit()
 
   vim.keymap.set('n', '<c-w><c-l>', function() vim.fn.TerminalReset() end, { buffer = true, desc = 'Terminal reset' })
   vim.keymap.set('n', 'C', '"tyiW"tpi', { silent = true, buffer = true, desc = 'Copy word into terminal' })
-  vim.keymap.set('n', 'yy', 'yy:<c-u>call TerminalRegsub()<cr>', { silent = true, buffer = true, desc = 'Yank line and remove prompt symbol' })
+  vim.keymap.set('n', 'yy', TerminalYank, { silent = true, buffer = true, desc = 'Yank line and remove prompt symbol' })
 
   vim.fn.GetGitBranch(1)
   require('lualine').refresh()
