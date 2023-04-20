@@ -27,3 +27,6 @@ vim.keymap.set('n', ',s', ':setlocal spell! spelllang=en_us | syntax spell tople
 vim.keymap.set({ 'n', 'v' }, '<c-x>y', '"*y', { desc = '[Y]ank into clipboard' })
 vim.keymap.set('n', '<c-x>Y', '"*Y', { desc = 'Shift-[Y]ank into clipboard' })
 vim.keymap.set('n', '<c-x><c-y>', ':let @* = @"<cr>', { desc = 'Copy unnamed register into clipboard' })
+
+-- increment number under cursor with <c-x><c-a> because <c-a> is remapped
+vim.keymap.set('n', '<c-x><c-a>', '<c-a>', { desc = 'Increment number under cursor' })
