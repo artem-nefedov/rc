@@ -60,12 +60,14 @@ local aug = vim.api.nvim_create_augroup('CustomTerminalSetup', { clear = true })
 
 local zsh_term_patterm = 'term://*/zsh'
 
- vim.api.nvim_create_autocmd({'BufReadPre', 'FileReadPre'}, { pattern = '*', callback = 'InheritExitRemap', group = aug })
- vim.api.nvim_create_autocmd('FileType', { pattern = 'netrw', callback = 'InheritExitRemap', group = aug })
- vim.api.nvim_create_autocmd('WinEnter', { pattern = 'term://*', command = 'stopinsert', group = aug })
- vim.api.nvim_create_autocmd('TermEnter', { pattern = zsh_term_patterm, callback = term_enter, group = aug })
- vim.api.nvim_create_autocmd('TermLeave', { pattern = zsh_term_patterm, command = 'let b:allow_git_refresh = 0', group = aug })
- vim.api.nvim_create_autocmd('TermOpen', { pattern = zsh_term_patterm, callback = term_init, group = aug })
+vim.api.nvim_create_autocmd({ 'BufReadPre', 'FileReadPre' },
+  { pattern = '*', callback = 'InheritExitRemap', group = aug })
+vim.api.nvim_create_autocmd('FileType', { pattern = 'netrw', callback = 'InheritExitRemap', group = aug })
+vim.api.nvim_create_autocmd('WinEnter', { pattern = 'term://*', command = 'stopinsert', group = aug })
+vim.api.nvim_create_autocmd('TermEnter', { pattern = zsh_term_patterm, callback = term_enter, group = aug })
+vim.api.nvim_create_autocmd('TermLeave',
+  { pattern = zsh_term_patterm, command = 'let b:allow_git_refresh = 0', group = aug })
+vim.api.nvim_create_autocmd('TermOpen', { pattern = zsh_term_patterm, callback = term_init, group = aug })
 
 -- augroup Term
 --         au!
@@ -91,8 +93,14 @@ end
 -- these must be set after nvimux setup to override nvimux defaults
 vim.keymap.set('n', '<c-x><c-s>', save_session, { desc = 'Save session' })
 vim.keymap.set('n', '<c-x><c-r>', restore_session, { desc = 'Restore session' })
-vim.keymap.set('t', '<c-x><c-s>', function() save_session(); vim.cmd.startinsert() end, { desc = 'Save session (term)' })
-vim.keymap.set('t', '<c-x><c-r>', function() restore_session(); vim.cmd.startinsert() end, { desc = 'Restore session (term)' })
+vim.keymap.set('t', '<c-x><c-s>', function()
+  save_session()
+  vim.cmd.startinsert()
+end, { desc = 'Save session (term)' })
+vim.keymap.set('t', '<c-x><c-r>', function()
+  restore_session()
+  vim.cmd.startinsert()
+end, { desc = 'Restore session (term)' })
 
 local term_insert_branch = function()
   vim.api.nvim_exec2('call chansend(b:terminal_job_id, GetGitBranch(0))', {})
@@ -100,3 +108,15 @@ end
 
 -- insert branch in terminal
 vim.keymap.set('t', '<c-x>b', term_insert_branch, { silent = true, desc = 'Insert branch into terminal' })
+
+-- jump back to terminal
+local term_goto_bound = function()
+  if vim.w.nvr_term == nil then
+    print('No bound terminal')
+  else
+    vim.cmd.buffer(vim.w.nvr_term)
+    vim.cmd.startinsert()
+  end
+end
+
+vim.keymap.set('n', '<c-x><c-e>', term_goto_bound, { desc = 'Jump back to bound terminal' })

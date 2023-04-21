@@ -56,8 +56,3 @@ function! GetGitBranch(force)
     return exists('b:last_read_git_branch') ? b:last_read_git_branch : '--'
   endif
 endfunction
-
-nnoremap <c-x><c-e> :exec "if exists('w:nvr_term') \|
-                        \ exec 'b ' . w:nvr_term \|
-                        \ startinsert \| else \|
-                        \ echo 'No bound terminal' \| endif"<cr>
