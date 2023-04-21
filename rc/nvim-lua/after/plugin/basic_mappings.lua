@@ -40,3 +40,11 @@ vim.keymap.set('n', '<c-x><c-y>', unnamed_to_clipboard, { desc = 'Copy unnamed r
 -- increment number under cursor with <c-x><c-a> because <c-a> is remapped
 vim.keymap.set('n', '<c-x><c-a>', '<c-a>', { desc = 'Increment number under cursor' })
 vim.keymap.set('n', '<c-x><c-x>', '<c-x>', { desc = 'Decrement number under cursor' })
+
+-- store string without boundary markers into @s
+local search_without_bounds = function()
+  vim.cmd.normal({ args = { '*' }, bang = true })
+  vim.fn.setreg('s', vim.fn.substitute(vim.fn.getreg('/'), [[\(^\\<\|\\>$\)]], '', 'g'))
+end
+
+vim.keymap.set('n', '*', search_without_bounds, { desc = 'Search under cursor and store string without word bounds into @s' })
