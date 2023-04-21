@@ -27,7 +27,7 @@ local term_init = function()
   vim.w.nvr_term = vim.api.nvim_get_current_buf()
   vim.b.terminal_pwd = vim.fn.getcwd()
 
-  vim.keymap.set('n', '<c-w><c-l>', function() vim.fn.TerminalReset() end, { buffer = true, desc = 'Terminal reset' })
+  vim.keymap.set('n', '<c-w><c-l>', vim.fn.TerminalReset, { buffer = true, desc = 'Terminal reset' })
   vim.keymap.set('n', 'C', '"tyiW"tpi', { silent = true, buffer = true, desc = 'Copy word into terminal' })
   vim.keymap.set('n', 'yy', term_yank, { silent = true, buffer = true, desc = 'Yank line and remove prompt symbol' })
 
