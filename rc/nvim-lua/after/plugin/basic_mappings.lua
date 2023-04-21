@@ -25,9 +25,17 @@ vim.keymap.set('c', '<c-k>', '<c-\\>estrpart(getcmdline(),0,getcmdpos()-1)<cr>',
 vim.keymap.set('n', ',s', ':setlocal spell! spelllang=en_us | syntax spell toplevel<cr>', { desc = 'Toggle spellcheck' })
 
 -- yanks into clipboard
+local unnamed_to_clipboard = function()
+  local r = vim.fn.getreg('"')
+  vim.fn.setreg('*', r)
+  print('Copied: ' ..
+    vim.fn.strcharpart(vim.trim(vim.split(r, "\n", { plain = true, trimempty = true })[1]), 0, 80) ..
+    (#r <= 80 and '' or ' ...'))
+end
+
 vim.keymap.set({ 'n', 'v' }, '<c-x>y', '"*y', { desc = '[Y]ank into clipboard' })
 vim.keymap.set('n', '<c-x>Y', '"*Y', { desc = 'Shift-[Y]ank into clipboard' })
-vim.keymap.set('n', '<c-x><c-y>', ':let @* = @"<cr>', { desc = 'Copy unnamed register into clipboard' })
+vim.keymap.set('n', '<c-x><c-y>', unnamed_to_clipboard, { desc = 'Copy unnamed register into clipboard' })
 
 -- increment number under cursor with <c-x><c-a> because <c-a> is remapped
 vim.keymap.set('n', '<c-x><c-a>', '<c-a>', { desc = 'Increment number under cursor' })
