@@ -8,7 +8,7 @@ vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = tr
 vim.keymap.set('n', ';', 'q:i', { silent = true })
 
 -- ZA to quit everything
-vim.keymap.set('n', 'ZA', ':qa<cr>', { desc = 'Quit everything' })
+vim.keymap.set('n', 'ZA', vim.cmd.quitall, { desc = 'Quit everything' })
 
 -- Diagnostic keymaps
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic message' })
