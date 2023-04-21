@@ -39,4 +39,4 @@ vim.keymap.set('n', '<c-x><c-y>', unnamed_to_clipboard, { desc = 'Copy unnamed r
 
 -- increment number under cursor with <c-x><c-a> because <c-a> is remapped
 vim.keymap.set('n', '<c-x><c-a>', '<c-a>', { desc = 'Increment number under cursor' })
-vim.keymap.set('n', '<c-x><c-x>', '<c-x>', { desc = 'Derement number under cursor' })
+vim.keymap.set('n', '<c-x><c-x>', '<c-x>', { desc = 'Decrement number under cursor' })
