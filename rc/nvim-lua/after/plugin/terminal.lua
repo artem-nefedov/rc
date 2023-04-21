@@ -11,13 +11,13 @@ vim.g.editcommand_prompt = '➜'
 
 vim.keymap.set('t', '<c-x><c-x>', vim.cmd.stopinsert, { desc = 'Stop terminal insert' })
 
-function TerminalYank()
+local term_yank = function()
   vim.cmd.yank()
   local newval = vim.fn.substitute(vim.fn.getreg('"'), '^➜ ', '', '')
   vim.fn.setreg('"', vim.fn.substitute(newval, '\n$', '', ''))
 end
 
-function TerminalInit()
+local term_init = function()
   vim.opt_local.number = false
   vim.opt_local.relativenumber = false
   vim.opt_local.sidescrolloff = 0
@@ -29,7 +29,7 @@ function TerminalInit()
 
   vim.keymap.set('n', '<c-w><c-l>', function() vim.fn.TerminalReset() end, { buffer = true, desc = 'Terminal reset' })
   vim.keymap.set('n', 'C', '"tyiW"tpi', { silent = true, buffer = true, desc = 'Copy word into terminal' })
-  vim.keymap.set('n', 'yy', TerminalYank, { silent = true, buffer = true, desc = 'Yank line and remove prompt symbol' })
+  vim.keymap.set('n', 'yy', term_yank, { silent = true, buffer = true, desc = 'Yank line and remove prompt symbol' })
 
   vim.fn.GetGitBranch(1)
   require('lualine').refresh()
@@ -51,7 +51,7 @@ function TerminalInit()
   -- AirlineRefresh
 end
 
-function TerminalEnter()
+local term_enter = function()
   vim.b.allow_git_refresh = 1
   vim.cmd.lcd(vim.b.terminal_pwd)
 end
@@ -63,22 +63,15 @@ local zsh_term_patterm = 'term://*/zsh'
  vim.api.nvim_create_autocmd({'BufReadPre', 'FileReadPre'}, { pattern = '*', callback = 'InheritExitRemap', group = aug })
  vim.api.nvim_create_autocmd('FileType', { pattern = 'netrw', callback = 'InheritExitRemap', group = aug })
  vim.api.nvim_create_autocmd('WinEnter', { pattern = 'term://*', command = 'stopinsert', group = aug })
- vim.api.nvim_create_autocmd('TermEnter', { pattern = zsh_term_patterm, callback = TerminalEnter, group = aug })
+ vim.api.nvim_create_autocmd('TermEnter', { pattern = zsh_term_patterm, callback = term_enter, group = aug })
  vim.api.nvim_create_autocmd('TermLeave', { pattern = zsh_term_patterm, command = 'let b:allow_git_refresh = 0', group = aug })
- vim.api.nvim_create_autocmd('TermOpen', { pattern = zsh_term_patterm, callback = TerminalInit, group = aug })
+ vim.api.nvim_create_autocmd('TermOpen', { pattern = zsh_term_patterm, callback = term_init, group = aug })
 
 -- augroup Term
 --         au!
 --         au Filetype netrw vmap <buffer> E .call feedkeys("i<end>\<lt>c-a>") \| term<cr>
 --         au Filetype netrw nmap <buffer> E VE
 -- augroup END
-
-function TerminalRestore()
-  local curtab = vim.fn.tabpagenr()
-  local curwin = vim.fn.winnr()
-  vim.api.nvim_exec2('tabdo windo call TerminalCD()', {})
-  vim.api.nvim_exec2(curtab .. 'tabn\n' .. curwin .. 'wincmd w', {})
-end
 
 local save_session = function()
   vim.fn.system('test ! -f ~/.vim-session-lua || mv ~/.vim-session-lua ~/.vim-session-lua.prev')
@@ -89,7 +82,10 @@ end
 
 local restore_session = function()
   vim.cmd.source('~/.vim-session-lua')
-  TerminalRestore()
+  local curtab = vim.fn.tabpagenr()
+  local curwin = vim.fn.winnr()
+  vim.api.nvim_exec2('tabdo windo call TerminalCD()', {})
+  vim.api.nvim_exec2(curtab .. 'tabn\n' .. curwin .. 'wincmd w', {})
 end
 
 -- these must be set after nvimux setup to override nvimux defaults
