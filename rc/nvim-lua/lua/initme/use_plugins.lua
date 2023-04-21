@@ -31,6 +31,8 @@ require('lazy').setup({
   'artem-nefedov/nvim-editcommand',
   'hkupty/nvimux',
 
+  'towolf/vim-helm',
+
   -- resolve symlinks
   {
     'aymericbeaumet/symlink.vim',
