@@ -31,7 +31,14 @@ require('lazy').setup({
   'artem-nefedov/nvim-editcommand',
   'hkupty/nvimux',
 
+  -- fake language server for linters and stuff
+  'jose-elias-alvarez/null-ls.nvim',
+
+  -- helm filetype detection
   'towolf/vim-helm',
+
+  -- WTF is this
+  'eandrju/cellular-automaton.nvim',
 
   -- resolve symlinks
   {
