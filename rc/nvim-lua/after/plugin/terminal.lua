@@ -86,8 +86,8 @@ local restore_session = function()
   vim.cmd.source('~/.vim-session-lua')
   local curtab = vim.fn.tabpagenr()
   local curwin = vim.fn.winnr()
-  vim.api.nvim_exec2('tabdo windo call TerminalCD()', {})
-  vim.api.nvim_exec2(curtab .. 'tabn\n' .. curwin .. 'wincmd w', {})
+  vim.api.nvim_exec2('tabdo windo call TerminalCD() | ' ..
+    curtab .. 'tabn\n' .. curwin .. 'wincmd w', {})
 end
 
 -- these must be set after nvimux setup to override nvimux defaults
