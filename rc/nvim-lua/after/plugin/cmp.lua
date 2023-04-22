@@ -2,6 +2,8 @@
 local cmp = require('cmp')
 local luasnip = require('luasnip')
 
+require('completeme.jira_issues')
+
 luasnip.config.setup({})
 
 cmp.setup({
@@ -38,6 +40,7 @@ cmp.setup({
     end, { 'i', 's' }),
   },
   sources = {
+    { name = 'jira_issues' },
     { name = 'nvim_lsp' },
     { name = 'luasnip' },
     { name = 'buffer' },
