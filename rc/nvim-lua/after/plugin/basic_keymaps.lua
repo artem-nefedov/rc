@@ -1,10 +1,10 @@
 -- [[Mappings not related to plugins]]
 
-local nmap = function(...)
+local function nmap(...)
   vim.keymap.set('n', ...)
 end
 
-local cmap = function(...)
+local function cmap(...)
   vim.keymap.set('c', ...)
 end
 
