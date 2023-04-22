@@ -1,5 +1,4 @@
 -- [[ Setting options ]]
--- See `:help vim.o`
 
 -- Set highlight on search
 vim.o.hlsearch = true
@@ -25,9 +24,11 @@ vim.o.smartcase = true
 vim.wo.signcolumn = 'yes'
 
 -- Decrease update time
+-- timeoutlen can only be set as global option (no setlocal)
+-- lower timeoutlen is better for whichkey, but in terminal buffer too small is bad
 vim.o.updatetime = 250
 vim.o.timeout = true
-vim.o.timeoutlen = 300
+vim.o.timeoutlen = 700
 
 -- Set completeopt to have a better completion experience
 vim.o.completeopt = 'menuone,noselect'
