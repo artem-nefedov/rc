@@ -1,12 +1,8 @@
 -- [[Mappings not related to plugins]]
 
-local function nmap(...)
-  vim.keymap.set('n', ...)
-end
-
-local function cmap(...)
-  vim.keymap.set('c', ...)
-end
+local keymaps = require('helpme.keymaps')
+local nmap = keymaps.nmap
+local cmap = keymaps.cmap
 
 -- Remap for dealing with word wrap
 nmap('k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
