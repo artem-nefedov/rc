@@ -16,10 +16,10 @@ function source:complete(_, callback)
   end
 
   local bufnr = vim.api.nvim_get_current_buf()
-  local cached = vim.t.cached_jira_issues
+  local cached = self.cache[bufnr]
 
   if cached == nil then
-    cached = self.cache[bufnr]
+    cached = vim.t.cached_jira_issues
   end
 
   if cached ~= nil then
