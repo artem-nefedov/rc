@@ -44,7 +44,7 @@ vim.keymap.set('n', '<c-x><c-x>', '<c-x>', { desc = 'Decrement number under curs
 -- store string without boundary markers into @s
 local search_without_bounds = function()
   vim.cmd.normal({ args = { '*' }, bang = true })
-  vim.fn.setreg('s', vim.fn.substitute(vim.fn.getreg('/'), [[\(^\\<\|\\>$\)]], '', 'g'))
+  vim.fn.setreg('s', vim.fn.getreg('/'):gsub('^\\<', '', 1):gsub('\\>$', '', 1))
 end
 
 vim.keymap.set('n', '*', search_without_bounds, { desc = 'Search under cursor and store string without word bounds into @s' })

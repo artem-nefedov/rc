@@ -13,8 +13,7 @@ vim.keymap.set('t', '<c-x><c-x>', vim.cmd.stopinsert, { desc = 'Stop terminal in
 
 local term_yank = function()
   vim.cmd.yank()
-  local newval = vim.fn.substitute(vim.fn.getreg('"'), '^➜ ', '', '')
-  vim.fn.setreg('"', vim.fn.substitute(newval, '\n$', '', ''))
+  vim.fn.setreg('"', vim.fn.getreg('"'):gsub('^➜ ', '', 1):gsub('\n$', '', 1))
 end
 
 local term_init = function()
