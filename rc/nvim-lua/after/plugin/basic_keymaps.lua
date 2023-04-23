@@ -52,3 +52,6 @@ local search_without_bounds = function()
 end
 
 nmap('*', search_without_bounds, { desc = 'Search under cursor and store string without word bounds into @s' })
+
+nmap('<c-x>>', "<cmd>call TabMove('+')<cr>", { desc = 'Move tab to the right' })
+nmap('<c-x><', "<cmd>call TabMove('-')<cr>", { desc = 'Move tab to the left' })
