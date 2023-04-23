@@ -23,8 +23,11 @@ end
 --     "gruvbox",
 --     "rose-pine",
 --     "onedark",
---     "catppuccin",
 --     "monokai-pro",
+--     "catppuccin",
+--     "tokyonight-moon",
+--     "ayu-mirage",
+--     "kanagawa",
 --   }
 --   return function()
 --     state = (state + 1) % #themes
