@@ -15,5 +15,5 @@ function! TabMove(sign)
     exec 'tabm ' . a:sign . l:shift
   endif
 
-  " silent! call repeat#set("\<c-x>" . l:key, v:count1)
+  silent! call repeat#set("\<c-x>" . l:key, v:count1)
 endfunction

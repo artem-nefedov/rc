@@ -16,7 +16,7 @@ require('lazy').setup({
   'tpope/vim-vinegar',
 
   -- -- repeat custom commands with "."
-  -- 'tpope/vim-repeat',
+  'tpope/vim-repeat',
 
   -- Align
   'junegunn/vim-easy-align',
