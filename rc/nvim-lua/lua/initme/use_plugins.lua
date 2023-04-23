@@ -65,14 +65,14 @@ require('lazy').setup({
   require('plugme.treesitter'),
 
   -- colorschemes
-  'ellisonleao/gruvbox.nvim',
-  'navarasu/onedark.nvim',
-  'rose-pine/neovim',
-  'catppuccin/nvim',
-  'loctvl842/monokai-pro.nvim',
-  'folke/tokyonight.nvim',
-  'Shatur/neovim-ayu',
-  "rebelot/kanagawa.nvim",
+  -- 'ellisonleao/gruvbox.nvim',
+  -- 'navarasu/onedark.nvim',
+  -- 'rose-pine/neovim',
+  -- 'catppuccin/nvim',
+  -- 'loctvl842/monokai-pro.nvim',
+  -- 'folke/tokyonight.nvim',
+  -- 'Shatur/neovim-ayu',
+  -- "rebelot/kanagawa.nvim",
 
   -- "gc" to comment visual regions/lines
   { 'numToStr/Comment.nvim',         opts = {} },
