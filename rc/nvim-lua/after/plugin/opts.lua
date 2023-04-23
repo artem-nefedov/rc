@@ -1,8 +1,5 @@
 -- [[ Setting options ]]
 
--- show tabs
-vim.opt.listchars:append('tab:  →')
-
 -- Set highlight on search
 vim.o.hlsearch = true
 
@@ -48,6 +45,7 @@ vim.o.colorcolumn = '80'
 
 -- show non-printable symbols
 vim.o.list = true
+vim.opt.listchars:append('tab:  →')
 
 -- highlight cursorline
 vim.o.cursorline = true
