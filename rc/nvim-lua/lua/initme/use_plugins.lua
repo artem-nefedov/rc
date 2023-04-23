@@ -54,6 +54,9 @@ require('lazy').setup({
   -- statusline
   'nvim-lualine/lualine.nvim',
 
+  -- complete jira issues
+  'artem-nefedov/jira-commit-cmp.nvim',
+
   require('plugme.lspconfig'),
   require('plugme.gitsigns'),
   require('plugme.cmp'),

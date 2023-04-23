@@ -2,7 +2,7 @@
 local cmp = require('cmp')
 local luasnip = require('luasnip')
 
-require('completeme.jira_issues')
+require('jira-commit-cmp').setup({})
 
 luasnip.config.setup({})
 
