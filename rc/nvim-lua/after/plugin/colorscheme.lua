@@ -16,3 +16,22 @@ end
 --   callback = colorscheme_callback,
 --   desc = 'Disable semantic highlighting'
 -- })
+
+-- local function theme_cycler()
+--   local state = 0
+--   local themes = {
+--     "gruvbox",
+--     "rose-pine",
+--     "onedark",
+--     "catppuccin",
+--     "monokai-pro",
+--   }
+--   return function()
+--     state = (state + 1) % #themes
+--     local theme = themes[state+1]
+--     vim.cmd.colorscheme(theme)
+--     print(theme)
+--   end
+-- end
+--
+-- vim.keymap.set("n", ",c", theme_cycler())
