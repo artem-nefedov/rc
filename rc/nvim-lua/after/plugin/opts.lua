@@ -1,5 +1,8 @@
 -- [[ Setting options ]]
 
+-- show tabs
+vim.opt.listchars:append('tab:  →')
+
 -- Set highlight on search
 vim.o.hlsearch = true
 
