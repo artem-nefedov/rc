@@ -14,7 +14,7 @@ return {
       },
       overrides = function(colors)
         local theme = colors.theme
-        return {
+        return { -- dark completion menu (from help example)
           Pmenu = { fg = theme.ui.shade0, bg = theme.ui.bg_p1 },
           PmenuSel = { fg = "NONE", bg = theme.ui.bg_p2 },
           PmenuSbar = { bg = theme.ui.bg_m1 },
