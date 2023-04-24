@@ -118,3 +118,8 @@ local term_goto_bound = function()
 end
 
 vim.keymap.set('n', '<c-x><c-e>', term_goto_bound, { desc = 'Jump back to bound terminal' })
+
+vim.api.nvim_create_user_command('TerminalLCD', function(opts)
+  vim.b.terminal_pwd = opts.args
+  vim.cmd.lcd(opts.args)
+end, { desc = 'Use by chpwd() function in shell', nargs = 1 })
