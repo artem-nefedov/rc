@@ -5,7 +5,7 @@ function M.nmap(...)
 end
 
 function M.cmap(...)
-  vim.keymap.set('n', ...)
+  vim.keymap.set('c', ...)
 end
 
 return M
