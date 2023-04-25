@@ -1,0 +1,2 @@
+#!/usr/bin/env sh
+exec /opt/homebrew/bin/markdownlint --disable=MD013 --disable=MD034 --disable=MD040 "$@"
