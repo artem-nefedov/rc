@@ -58,6 +58,8 @@ return {
 
     nmap(',du', dapui.toggle, 'Toggle [U]I')
     nmap(',dc', dap.continue, '[C]ontinue')
+    nmap(',dl', dap.run_last, 'Run [L]ast')
+    nmap(',dt', dap.terminate, '[T]erminate')
     nmap(',db', dap.toggle_breakpoint, 'Toggle [B]reakpoint')
     nmap(',dB', function()
       dap.set_breakpoint(vim.fn.input 'Breakpoint condition: ')
