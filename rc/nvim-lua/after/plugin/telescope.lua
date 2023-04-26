@@ -34,8 +34,8 @@ nmap('<leader>sB', telescope_builtin.git_branches, { desc = '[S]earch git [B]ran
 
 -- search configs and RCs
 nmap('<leader>sp', function()
-  telescope_builtin.find_files({ cwd = vim.fn.expand('~/git/personal') })
-end, { desc = '[S]earch [P]ersonal' })
+  telescope_builtin.git_files({ cwd = vim.fn.expand('~/git/personal') })
+end, { desc = '[S]earch [P]ersonal git files' })
 
 -- add 't' (terminal) maps
 nmap('<leader>sk', function()
