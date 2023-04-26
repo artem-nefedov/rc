@@ -56,3 +56,11 @@ function! GetGitBranch(force)
     return exists('b:last_read_git_branch') ? b:last_read_git_branch : '--'
   endif
 endfunction
+
+function! UnmapZ()
+  try
+    nunmap <buffer> ZQ
+    nunmap <buffer> ZZ
+  catch
+  endtry
+endfunction

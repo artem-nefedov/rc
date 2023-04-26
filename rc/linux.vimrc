@@ -482,7 +482,7 @@ function! InheritExitRemap()
 	endtry
 endfunction
 
-function! Unmap_Z()
+function! UnmapZ()
 	try
 		nunmap <buffer> ZQ
 		nunmap <buffer> ZZ
