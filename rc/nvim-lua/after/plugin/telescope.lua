@@ -32,6 +32,11 @@ nmap('<leader>sc', telescope_builtin.git_bcommits, { desc = '[S]earch git [C]omm
 nmap('<leader>sC', telescope_builtin.git_commits, { desc = '[S]earch git [C]ommits (repo-wide)' })
 nmap('<leader>sB', telescope_builtin.git_branches, { desc = '[S]earch git [B]ranches' })
 
+-- search configs and RCs
+nmap('<leader>sp', function()
+  telescope_builtin.find_files({ cwd = vim.fn.expand('~/git/personal') })
+end, { desc = '[S]earch [P]ersonal' })
+
 -- add 't' (terminal) maps
 nmap('<leader>sk', function()
   telescope_builtin.keymaps({ modes = { 'n', 'i', 'c', 'x', 't' } })
