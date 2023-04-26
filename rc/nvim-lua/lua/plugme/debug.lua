@@ -41,7 +41,7 @@ return {
     })
 
     local nmap = function(keys, callback, desc)
-      vim.keymap.set('n', keys, callback, { desc = 'DEBUG: ' .. desc })
+      vim.keymap.set('n', keys, callback, { desc = '[D]EBUG: ' .. desc })
     end
 
     local nmap_repeat = function(keys, callback, desc)
@@ -56,9 +56,10 @@ return {
     nmap_repeat(',ss', dap.step_over, '[S]tep over')
     nmap_repeat(',so', dap.step_out, '[S]tep out')
 
-    nmap(',c', dap.continue, '[C]ontinue')
-    nmap(',b', dap.toggle_breakpoint, 'Toggle [B]reakpoint')
-    nmap(',B', function()
+    nmap(',du', dapui.toggle, 'Toggle [U]I')
+    nmap(',dc', dap.continue, '[C]ontinue')
+    nmap(',db', dap.toggle_breakpoint, 'Toggle [B]reakpoint')
+    nmap(',dB', function()
       dap.set_breakpoint(vim.fn.input 'Breakpoint condition: ')
     end, 'Set [B]reakpoint condition')
 
@@ -79,6 +80,7 @@ return {
           step_back = 'b',
           run_last = '▶▶',
           terminate = '⏹',
+          disconnect = '⏏',
         },
       },
     }

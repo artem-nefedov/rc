@@ -37,6 +37,10 @@ nmap('<leader>sp', function()
   telescope_builtin.git_files({ cwd = vim.fn.expand('~/git/personal') })
 end, { desc = '[S]earch [P]ersonal git files' })
 
+nmap('<leader>sP', function()
+  telescope_builtin.live_grep({ cwd = vim.fn.expand('~/git/personal') })
+end, { desc = '[S]earch [P]ersonal git by grep' })
+
 -- add 't' (terminal) maps
 nmap('<leader>sk', function()
   telescope_builtin.keymaps({ modes = { 'n', 'i', 'c', 'x', 't' } })
