@@ -26,7 +26,7 @@ cmap('<c-a>', '<home>', { desc = 'Go to start' })
 cmap('<c-k>', '<c-\\>estrpart(getcmdline(),0,getcmdpos()-1)<cr>', { desc = 'Kill till the end of line' })
 
 -- spelling check
-nmap(',s', '<cmd>setlocal spell! spelllang=en_us | syntax spell toplevel<cr>', { desc = 'Toggle spellcheck' })
+nmap(',e', '<cmd>setlocal spell! spelllang=en_us | syntax spell toplevel<cr>', { desc = 'Toggle sp[e]llcheck' })
 
 -- yanks into clipboard
 local unnamed_to_clipboard = function()

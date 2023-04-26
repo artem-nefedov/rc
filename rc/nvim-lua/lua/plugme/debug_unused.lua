@@ -22,35 +22,45 @@ return {
     'leoluz/nvim-dap-go',
   },
   config = function()
-    local dap = require 'dap'
-    local dapui = require 'dapui'
+    local dap = require('dap')
+    local dapui = require('dapui')
 
-    require('mason-nvim-dap').setup {
+    require('mason-nvim-dap').setup({
       -- Makes a best effort to setup the various debuggers with
       -- reasonable debug configurations
       automatic_setup = true,
-
       -- You can provide additional configuration to the handlers,
       -- see mason-nvim-dap README for more information
       handlers = {},
-
       -- You'll need to check that you have the required things installed
       -- online, please don't ask me how to install them :)
       ensure_installed = {
         -- Update this to ensure that you have the debuggers for the langs you want
         'delve',
       },
-    }
+    })
+
+    local nmap = function(keys, callback, desc)
+      vim.keymap.set('n', keys, callback, { desc = 'DEBUG: ' .. desc })
+    end
+
+    local nmap_repeat = function(keys, callback, desc)
+      vim.keymap.set('n', keys, function()
+        callback()
+        vim.fn['repeat#set'](keys, 1)
+      end, { desc = 'DEBUG: ' .. desc })
+    end
 
     -- Basic debugging keymaps, feel free to change to your liking!
-    vim.keymap.set('n', '<F5>', dap.continue)
-    vim.keymap.set('n', '<F1>', dap.step_into)
-    vim.keymap.set('n', '<F2>', dap.step_over)
-    vim.keymap.set('n', '<F3>', dap.step_out)
-    vim.keymap.set('n', '<leader>b', dap.toggle_breakpoint)
-    vim.keymap.set('n', '<leader>B', function()
+    nmap_repeat(',si', dap.step_into, '[S]tep [I]nto')
+    nmap_repeat(',ss', dap.step_over, '[S]tep over')
+    nmap_repeat(',so', dap.step_out, '[S]tep out')
+
+    nmap(',c', dap.continue, '[C]ontinue')
+    nmap(',b', dap.toggle_breakpoint, 'Toggle [B]reakpoint')
+    nmap(',B', function()
       dap.set_breakpoint(vim.fn.input 'Breakpoint condition: ')
-    end)
+    end, 'Set [B]reakpoint condition')
 
     -- Dap UI setup
     -- For more information, see |:help nvim-dap-ui|
