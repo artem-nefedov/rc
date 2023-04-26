@@ -13,8 +13,8 @@
 	hide-dirty = 1
 [alias]
 	ls = log --no-prefix --pretty=format:'%C(green)%h %C(yellow)[%cd]%Cred%d %Creset%s%C(cyan)%  [%cn]%Creset' --decorate --date='format:%Y-%m-%d %H:%M:%S' --graph --all
-	l   = log --no-prefix --pretty=format:'%C(green)%h %C(yellow)[%cd]%Cred%d %Creset%s%C(cyan)%  [%cn]%Creset' --decorate --date=format:'%d %b %H:%M' --graph --first-parent -m
-	lf  = log --no-prefix --pretty=format:'%C(green)%h %C(yellow)[%cd]%Cred%d %Creset%s%C(cyan)%  [%cn]%Creset' --decorate --date=format:'%d %b %H:%M' --graph
+	l  = log --no-prefix --pretty=format:'%C(green)%h %C(yellow)[%cd]%Cred%d %Creset%s%C(cyan)%  [%cn]%Creset' --decorate --date=format:'%d %b %H:%M' --graph --first-parent -m
+	lf = log --no-prefix --pretty=format:'%C(green)%h %C(yellow)[%cd]%Cred%d %Creset%s%C(cyan)%  [%cn]%Creset' --decorate --date=format:'%d %b %H:%M' --graph
 	ln = log --no-prefix --pretty=format:'%C(green)%h %C(yellow)[%cd]%>(18)%C(cyan)%cn%Cred%d %Creset%s' --decorate --date='format:%Y-%m-%d %H:%M:%S' --graph
 	lm = log --no-prefix --pretty=format:'%C(green)%h %C(yellow)[%cd] %Cred%d%Creset%s' --decorate --date='format:%Y-%m-%d %H:%M:%S' --graph --author=nefedov
 	ll = log --no-prefix --pretty=format:'%C(yellow)%h%Cred%d %Creset%s%C(cyan) [%cn]%Creset' --decorate --numstat
