@@ -63,7 +63,7 @@ require('lazy').setup({
   require('plugme.colorscheme'),
   require('plugme.indent'),
   require('plugme.treesitter'),
-  require('plugme.debug_unused'),
+  require('plugme.debug'),
 
   -- colorschemes
   -- 'ellisonleao/gruvbox.nvim',
