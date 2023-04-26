@@ -54,7 +54,7 @@ return {
     -- Basic debugging keymaps, feel free to change to your liking!
     nmap_repeat(',si', dap.step_into, '[S]tep [I]nto')
     nmap_repeat(',ss', dap.step_over, '[S]tep over')
-    nmap_repeat(',so', dap.step_out, '[S]tep out')
+    nmap_repeat(',so', dap.step_out, '[S]tep [O]ut')
 
     nmap(',du', dapui.toggle, 'Toggle [U]I')
     nmap(',dc', dap.continue, '[C]ontinue')
