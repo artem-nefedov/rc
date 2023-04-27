@@ -24,6 +24,7 @@ return {
   config = function()
     local dap = require('dap')
     local dapui = require('dapui')
+    local dap_ui_widgets = require('dap.ui.widgets')
 
     require('mason-nvim-dap').setup({
       -- Makes a best effort to setup the various debuggers with
@@ -58,12 +59,28 @@ return {
 
     nmap(',du', dapui.toggle, 'Toggle [U]I')
     nmap(',dc', dap.continue, '[C]ontinue')
+    nmap(',dC', dap.clear_breakpoints, '[C]lear breakpoints')
     nmap(',dl', dap.run_last, 'Run [L]ast')
     nmap(',dt', dap.terminate, '[T]erminate')
     nmap(',db', dap.toggle_breakpoint, 'Toggle [B]reakpoint')
     nmap(',dB', function()
       dap.set_breakpoint(vim.fn.input 'Breakpoint condition: ')
     end, 'Set [B]reakpoint condition')
+
+    vim.keymap.set({ 'n', 'v' }, ',di', function()
+      dap_ui_widgets.hover()
+      vim.fn['repeat#set'](',di', 1)
+    end, { desc = '[D]EBUG: [I]nspect object under cursor' })
+
+    local aug = vim.api.nvim_create_augroup('DapSetup', { clear = true })
+
+    vim.api.nvim_create_autocmd('FileType', {
+      group    = aug,
+      pattern  = 'dap-float',
+      callback = function()
+        vim.keymap.set('n', 'q', vim.cmd.quit, { buffer = true, silent = true })
+      end
+    })
 
     dapui.setup({})
 
