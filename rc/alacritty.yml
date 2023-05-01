@@ -13,6 +13,13 @@ env:
   TERM: xterm-256color
 
 window:
+  # Make `Option` key behave as `Alt` (macOS only):
+  #   - OnlyLeft
+  #   - OnlyRight
+  #   - Both
+  #   - None (default)
+  option_as_alt: OnlyLeft
+
   # Window dimensions (changes require restart)
   #
   # Specified in number of columns/lines, not pixels.
