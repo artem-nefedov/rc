@@ -48,6 +48,20 @@ require('lazy').setup({
     },
   },
 
+  {
+    'akinsho/bufferline.nvim',
+    version = '*',
+    dependencies = 'nvim-tree/nvim-web-devicons',
+    opts = {
+      options = {
+        sort_by = 'tabs',
+        -- name_formatter = function(buf)
+        --   return buf.name
+        -- end,
+      },
+    },
+  },
+
   -- Useful plugin to show you pending keybinds.
   { 'folke/which-key.nvim',          opts = {} },
 
@@ -64,6 +78,7 @@ require('lazy').setup({
   require('plugme.indent'),
   require('plugme.treesitter'),
   require('plugme.debug'),
+  require('plugme.pantran'),
 
   -- colorschemes
   -- 'ellisonleao/gruvbox.nvim',
@@ -76,7 +91,7 @@ require('lazy').setup({
   -- "rebelot/kanagawa.nvim",
 
   -- "gc" to comment visual regions/lines
-  { 'numToStr/Comment.nvim',         opts = {} },
+  { 'numToStr/Comment.nvim', opts = {} },
 
   -- Fuzzy Finder (files, lsp, etc)
   { 'nvim-telescope/telescope.nvim', version = '*', dependencies = { 'nvim-lua/plenary.nvim' } },
