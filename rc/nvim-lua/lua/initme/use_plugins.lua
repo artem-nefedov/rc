@@ -32,7 +32,7 @@ require('lazy').setup({
   'hkupty/nvimux',
 
   -- fake language server for linters and stuff
-  'jose-elias-alvarez/null-ls.nvim',
+  'nvimtools/none-ls.nvim',
 
   -- helm filetype detection
   'towolf/vim-helm',
