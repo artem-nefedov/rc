@@ -5,6 +5,6 @@ return {
   -- Enable `lukas-reineke/indent-blankline.nvim`
   -- See `:help indent-blankline.txt`
   opts = {
-    indent = { char = '┊' },
+    -- indent = { char = '┊' },
   },
 }
