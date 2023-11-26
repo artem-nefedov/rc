@@ -9,16 +9,17 @@ end
 
 local term_extension = {
   sections = {
-    lualine_a = {'mode'},
-    lualine_b = {term_branch},
-    lualine_c = {term_cwd},
-    lualine_z = {'location'},
+    lualine_a = { 'mode' },
+    lualine_b = { term_branch },
+    lualine_c = { term_cwd },
+    lualine_z = { 'location' },
   },
-  filetypes = {''}, -- terminal doesn't have a type
+  filetypes = { '' }, -- terminal doesn't have a type
 }
 
 local cache_aug = vim.api.nvim_create_augroup('lualine_cache', { clear = true })
-vim.api.nvim_create_autocmd({'CursorHold', 'BufWritePost'}, { pattern = '*', command = 'unlet! b:lualine_cache', group = cache_aug })
+vim.api.nvim_create_autocmd({ 'CursorHold', 'BufWritePost' },
+  { pattern = '*', command = 'unlet! b:lualine_cache', group = cache_aug })
 
 local whitespace_detect = function()
   if vim.o.buftype ~= '' then
@@ -64,14 +65,14 @@ require('lualine').setup({
   },
   sections = {
     lualine_b = {
-      {'b:gitsigns_head'},
-      {'diff', source = diff_source},
+      { 'b:gitsigns_head' },
+      { 'diff',           source = diff_source },
     },
     lualine_z = {
-      {'location'},
+      { 'location' },
       {
         whitespace_detect,
-        color={
+        color = {
           bg = 'orange',
         },
       },
