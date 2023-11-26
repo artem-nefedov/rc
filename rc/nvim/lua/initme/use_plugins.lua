@@ -46,19 +46,27 @@ require('lazy').setup({
   -- Useful plugin to show you pending keybinds.
   { 'folke/which-key.nvim',          opts = {} },
 
-  -- statusline
+  -- git log for selected text
   {
-    'nvim-lualine/lualine.nvim',
+    'niuiic/git-log.nvim',
     dependencies = {
-      'tpope/vim-fugitive',
+      'niuiic/core.nvim'
     },
   },
 
   -- complete jira issues
   'artem-nefedov/cmp-jira-issues.nvim',
 
+  -- statusline
+  {
+    'nvim-lualine/lualine.nvim',
+    dependencies = {
+      'tpope/vim-fugitive',
+      require('plugme.gitsigns'),
+    },
+  },
+
   require('plugme.lspconfig'),
-  require('plugme.gitsigns'),
   require('plugme.cmp'),
   require('plugme.colorscheme'),
   require('plugme.indent'),
