@@ -21,6 +21,10 @@ local cache_aug = vim.api.nvim_create_augroup('lualine_cache', { clear = true })
 vim.api.nvim_create_autocmd({'CursorHold', 'BufWritePost'}, { pattern = '*', command = 'unlet! b:lualine_cache', group = cache_aug })
 
 local whitespace_detect = function()
+  if vim.o.buftype ~= '' then
+    return ''
+  end
+
   if vim.b.lualine_cache == nil then
     local mix_indent
 
@@ -35,6 +39,7 @@ local whitespace_detect = function()
     ---@diagnostic disable-next-line: inject-field
     vim.b.lualine_cache = (mix_indent ~= 0 and 'MI:' .. mix_indent or '') .. (tr_space ~= 0 and 'TW:' .. tr_space or '')
   end
+
   return vim.b.lualine_cache
 end
 
