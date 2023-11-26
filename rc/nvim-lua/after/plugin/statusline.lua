@@ -46,6 +46,9 @@ require('lualine').setup({
     section_separators = '',
   },
   sections = {
+    lualine_b = {
+      {'b:gitsigns_head'},
+    },
     lualine_z = {
       {'location'},
       {
