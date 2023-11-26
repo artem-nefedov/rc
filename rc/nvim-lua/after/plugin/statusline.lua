@@ -38,6 +38,18 @@ local whitespace_detect = function()
   return vim.b.lualine_cache
 end
 
+local function diff_source()
+  ---@diagnostic disable-next-line: undefined-field
+  local gitsigns = vim.b.gitsigns_status_dict
+  if gitsigns then
+    return {
+      added = gitsigns.added,
+      modified = gitsigns.changed,
+      removed = gitsigns.removed
+    }
+  end
+end
+
 require('lualine').setup({
   options = {
     icons_enabled = false,
@@ -48,6 +60,7 @@ require('lualine').setup({
   sections = {
     lualine_b = {
       {'b:gitsigns_head'},
+      {'diff', source = diff_source},
     },
     lualine_z = {
       {'location'},

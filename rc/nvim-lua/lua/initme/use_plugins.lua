@@ -4,11 +4,6 @@
 --  You can also configure plugins after the setup call,
 --    as they will be available in your neovim runtime.
 require('lazy').setup({
-  -- NOTE: First, some plugins that don't require any configuration
-
-  -- Git related plugins
-  'tpope/vim-fugitive',
-
   -- Detect tabstop and shiftwidth automatically
   'tpope/vim-sleuth',
 
@@ -52,7 +47,12 @@ require('lazy').setup({
   { 'folke/which-key.nvim',          opts = {} },
 
   -- statusline
-  'nvim-lualine/lualine.nvim',
+  {
+    'nvim-lualine/lualine.nvim',
+    dependencies = {
+      'tpope/vim-fugitive',
+    },
+  },
 
   -- complete jira issues
   'artem-nefedov/cmp-jira-issues.nvim',
