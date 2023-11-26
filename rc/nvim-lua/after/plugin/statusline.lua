@@ -30,7 +30,7 @@ local whitespace_detect = function()
       mix_indent = vim.fn.search([[\v^( |\t+ )]], 'nwc')
     end
 
-    local tr_space = vim.fn.search([[\v\s+$]], 'nwc')
+    local tr_space = vim.fn.search([[\s$]], 'nwc')
 
     ---@diagnostic disable-next-line: inject-field
     vim.b.lualine_cache = (mix_indent ~= 0 and 'MI:' .. mix_indent or '') .. (tr_space ~= 0 and 'TW:' .. tr_space or '')
