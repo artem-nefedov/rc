@@ -56,5 +56,5 @@ require('lualine').setup({
       },
     },
   },
-  extensions = { term_extension },
+  extensions = { term_extension, 'fugitive' },
 })
