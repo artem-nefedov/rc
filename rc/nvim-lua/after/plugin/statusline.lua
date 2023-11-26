@@ -66,7 +66,10 @@ require('lualine').setup({
   sections = {
     lualine_b = {
       { 'b:gitsigns_head' },
-      { 'diff',           source = diff_source },
+      {
+        'diff',
+        source = diff_source
+      },
     },
     lualine_z = {
       { 'location' },
