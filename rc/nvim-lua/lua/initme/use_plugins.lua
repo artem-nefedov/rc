@@ -48,20 +48,6 @@ require('lazy').setup({
     },
   },
 
-  {
-    'akinsho/bufferline.nvim',
-    version = '*',
-    dependencies = 'nvim-tree/nvim-web-devicons',
-    opts = {
-      options = {
-        sort_by = 'tabs',
-        -- name_formatter = function(buf)
-        --   return buf.name
-        -- end,
-      },
-    },
-  },
-
   -- Useful plugin to show you pending keybinds.
   { 'folke/which-key.nvim',          opts = {} },
 
@@ -79,6 +65,7 @@ require('lazy').setup({
   require('plugme.treesitter'),
   require('plugme.debug'),
   require('plugme.pantran'),
+  require('plugme.bufferline'),
 
   -- colorschemes
   -- 'ellisonleao/gruvbox.nvim',
