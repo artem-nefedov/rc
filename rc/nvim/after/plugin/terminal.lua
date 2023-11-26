@@ -73,15 +73,17 @@ vim.api.nvim_create_autocmd('TermOpen', { pattern = zsh_term_patterm, callback =
 --         au Filetype netrw nmap <buffer> E VE
 -- augroup END
 
+local session_file = vim.fn.stdpath('data') .. '/session'
+
 local save_session = function()
-  vim.fn.system('test ! -f ~/.nvim-session || mv ~/.nvim-session ~/.nvim-session.prev')
+  vim.fn.system('test ! -f ' .. session_file .. ' || mv ' .. session_file .. ' ' .. session_file .. '.prev')
   vim.fn.DeleteHiddenBuffers()
-  vim.cmd.mksession({ args = { '~/.nvim-session' }, bang = true })
+  vim.cmd.mksession({ args = { session_file }, bang = true })
   print('Session saved')
 end
 
 local restore_session = function()
-  vim.cmd.source('~/.nvim-session')
+  vim.cmd.source(session_file)
   local curtab = vim.fn.tabpagenr()
   local curwin = vim.fn.winnr()
   vim.api.nvim_exec2('tabdo windo call TerminalCD() | ' ..
