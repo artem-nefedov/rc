@@ -72,7 +72,7 @@ if ! grep -Fq .bash_aliases.bash "$rc" || ! grep -Fq .bash_functions.bash "$rc";
 	EOF
 fi
 
-nvimdir="$HOME/.config/nvim-lua"
+nvimdir="$HOME/.config/nvim"
 mkdir -p "$nvimdir"
 (
 	cd "$script_dir/nvim-lua/" &&
@@ -190,8 +190,4 @@ fi
 
 if [ "$(uname)" = Darwin ]; then
 	ln -s "$script_dir/Brewfile" "$HOME/.Brewfile"
-fi
-
-if ! grep -qx 'NVIM_APPNAME' "$rc"; then
-	echo 'export NVIM_APPNAME=nvim-lua' >> "$rc"
 fi

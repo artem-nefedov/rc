@@ -74,14 +74,14 @@ vim.api.nvim_create_autocmd('TermOpen', { pattern = zsh_term_patterm, callback =
 -- augroup END
 
 local save_session = function()
-  vim.fn.system('test ! -f ~/.vim-session-lua || mv ~/.vim-session-lua ~/.vim-session-lua.prev')
+  vim.fn.system('test ! -f ~/.nvim-session || mv ~/.nvim-session ~/.nvim-session.prev')
   vim.fn.DeleteHiddenBuffers()
-  vim.cmd.mksession({ args = { '~/.vim-session-lua' }, bang = true })
+  vim.cmd.mksession({ args = { '~/.nvim-session' }, bang = true })
   print('Session saved')
 end
 
 local restore_session = function()
-  vim.cmd.source('~/.vim-session-lua')
+  vim.cmd.source('~/.nvim-session')
   local curtab = vim.fn.tabpagenr()
   local curwin = vim.fn.winnr()
   vim.api.nvim_exec2('tabdo windo call TerminalCD() | ' ..
