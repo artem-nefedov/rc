@@ -17,9 +17,16 @@ local term_extension = {
   filetypes = {''}, -- terminal doesn't have a type
 }
 
+local cache_aug = vim.api.nvim_create_augroup('lualine_cache', { clear = true })
+vim.api.nvim_create_autocmd({'CursorHold', 'BufWritePost'}, { pattern = '*', command = 'unlet! b:lualine_cache', group = cache_aug })
+
 local trailing_whitespace_detect = function()
-  local space = vim.fn.search([[\s\+$]], 'nwc')
-  return space ~= 0 and "TW:"..space or ""
+  if vim.b.lualine_cache == nil then
+    local space = vim.fn.search([[\s\+$]], 'nwc')
+    ---@diagnostic disable-next-line: inject-field
+    vim.b.lualine_cache = (space ~= 0 and 'TW:' .. space or '')
+  end
+  return vim.b.lualine_cache
 end
 
 require('lualine').setup({
