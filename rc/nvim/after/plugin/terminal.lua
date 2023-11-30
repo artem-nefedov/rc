@@ -24,6 +24,7 @@ local term_init = function()
   vim.opt_local.signcolumn = 'no'
   vim.w.nvr_term = vim.api.nvim_get_current_buf()
   vim.b.terminal_pwd = vim.fn.getcwd()
+  vim.b.terminal_kubecontext = ''
 
   vim.keymap.set('n', '<c-w><c-l>', vim.fn.TerminalReset, { buffer = true, desc = 'Terminal reset' })
   vim.keymap.set('n', 'C', '"tyiW"tpi', { silent = true, buffer = true, desc = 'Copy word into terminal' })
@@ -121,7 +122,9 @@ end
 
 vim.keymap.set('n', '<c-x><c-e>', term_goto_bound, { desc = 'Jump back to bound terminal' })
 
-vim.api.nvim_create_user_command('TerminalLCD', function(opts)
-  vim.b.terminal_pwd = opts.args
-  vim.cmd.lcd(opts.args)
-end, { desc = 'Use by chpwd() function in shell', nargs = 1 })
+vim.api.nvim_create_user_command('TerminalStatusUpdate', function(opts)
+  vim.b.terminal_pwd = opts.fargs[1]
+  vim.b.terminal_kubecontext = opts.fargs[2]
+  vim.b.terminal_aws_profile = opts.fargs[3]
+  vim.cmd.lcd(opts.fargs[1])
+end, { desc = 'Use by chpwd() function in shell', nargs = '+' })

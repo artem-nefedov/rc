@@ -1,16 +1,28 @@
 -- setup statusline
+local git_branch = function()
+  return ' ' .. vim.b.gitsigns_head
+end
+
 local term_branch = function()
-  return vim.fn.GetGitBranch(0)
+  return ' ' .. vim.fn.GetGitBranch(0)
 end
 
 local term_cwd = function()
   return vim.fn.fnamemodify(vim.fn.getcwd(), ":~:.")
 end
 
+local term_kubeconfig = function()
+  return '󱃾 ' .. vim.split(vim.b.terminal_kubecontext, "/")[2]
+end
+
+local term_aws_profile = function()
+  return vim.b.terminal_aws_profile and (' ' .. vim.b.terminal_aws_profile) or ''
+end
+
 local term_extension = {
   sections = {
     lualine_a = { 'mode' },
-    lualine_b = { term_branch },
+    lualine_b = { term_branch, term_kubeconfig, term_aws_profile },
     lualine_c = { term_cwd },
     lualine_z = { 'location' },
   },
@@ -65,7 +77,7 @@ require('lualine').setup({
   },
   sections = {
     lualine_b = {
-      { 'b:gitsigns_head' },
+      git_branch,
       {
         'diff',
         source = diff_source

@@ -266,9 +266,9 @@ chpwd()
 {
 	if [ -n "$NVIM" ] && [ -z "$WIDGET" ] && [ "$ZSH_SUBSHELL" -eq 0 ]; then
 		setopt LOCAL_OPTIONS NO_NOTIFY NO_MONITOR
-		nvim --server "$NVIM" \
-			--remote-send "<cmd>silent TerminalLCD ${PWD}<cr>" \
-			>/dev/null 2>&1 & disown >/dev/null 2>&1
+		( nvim --server "$NVIM" \
+			--remote-send "<cmd>silent TerminalStatusUpdate ${PWD} $(kubectl config current-context) ${AWS_PROFILE-}<cr>" \
+			>/dev/null 2>&1 ) & disown >/dev/null 2>&1
 	fi
 }
 
