@@ -24,7 +24,9 @@ return {
       end
     })
     vim.cmd.colorscheme('kanagawa')
-    vim.cmd.highlight({ args = { 'link', 'gitcommitSummary', 'Identifier' } })
-    -- vim.cmd.KanagawaCompile() -- run manually instead
+    vim.cmd.highlight({
+      args = { 'link', 'gitcommitSummary', 'Identifier' }
+      -- vim.cmd.KanagawaCompile() -- run manually instead
+    })
   end,
 }
