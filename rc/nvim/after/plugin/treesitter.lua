@@ -48,6 +48,10 @@ require('nvim-treesitter.configs').setup({
         ['if'] = '@function.inner',
         ['ac'] = '@class.outer',
         ['ic'] = '@class.inner',
+        ['ii'] = '@conditional.inner',
+        ['ai'] = '@conditional.outer',
+        ['il'] = '@loop.inner',
+        ['al'] = '@loop.outer',
       },
     },
     move = {
