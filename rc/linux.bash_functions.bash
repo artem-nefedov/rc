@@ -573,18 +573,20 @@ clean_asdf_versions()
 	done < <(asdf list)
 }
 
-crossplane_query() {
-	local xr ns claim refs no_name
-
-	xr=$1
-	ns=$2
-	claim=$3
-	shift 3
-
-	refs=$(set -x; kubectl get "$xr" -l "crossplane.io/claim-namespace=$ns,crossplane.io/claim-name=$claim" -o jsonpath='{.items[*].spec.resourceRefs}')
-	kubectl get $(jq -r '.[] | select(.name) | .kind + "." + (.apiVersion|split("/")[0]) + "/" + .name' <<< "$refs") "$@"
-	no_name=$(jq -r '.[] | select(.name == null)' <<< "$refs")
-	test -z "$no_name" || printf '\n === RESOURCES WITH NO NAME ===\n\n%s\n' "$no_name"
+p()
+{
+	case $# in
+		1 )
+			export AWS_PROFILE="$1"
+			;;
+		0 )
+			unset AWS_PROFILE
+			;;
+		* )
+			echo >&2 "Too many arguments. AWS_PROFILE value or nothing expected."
+			return 1
+			;;
+	esac
 }
 
 funcgrep ()
