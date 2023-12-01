@@ -78,6 +78,7 @@ local restore_session = function()
   local curwin = vim.fn.winnr()
   vim.api.nvim_exec2('tabdo windo call TerminalCD() | ' ..
     curtab .. 'tabn\n' .. curwin .. 'wincmd w', {})
+  vim.fn.DeleteHiddenBuffers()
 end
 
 -- these must be set after nvimux setup to override nvimux defaults
