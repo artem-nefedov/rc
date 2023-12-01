@@ -577,9 +577,11 @@ p()
 {
 	case $# in
 		1 )
+			echo "Set AWS_PROFILE to '$1'"
 			export AWS_PROFILE="$1"
 			;;
 		0 )
+			echo "Unset AWS_PROFILE"
 			unset AWS_PROFILE
 			;;
 		* )
