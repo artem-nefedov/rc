@@ -269,8 +269,15 @@ chpwd()
 		(
 		branch=$(git symbolic-ref --short HEAD 2>/dev/null || git rev-parse --short HEAD 2>/dev/null || echo --)
 		kubectx=$(kubectl config current-context 2>/dev/null || echo /--)
+
+		if [[ "${AWS_ACCESS_KEY_ID+x} ${AWS_SECRET_ACCESS_KEY+x} ${AWS_SESSION_TOKEN+x}" == *x* ]]; then
+			profile='SESSION'
+		else
+			profile=${AWS_PROFILE-}
+		fi
+
 		nvim --server "$NVIM" \
-			--remote-send "<cmd>silent TerminalStatusUpdate $PWD $branch $kubectx ${AWS_PROFILE-}<cr>" \
+			--remote-send "<cmd>silent TerminalStatusUpdate $PWD $branch $kubectx $profile<cr>" \
 			>/dev/null 2>&1 ) & disown >/dev/null 2>&1
 	fi
 }
