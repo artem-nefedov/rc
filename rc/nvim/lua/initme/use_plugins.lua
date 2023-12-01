@@ -7,9 +7,6 @@ require('lazy').setup({
   -- Detect tabstop and shiftwidth automatically
   'tpope/vim-sleuth',
 
-  -- netrw improvements
-  'tpope/vim-vinegar',
-
   -- -- repeat custom commands with "."
   'tpope/vim-repeat',
 
@@ -74,6 +71,7 @@ require('lazy').setup({
   require('plugme.debug'),
   require('plugme.pantran'),
   require('plugme.bufferline'),
+  require('plugme.oil'),
 
   -- colorschemes
   -- 'ellisonleao/gruvbox.nvim',

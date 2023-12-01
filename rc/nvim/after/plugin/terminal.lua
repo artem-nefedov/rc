@@ -58,16 +58,10 @@ local zsh_term_patterm = 'term://*/zsh'
 
 vim.api.nvim_create_autocmd({ 'BufReadPre', 'FileReadPre' },
   { pattern = '*', callback = 'InheritExitRemap', group = aug })
-vim.api.nvim_create_autocmd('FileType', { pattern = 'netrw', callback = 'InheritExitRemap', group = aug })
+vim.api.nvim_create_autocmd('FileType', { pattern = 'oil:///*', callback = 'InheritExitRemap', group = aug })
 vim.api.nvim_create_autocmd('WinEnter', { pattern = 'term://*', command = 'stopinsert', group = aug })
 vim.api.nvim_create_autocmd('TermEnter', { pattern = zsh_term_patterm, callback = term_enter, group = aug })
 vim.api.nvim_create_autocmd('TermOpen', { pattern = zsh_term_patterm, callback = term_init, group = aug })
-
--- augroup Term
---         au!
---         au Filetype netrw vmap <buffer> E .call feedkeys("i<end>\<lt>c-a>") \| term<cr>
---         au Filetype netrw nmap <buffer> E VE
--- augroup END
 
 local session_file = vim.fn.stdpath('data') .. '/session'
 
