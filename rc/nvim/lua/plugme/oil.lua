@@ -22,9 +22,6 @@ return {
         require("oil.actions").parent.callback()
         vim.cmd.lcd(require("oil").get_current_dir())
       end,
-      ["_"] = "actions.open_cwd",
-      ["`"] = "actions.cd",
-      ["~"] = "actions.tcd",
       ["ge"] = "actions.open_terminal",
       ["gs"] = "actions.change_sort",
       ["gx"] = "actions.open_external",
