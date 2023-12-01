@@ -72,6 +72,7 @@ require('lazy').setup({
   require('plugme.pantran'),
   require('plugme.bufferline'),
   require('plugme.oil'),
+  require('plugme.trouble'),
 
   -- colorschemes
   -- 'ellisonleao/gruvbox.nvim',
