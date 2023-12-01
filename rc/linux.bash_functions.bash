@@ -575,6 +575,16 @@ clean_asdf_versions()
 
 p()
 {
+	if [[ "$*" == '-' ]]; then
+		echo "Unset AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY AWS_SESSION_TOKEN"
+		unset AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY AWS_SESSION_TOKEN
+		return 0
+	fi
+
+	if [[ "${AWS_ACCESS_KEY_ID+x} ${AWS_SECRET_ACCESS_KEY+x} ${AWS_SESSION_TOKEN+x}" == *x* ]]; then
+		echo >&2 "WARNING: Session-specific AWS variables are set (clear with '-')"
+	fi
+
 	case $# in
 		1 )
 			echo "Set AWS_PROFILE to '$1'"
@@ -585,7 +595,7 @@ p()
 			unset AWS_PROFILE
 			;;
 		* )
-			echo >&2 "Too many arguments. AWS_PROFILE value or nothing expected."
+			echo >&2 "Too many arguments. AWS_PROFILE value, '-', or nothing expected."
 			return 1
 			;;
 	esac
