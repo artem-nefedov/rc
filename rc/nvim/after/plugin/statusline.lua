@@ -4,7 +4,7 @@ local git_branch = function()
 end
 
 local term_branch = function()
-  return ' ' .. vim.fn.GetGitBranch(0)
+  return ' ' .. vim.b.terminal_git_branch
 end
 
 local term_cwd = function()
@@ -12,7 +12,7 @@ local term_cwd = function()
 end
 
 local term_kubeconfig = function()
-  return '󱃾 ' .. vim.split(vim.b.terminal_kubecontext, "/")[2]
+  return '󱃾 ' .. vim.b.terminal_kube_ctx
 end
 
 local term_aws_profile = function()

@@ -266,11 +266,19 @@ chpwd()
 {
 	if [ -n "$NVIM" ] && [ -z "$WIDGET" ] && [ "$ZSH_SUBSHELL" -eq 0 ]; then
 		setopt LOCAL_OPTIONS NO_NOTIFY NO_MONITOR
-		( nvim --server "$NVIM" \
-			--remote-send "<cmd>silent TerminalStatusUpdate ${PWD} $(kubectl config current-context) ${AWS_PROFILE-}<cr>" \
+		(
+		branch=$(git symbolic-ref --short HEAD 2>/dev/null || git rev-parse --short HEAD 2>/dev/null || echo --)
+		kubectx=$(kubectl config current-context 2>/dev/null || echo /--)
+		nvim --server "$NVIM" \
+			--remote-send "<cmd>silent TerminalStatusUpdate $PWD $branch $kubectx ${AWS_PROFILE-}<cr>" \
 			>/dev/null 2>&1 ) & disown >/dev/null 2>&1
 	fi
 }
+
+# shellcheck disable=2034
+PERIOD=3
+# shellcheck disable=2034
+periodic_functions=( chpwd )
 
 if [ -n "$NVIM" ]; then
 	export VISUAL="nvr-wrapper.sh"

@@ -48,15 +48,6 @@ function! InheritExitRemap()
   endtry
 endfunction
 
-function! GetGitBranch(force)
-  if ( exists('b:allow_git_refresh') && b:allow_git_refresh ) || a:force
-    let b:last_read_git_branch = systemlist('git symbolic-ref --short HEAD 2>/dev/null || git rev-parse --short HEAD 2>/dev/null || echo --')[0]
-    return b:last_read_git_branch
-  else
-    return exists('b:last_read_git_branch') ? b:last_read_git_branch : '--'
-  endif
-endfunction
-
 function! UnmapZ()
   try
     nunmap <buffer> ZQ

@@ -24,13 +24,11 @@ local term_init = function()
   vim.opt_local.signcolumn = 'no'
   vim.w.nvr_term = vim.api.nvim_get_current_buf()
   vim.b.terminal_pwd = vim.fn.getcwd()
-  vim.b.terminal_kubecontext = ''
 
   vim.keymap.set('n', '<c-w><c-l>', vim.fn.TerminalReset, { buffer = true, desc = 'Terminal reset' })
   vim.keymap.set('n', 'C', '"tyiW"tpi', { silent = true, buffer = true, desc = 'Copy word into terminal' })
   vim.keymap.set('n', 'yy', term_yank, { silent = true, buffer = true, desc = 'Yank line and remove prompt symbol' })
 
-  vim.fn.GetGitBranch(1)
   require('lualine').refresh()
   -- setlocal nonumber norelativenumber sidescrolloff=0 scrolloff=0
   -- let w:nvr_term = bufnr('%')
@@ -51,7 +49,6 @@ local term_init = function()
 end
 
 local term_enter = function()
-  vim.b.allow_git_refresh = 1
   vim.cmd.lcd(vim.b.terminal_pwd)
 end
 
@@ -64,8 +61,6 @@ vim.api.nvim_create_autocmd({ 'BufReadPre', 'FileReadPre' },
 vim.api.nvim_create_autocmd('FileType', { pattern = 'netrw', callback = 'InheritExitRemap', group = aug })
 vim.api.nvim_create_autocmd('WinEnter', { pattern = 'term://*', command = 'stopinsert', group = aug })
 vim.api.nvim_create_autocmd('TermEnter', { pattern = zsh_term_patterm, callback = term_enter, group = aug })
-vim.api.nvim_create_autocmd('TermLeave',
-  { pattern = zsh_term_patterm, command = 'let b:allow_git_refresh = 0', group = aug })
 vim.api.nvim_create_autocmd('TermOpen', { pattern = zsh_term_patterm, callback = term_init, group = aug })
 
 -- augroup Term
@@ -104,7 +99,7 @@ vim.keymap.set('t', '<c-x><c-r>', function()
 end, { desc = 'Restore session (term)' })
 
 local term_insert_branch = function()
-  vim.api.nvim_exec2('call chansend(b:terminal_job_id, GetGitBranch(0))', {})
+  vim.api.nvim_exec2('call chansend(b:terminal_job_id, b:terminal_git_branch)', {})
 end
 
 -- insert branch in terminal
@@ -124,7 +119,8 @@ vim.keymap.set('n', '<c-x><c-e>', term_goto_bound, { desc = 'Jump back to bound 
 
 vim.api.nvim_create_user_command('TerminalStatusUpdate', function(opts)
   vim.b.terminal_pwd = opts.fargs[1]
-  vim.b.terminal_kubecontext = opts.fargs[2]
-  vim.b.terminal_aws_profile = opts.fargs[3]
+  vim.b.terminal_git_branch = opts.fargs[2]
+  vim.b.terminal_kube_ctx = vim.split(opts.fargs[3], '/')[2]
+  vim.b.terminal_aws_profile = opts.fargs[4]
   vim.cmd.lcd(opts.fargs[1])
 end, { desc = 'Use by chpwd() function in shell', nargs = '+' })
