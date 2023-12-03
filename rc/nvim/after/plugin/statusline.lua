@@ -29,16 +29,12 @@ local term_extension = {
   filetypes = { '' }, -- terminal doesn't have a type
 }
 
-local oil = require('oil')
-
-local oil_dir = function()
-  return oil.get_current_dir()
-end
+local oil_getcwd = require('oil').get_current_dir
 
 local oil_extension = {
   sections = {
     lualine_a = { 'mode' },
-    lualine_b = { oil_dir },
+    lualine_b = { oil_getcwd },
     lualine_z = { function()
       return 'oil'
     end },
