@@ -42,6 +42,29 @@ local oil_extension = {
   filetypes = { 'oil' },
 }
 
+-- stolen from builtin "trouble" extension
+local trouble_get_mode = function()
+  local opts = require('trouble.config').options
+
+  local words = vim.split(opts.mode, '[%W]')
+  for i, word in ipairs(words) do
+    words[i] = word:sub(1, 1):upper() .. word:sub(2)
+  end
+
+  return table.concat(words, ' ')
+end
+
+local trouble_extension = {
+  sections = {
+    lualine_a = { 'mode' },
+    lualine_b = { trouble_get_mode },
+    lualine_x = { 'filetype' },
+    lualine_y = { 'progress' },
+    lualine_z = { 'location' }
+  },
+  filetypes = { 'Trouble' },
+}
+
 local cache_aug = vim.api.nvim_create_augroup('lualine_cache', { clear = true })
 vim.api.nvim_create_autocmd({ 'CursorHold', 'BufWritePost' },
   { pattern = '*', command = 'unlet! b:lualine_cache', group = cache_aug })
@@ -106,5 +129,11 @@ require('lualine').setup({
       },
     },
   },
-  extensions = { term_extension, oil_extension, 'fugitive' },
+  extensions = {
+    term_extension,
+    oil_extension,
+    trouble_extension,
+    'fugitive',
+    'nvim-dap-ui',
+  },
 })
