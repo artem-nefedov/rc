@@ -29,6 +29,23 @@ local term_extension = {
   filetypes = { '' }, -- terminal doesn't have a type
 }
 
+local oil = require('oil')
+
+local oil_dir = function()
+  return oil.get_current_dir()
+end
+
+local oil_extension = {
+  sections = {
+    lualine_a = { 'mode' },
+    lualine_b = { oil_dir },
+    lualine_z = { function()
+      return 'oil'
+    end },
+  },
+  filetypes = { 'oil' },
+}
+
 local cache_aug = vim.api.nvim_create_augroup('lualine_cache', { clear = true })
 vim.api.nvim_create_autocmd({ 'CursorHold', 'BufWritePost' },
   { pattern = '*', command = 'unlet! b:lualine_cache', group = cache_aug })
@@ -93,5 +110,5 @@ require('lualine').setup({
       },
     },
   },
-  extensions = { term_extension, 'fugitive' },
+  extensions = { term_extension, oil_extension, 'fugitive' },
 })
