@@ -63,6 +63,12 @@ require('lazy').setup({
     },
   },
 
+  {
+    'chrishrb/gx.nvim',
+    dependencies = { 'nvim-lua/plenary.nvim' },
+    config = true,
+  },
+
   require('plugme.lspconfig'),
   require('plugme.cmp'),
   require('plugme.colorscheme'),
