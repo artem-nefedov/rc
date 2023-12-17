@@ -69,6 +69,11 @@ require('lazy').setup({
     config = true,
   },
 
+  {
+    'kylechui/nvim-surround',
+    config = true,
+  },
+
   require('plugme.lspconfig'),
   require('plugme.cmp'),
   require('plugme.colorscheme'),
