@@ -156,7 +156,7 @@ if [ -f "$git_comp" ] && ! grep -q '^_git_sw ' "$git_comp"; then
 fi
 
 mkdir -p "$HOME"/.config/alacritty
-ln -sf "$script_dir"/alacritty.yml "$HOME"/.config/alacritty/alacritty.yml
+ln -sf "$script_dir"/alacritty.toml "$HOME"/.config/alacritty/alacritty.toml
 
 if ! grep -qx '# RC AUTOJUMP' "$rc"; then
 cat >> "$rc" <<'EOF'
