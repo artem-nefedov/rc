@@ -17,6 +17,7 @@ require('lazy').setup({
   'mbbill/undotree',
 
   -- Read without distractions
+  'folke/twilight.nvim',
   'folke/zen-mode.nvim',
 
   -- Terminal multiplexer
