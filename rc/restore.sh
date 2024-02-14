@@ -158,13 +158,11 @@ fi
 mkdir -p "$HOME"/.config/alacritty
 ln -sf "$script_dir"/alacritty.toml "$HOME"/.config/alacritty/alacritty.toml
 
-if ! grep -qx '# RC AUTOJUMP' "$rc"; then
-cat >> "$rc" <<'EOF'
+if ! grep -qx '# RC ZOXIDE' "$rc"; then
+cat >> "$rc" <<EOF
 
-# RC AUTOJUMP
-if [ -f /opt/homebrew/etc/profile.d/autojump.sh ]; then
-  . /opt/homebrew/etc/profile.d/autojump.sh
-fi
+# RC ZOXIDE
+eval "\$(zoxide init ${with_sh} --cmd j)"
 EOF
 fi
 
