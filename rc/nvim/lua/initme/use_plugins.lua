@@ -70,12 +70,6 @@ require('lazy').setup({
   },
 
   {
-    'chrishrb/gx.nvim',
-    dependencies = { 'nvim-lua/plenary.nvim' },
-    config = true,
-  },
-
-  {
     'kylechui/nvim-surround',
     config = true,
   },
@@ -90,6 +84,7 @@ require('lazy').setup({
   require('plugme.bufferline'),
   require('plugme.oil'),
   require('plugme.trouble'),
+  require('plugme.gx'),
 
   -- colorschemes
   -- 'ellisonleao/gruvbox.nvim',
