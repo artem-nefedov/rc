@@ -1,3 +1,9 @@
+local function link(src, target)
+  vim.cmd.highlight({
+    args = { 'link', src, target }
+  })
+end
+
 return {
   'rebelot/kanagawa.nvim',
   priority = 1000,
@@ -24,9 +30,11 @@ return {
       end
     })
     vim.cmd.colorscheme('kanagawa')
-    vim.cmd.highlight({
-      args = { 'link', 'gitcommitSummary', 'Identifier' }
-      -- vim.cmd.KanagawaCompile() -- run manually instead
-    })
+    link('gitcommitSummary', 'Identifier')
+    link('@markup.raw.markdown_inline', '@keyword.return')
+    link('@markup.link.url.markdown_inline', 'String')
+    link('@markup.link.label.markdown_inline', 'Special')
+    link('@markup.list.markdown', 'Special')
+    -- vim.cmd.KanagawaCompile() -- run manually instead
   end,
 }
