@@ -106,7 +106,7 @@ vim.api.nvim_create_autocmd('BufReadPost', {
     local bufnr = vim.api.nvim_get_current_buf()
 
     vim.defer_fn(function()
-      vim.lsp.buf_detach_client(bufnr, vim.lsp.get_active_clients({ name = 'yamlls' })[1].id)
+      vim.lsp.buf_detach_client(bufnr, vim.lsp.get_clients({ name = 'yamlls' })[1].id)
     end, 2000)
   end,
   group = lsp_aug,
