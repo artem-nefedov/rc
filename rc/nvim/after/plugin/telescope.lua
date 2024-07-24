@@ -9,10 +9,15 @@ require('telescope').setup({
       },
     },
   },
+  extensions = {
+    ['ui-select'] = {
+      require('telescope.themes').get_dropdown(),
+    },
+  },
 })
 
--- Enable telescope fzf native (must be installed)
 require('telescope').load_extension('fzf')
+require('telescope').load_extension('ui-select')
 
 -- See `:help telescope.builtin`
 local telescope_builtin = require('telescope.builtin')
