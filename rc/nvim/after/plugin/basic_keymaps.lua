@@ -55,3 +55,7 @@ nmap('*', search_without_bounds, { desc = 'Search under cursor and store string 
 
 nmap('<c-x>>', "<cmd>call TabMove('+')<cr>", { desc = 'Move tab to the right' })
 nmap('<c-x><', "<cmd>call TabMove('-')<cr>", { desc = 'Move tab to the left' })
+
+nmap(',h', function()
+  vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+end, { desc = 'Toggle LSP inlay [H]ints' } )
