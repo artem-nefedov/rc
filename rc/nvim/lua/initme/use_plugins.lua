@@ -74,6 +74,7 @@ require('lazy').setup({
     config = true,
   },
 
+  require('plugme.lazydev'),
   require('plugme.lspconfig'),
   require('plugme.cmp'),
   require('plugme.colorscheme'),
@@ -86,15 +87,7 @@ require('lazy').setup({
   require('plugme.trouble'),
   require('plugme.gx'),
 
-  -- colorschemes
-  -- 'ellisonleao/gruvbox.nvim',
-  -- 'navarasu/onedark.nvim',
-  -- 'rose-pine/neovim',
-  -- 'catppuccin/nvim',
-  -- 'loctvl842/monokai-pro.nvim',
-  -- 'folke/tokyonight.nvim',
-  -- 'Shatur/neovim-ayu',
-  -- "rebelot/kanagawa.nvim",
+  { 'Bilal2453/luvit-meta', lazy = true },
 
   -- "gc" to comment visual regions/lines
   { 'numToStr/Comment.nvim',         opts = {} },
