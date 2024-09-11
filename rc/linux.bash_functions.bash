@@ -608,6 +608,28 @@ p()
 	esac
 }
 
+inc_chart_rc_ver()
+{
+	local chart="$1/Chart.yaml"
+	if [ ! -f "$chart" ]; then
+		echo >&2 "'$1' is not a chart directory"
+		return 1
+	fi
+
+	local field old_ver new_ver rc
+
+	for field in version appVersion; do
+		old_ver=$(sed -rn "s/^${field}: (.+)$/\\1/p" "$chart")
+		rc=${old_ver##*.}
+		rc=$(( rc + 1 )) || return 1
+		new_ver="${old_ver%.*}.$rc"
+		sed -r -i.bu "s/^(${field}:) .+$/\\1 ${new_ver}/" "$chart"
+		rm -f "${chart}.bu"
+	done
+
+	echo "From '$old_ver' to '$new_ver'"
+}
+
 funcgrep ()
 {
 	local opt cmd
