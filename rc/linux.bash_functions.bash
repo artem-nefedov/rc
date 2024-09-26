@@ -611,6 +611,13 @@ p()
 inc_chart_rc_ver()
 {
 	local field old_ver new_ver rc chart
+	local delete_rc=false
+
+	if [ "$1" = '-d' ]; then
+		delete_rc=true
+		shift
+	fi
+
 	while [ $# -ne 0 ]; do
 		echo "With directory '$1'"
 		chart="$1/Chart.yaml"
@@ -621,9 +628,15 @@ inc_chart_rc_ver()
 
 		for field in version appVersion; do
 			old_ver=$(sed -rn "s/^${field}: (.+)$/\\1/p" "$chart")
-			rc=${old_ver##*.}
-			rc=$(( rc + 1 )) || return 1
-			new_ver="${old_ver%.*}.$rc"
+
+			if $delete_rc; then
+				new_ver="${old_ver%%-*}"
+			else
+				rc=${old_ver##*.}
+				rc=$(( rc + 1 )) || return 1
+				new_ver="${old_ver%.*}.$rc"
+			fi
+
 			sed -r -i.bu "s/^(${field}:) .+$/\\1 ${new_ver}/" "$chart"
 			rm -f "${chart}.bu"
 		done
