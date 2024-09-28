@@ -188,4 +188,5 @@ fi
 
 if [ "$(uname)" = Darwin ]; then
 	ln -s "$script_dir/Brewfile" "$HOME/.Brewfile"
+	ln -s "$script_dir/mac.tigrc" "$HOME/.tigrc"
 fi

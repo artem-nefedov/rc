@@ -99,3 +99,4 @@ alias ka='k apply -f'
 alias kd='k delete -f'
 alias kg='k get'
 
+alias t='tig --first-parent'
