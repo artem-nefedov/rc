@@ -78,6 +78,7 @@ bind main - ?git push origin
 bind main ! ?+git reset --hard %(commit)
 bind refs ! ?+git reset --hard origin/%(branch)
 bind generic cp ?git cherry-pick %(commit)
+bind generic co ?git checkout %(commit)
 bind main R ?git rebase -i %(commit)^
 bind diff R ?git rebase -i %(commit)^
 bind main 1 ?+git revert --no-edit %(commit)
