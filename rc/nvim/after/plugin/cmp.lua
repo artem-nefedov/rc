@@ -15,7 +15,8 @@ cmp.setup({
   completion = {
     completeopt = 'menu,menuone,noinsert'
   },
-  mapping = cmp.mapping.preset.insert {
+  mapping = cmp.mapping.preset.insert({
+    ['<C-y>'] = cmp.mapping(function(fallback) fallback() end, { 'i' }), -- keep original c-y behavior
     -- ['<C-n>']     = cmp.mapping.select_next_item(),
     -- ['<C-p>']     = cmp.mapping.select_prev_item(),
     ['<C-d>']     = cmp.mapping.scroll_docs(-4),
@@ -66,7 +67,7 @@ cmp.setup({
 
     -- For more advanced Luasnip keymaps (e.g. selecting choice nodes, expansion) see:
     --    https://github.com/L3MON4D3/LuaSnip?tab=readme-ov-file#keymaps
-  },
+  }),
   sources = {
     {
       name = 'lazydev',
