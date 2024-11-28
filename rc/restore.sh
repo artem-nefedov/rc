@@ -75,7 +75,7 @@ fi
 nvimdir="$HOME/.config/nvim"
 mkdir -p "$nvimdir"
 (
-	cd "$script_dir/nvim-lua/" &&
+	cd "$script_dir/nvim/" &&
 	for f in "$PWD"/*; do
 		if [ ! -e "$nvimdir/${f##*/}" ]; then
 			ln -s "$f" "$nvimdir/${f##*/}" || exit 1
