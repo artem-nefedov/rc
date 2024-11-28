@@ -316,17 +316,6 @@ ramdisk_toggle()
 	fi
 }
 
-arc_get_message()
-{
-	if [ -z "$1" ]; then
-		echo >&2 "Usage: ${FUNCNAME[0]} <revision_id>"
-		return 1
-	fi
-
-	echo '{"revision_id":"'"${1##*D}"'","edit":"false"}' | arc call-conduit differential.getcommitmessage | \
-		\grep -Po '(?<="response":").+(?="\}$)' | sed -e 's/\\n/\n/g' -e 's,\\/,/,g'
-}
-
 cdw()
 {
 	local i
