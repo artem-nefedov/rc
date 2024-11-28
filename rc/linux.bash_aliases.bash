@@ -48,10 +48,6 @@ elif [ -n "$ZSH_VERSION" ]; then
 
 	WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
 
-	# doesn't work everywhere - for some platforms, restore.sh edits "git-completion.bash"
-	# _git-sw() { _arguments -w -S -s '*: :__git_ignore_line_inside_arguments __git_branch_names'; }
-	_git_sw() { __gitcomp_direct "$(__git_heads "" "$track" " ")"; }
-
 	bindkey "^[[1~" beginning-of-line
 	bindkey "^[[4~" end-of-line
 

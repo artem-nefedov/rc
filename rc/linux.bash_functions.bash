@@ -635,6 +635,20 @@ inc_chart_rc_ver()
 	done
 }
 
+(( $+functions[_git-sw] )) ||
+_git-sw() {
+  local curcontext="$curcontext" state line expl ret=1
+  local -A opt_args
+
+  _arguments -C -s -S $endopt \
+    '1: :->branches' && ret=0
+
+  _alternative \
+    'branches::__git_branch_names' && ret=0
+
+  return $ret
+}
+
 funcgrep ()
 {
 	local opt cmd
