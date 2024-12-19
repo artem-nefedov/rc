@@ -69,6 +69,8 @@ require('lazy').setup({
     },
   },
 
+  'tommcdo/vim-fubitive',
+
   {
     'kylechui/nvim-surround',
     config = true,
