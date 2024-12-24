@@ -57,4 +57,4 @@ function! UnmapZ()
 endfunction
 
 " fix undo via ctrl+shift+minus in terminal
-tnoremap <c-s--> <cmd>call chansend(&channel, "\<c-X>\<c-U>")<cr>
+tnoremap <c-s--> <cmd>call chansend(&channel, "\<c-_>")<cr>
