@@ -35,7 +35,7 @@ local term_init = function()
   -- let b:terminal_pwd = getcwd()
   -- nmap <buffer> o i
   -- nmap <buffer> O i
-  -- nmap <buffer> R :call chansend(b:terminal_job_id, "\<lt>c-a>\<lt>c-k>. ~/.zshrc\<lt>cr>")<cr>
+  -- nmap <buffer> R :call chansend(&channel, "\<lt>c-a>\<lt>c-k>. ~/.zshrc\<lt>cr>")<cr>
   -- nnoremap <buffer> <c-w><c-l> :call Terminal_reset()<cr>
   -- nnoremap <buffer> D "tyiW:call Terminal_open()<cr>
   -- nnoremap <buffer> C "tyiW"tpi
@@ -94,7 +94,7 @@ vim.keymap.set('t', '<c-x><c-r>', function()
 end, { desc = 'Restore session (term)' })
 
 local term_insert_branch = function()
-  vim.api.nvim_exec2('call chansend(b:terminal_job_id, b:terminal_git_branch)', {})
+  vim.fn.chansend(vim.o.channel, vim.b.terminal_git_branch)
 end
 
 -- insert branch in terminal
