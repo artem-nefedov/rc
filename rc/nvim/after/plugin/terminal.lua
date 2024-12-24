@@ -94,7 +94,7 @@ vim.keymap.set('t', '<c-x><c-r>', function()
 end, { desc = 'Restore session (term)' })
 
 local term_insert_branch = function()
-  vim.fn.chansend(vim.o.channel, vim.b.terminal_git_branch)
+  vim.api.nvim_chan_send(vim.o.channel, vim.b.terminal_git_branch)
 end
 
 -- insert branch in terminal
