@@ -2,13 +2,13 @@
 function! TerminalCD()
   if &buftype == 'terminal' && expand('%') =~# '[\/]zsh$'
     let b:terminal_pwd = getcwd()
-    call chansend(b:terminal_job_id, 'NVIM= cd "' . b:terminal_pwd . "\"\<cr>")
+    call chansend(&channel, 'NVIM= cd "' . b:terminal_pwd . "\"\<cr>")
   endif
 endfunction
 
 function! TerminalReset()
   setlocal scrollback=1
-  call chansend(b:terminal_job_id, "\<c-l>")
+  call chansend(&channel, "\<c-l>")
   sleep 100m
   setlocal scrollback=-1
   startinsert
@@ -55,3 +55,6 @@ function! UnmapZ()
   catch
   endtry
 endfunction
+
+" fix undo via ctrl+shift+minus in terminal
+tnoremap <c-s--> <cmd>call chansend(&channel, "\<c-X>\<c-U>")<cr>
