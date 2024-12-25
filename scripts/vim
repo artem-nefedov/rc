@@ -1,9 +1,7 @@
-#!/bin/bash
+#!/usr/bin/env dash
 
-if [ -n "$NVIM" ] && which nvr >/dev/null 2>&1; then
-	nvr --remote-tab-wait --nostart -c 'call UnmapZ()' '+setlocal bufhidden=wipe' "$@"
-elif which nvim >/dev/null 2>&1; then
-	nvim "$@"
+if [ -n "$NVIM" ]; then
+	exec nvr --remote-tab-wait --nostart -c 'call UnmapZ()' '+setlocal bufhidden=wipe' "$@"
 else
-	"$(which -a vim | tail -n 1)" "$@"
+	exec nvim "$@"
 fi

@@ -1,7 +1,0 @@
-#!/bin/bash
-
-if which pydoc3 >/dev/null 2>&1; then
-	pydoc3 "$@"
-else
-	"$(which -a pydoc | tail -n 1)" "$@"
-fi

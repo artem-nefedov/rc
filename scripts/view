@@ -1,9 +1,3 @@
-#!/bin/bash
+#!/usr/bin/env dash
 
-if which nvim >/dev/null 2>&1; then
-	nvim -R "$@"
-elif which vim >/dev/null 2>&1; then
-	vim -R "$@"
-else
-	vi -R "$@"
-fi
+exec nvim -R "$@"
