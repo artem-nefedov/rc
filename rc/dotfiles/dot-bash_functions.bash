@@ -13,18 +13,6 @@ convert_to_bytes()
 	esac
 }
 
-
-vba_escape()
-{
-	perl -0pe '
-		s/"/""/g;
-		s/\r//g; s/\n+$//;
-		s/\n/" & vbCrLf & _\n"/g;
-		s/^/"/; s/$/"\n/;
-		'
-		#s/(.{40})/$1" & _\n/g;
-}
-
 is_inside_git()
 {
 	if [ "$(git rev-parse --is-inside-work-tree 2>/dev/null)" = 'true' ]; then
@@ -117,17 +105,6 @@ tonix ()
 	fi
 }
 
-sgrep ()
-{
-	[ -z "$1" ] && echo 'grep -ERI --exclude-dir=\\.svn --exclude-dir=\\.git "$@" [.|path]' && return 1
-	local grepdir last
-	eval last="\$$#"
-	if [ ! -d "$last" ]; then
-		grepdir='.'
-	fi
-	grep -ERI --exclude-dir=\\.svn --exclude-dir=\\.git "$@" ${grepdir:+"$grepdir"}
-}
-
 stylize ()
 {
 	if [ -z "$1" ]; then
@@ -149,16 +126,6 @@ stylize ()
 		fi
 		shift
 	done
-}
-
-sudo_wrapper ()
-{
-	case "$*" in
-	-*)
-		\sudo "$@";;
-	*)
-		\sudo env "PATH=$PATH" "$@";;
-	esac
 }
 
 is_power_of_2 ()
@@ -293,29 +260,6 @@ else
 	export VISUAL="nvim -p"
 fi
 
-ramdisk_toggle()
-{
-	local size
-	if [ -e /dev/ram0 ]; then
-		if [ -z "$1" ]; then
-			echo -n "Remove ramdisk module? "
-			read -r size
-		fi
-		echo sudo modprobe -r brd
-		sudo modprobe -r brd
-	else
-		if [ -z "$1" ]; then
-			echo -n "Size for ramdisk: "
-			read -r size
-		else
-			size="$1"
-		fi
-		size="$(( $(convert_to_bytes "$size") / 1024 ))"
-		echo sudo modprobe brd rd_size="$size"
-		sudo modprobe brd rd_size="$size"
-	fi
-}
-
 cdw()
 {
 	local i
@@ -348,87 +292,6 @@ cdr()
 	fi
 }
 
-renew_kpass()
-{
-	local pass kt principal
-	local admin='-admin'
-
-	if [ "$1" = '-u' ]; then
-		admin=''
-		shift
-	fi
-
-	principal="$(whoami)${admin}"
-	kt="$HOME/${principal}.keytab"
-	echo "Renewing $kt"
-
-	if [ -n "$1" ]; then
-		pass="$1"
-	else
-		echo -n 'Password: '
-		read -r -s pass
-	fi
-
-	rm -f "$kt"
-
-	if [ "$(uname)" = Darwin ]; then
-		ktutil -k "$kt" add \
-			--password="$pass" \
-			-p "${principal}@ALIGNTECH.COM" \
-			-e aes256-cts-hmac-sha1-96 \
-			-V 1
-	else
-		printf '%s\n%s\n%s\n%s\n' \
-			"addent -password -p ${principal} -k 1 -e aes256-cts" \
-			"$pass" \
-			"wkt $kt" \
-			'quit' | ktutil
-	fi
-}
-
-ki()
-{
-	local principal
-	local admin='-admin'
-
-	if [ "$1" = '-u' ]; then
-		admin=''
-		shift
-	fi
-
-	principal="$(whoami)${admin}"
-	kt="$HOME/${principal}.keytab"
-	echo "Using $kt"
-
-	kinit -t "$kt" "${principal}@ALIGNTECH.COM"
-	klist
-}
-
-xdocker()
-{
-	local XAUTH=/tmp/.docker.xauth
-	touch "$XAUTH"
-	xauth nlist "$DISPLAY" | sed -e 's/^..../ffff/' | \
-		xauth -f "$XAUTH" nmerge -
-	chmod 777 "$XAUTH"
-	docker run -it -e "DISPLAY=$DISPLAY" -v "$XAUTH:$XAUTH" \
-		-e "XAUTHORITY=$XAUTH" "--net=host" "$@"
-}
-
-f()
-{
-	local b
-	test -n "${2-}" || { echo >&2 bad format; return 1; }
-	b=$(echo "${*// /_}" | tr '[:upper:]' '[:lower:]' \
-		| awk -F- '{print toupper($1)"-"$2}')
-	b="feature/$b"
-	if git rev-parse -q --verify "$b" >/dev/null; then
-		git checkout "$b"
-	else
-		git checkout -b "$b"
-	fi
-}
-
 unalias gpr 2>/dev/null || true
 
 gpr()
@@ -442,48 +305,6 @@ gpr()
 			open "$f2"
 		fi
 	done < <(git push -u 2>&1)
-}
-
-aws()
-{
-	local help=false
-	local -a cmd
-
-	case "$1" in
-		cfn)
-			shift
-			set -- cloudformation "$@"
-			;;
-		r53)
-			shift
-			set -- route53 "$@"
-			;;
-	esac
-
-	while [ $# -ne 0 ]; do
-		case "$1" in
-			c|-c)
-				cmd+=( '--region' 'cn-north-1' )
-				;;
-			-p)
-				cmd+=( '--profile' )
-				;;
-			h|-h|help|--help)
-				cmd+=( help )
-				help=true
-				;;
-			*)
-				cmd+=( "$1" )
-				;;
-		esac
-		shift
-	done
-
-	if $help; then
-		/opt/homebrew/bin/aws "${cmd[@]}"
-	else
-		PAGER='' /opt/homebrew/bin/aws "${cmd[@]}"
-	fi
 }
 
 kconf_unset()
@@ -650,25 +471,3 @@ if [ -n "$ZSH_VERSION" ]; then
 		return $ret
 	}
 fi
-
-funcgrep ()
-{
-	local opt cmd
-	if [ "$1" = '-d' ]; then
-		opt='-i'
-		cmd='d'
-		shift
-	else
-		opt='-n'
-		cmd='p'
-	fi
-	local func="$1"
-	if [ -z "$1" ]; then
-		func='\w\+'
-	fi
-	shift
-	if [ -z "$1" ]; then
-		set -- *
-	fi
-	sed -r $opt "/$func\\s*\\(\\)/,/^\\s*}/$cmd" "$@"
-}
