@@ -7,6 +7,7 @@ script_dir=$(cd "$(dirname "$0")" && pwd)
 
 hash curl
 hash git
+hash stow
 
 if [ "$1" = '-z' ]; then
 	if [ -z "$ZSH" ]; then
@@ -41,9 +42,8 @@ fi
 
 cd "$(dirname "$0")"
 
-for f in linux.{gitconfig,ctags} linux.bash_{aliases,functions}.bash linux.tmux.conf; do
-	ln -f -s "$script_dir/$f" "$HOME/${f#linux}"
-done
+mkdir -p "$HOME/.config"
+stow --dotfiles -t "$HOME" dotfiles
 
 if [ -d "$ZSH" ] && [ -e "$HOME/.zshrc" ]; then
 	with_sh='zsh'
@@ -70,25 +70,6 @@ if ! grep -Fq .bash_aliases.bash "$rc" || ! grep -Fq .bash_functions.bash "$rc";
 	PATH="$HOME/git/personal/linux_shell_scripts:$HOME/bin:$PATH"
 
 	EOF
-fi
-
-nvimdir="$HOME/.config/nvim"
-mkdir -p "$nvimdir"
-(
-	cd "$script_dir/nvim/" &&
-	for f in "$PWD"/*; do
-		if [ ! -e "$nvimdir/${f##*/}" ]; then
-			ln -s "$f" "$nvimdir/${f##*/}" || exit 1
-		fi
-	done
-)
-
-tmux_plug='https://github.com/tmux-plugins/tpm'
-
-if hash tmux 2>/dev/null; then
-	if [ ! -d ~/.tmux/plugins/tpm ]; then
-		git clone "$tmux_plug" ~/.tmux/plugins/tpm
-	fi
 fi
 
 if uname | grep -q CYGWIN; then
@@ -155,9 +136,6 @@ if [ -f "$git_comp" ] && ! grep -q '^_git_sw ' "$git_comp"; then
 	echo '_git_sw () { __gitcomp_direct "$(__git_heads "" "$track" " ")"; }' >> "$git_comp"
 fi
 
-mkdir -p "$HOME"/.config/alacritty
-ln -sf "$script_dir"/alacritty.toml "$HOME"/.config/alacritty/alacritty.toml
-
 if ! grep -qx '# RC ZOXIDE' "$rc"; then
 cat >> "$rc" <<EOF
 
@@ -184,9 +162,4 @@ add-zsh-hook -d preexec omz_termsupport_preexec
 # export ZSH_AUTOSUGGEST_MANUAL_REBIND=1
 # _zsh_autosuggest_bind_widgets # run manually if needed
 EOF
-fi
-
-if [ "$(uname)" = Darwin ]; then
-	ln -s "$script_dir/Brewfile" "$HOME/.Brewfile"
-	ln -s "$script_dir/mac.tigrc" "$HOME/.tigrc"
 fi
