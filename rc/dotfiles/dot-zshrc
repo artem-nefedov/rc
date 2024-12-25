@@ -117,7 +117,7 @@ if [ -e ~/.bash_functions.bash ]; then
 . ~/.bash_functions.bash
 fi
 
-PATH="$HOME/git/personal/linux_shell_scripts:$HOME/bin:$PATH"
+PATH="$HOME/git/personal/scripts:$HOME/bin:$PATH"
 
 PATH="$HOME/git/diff-so-fancy:$PATH"
 
