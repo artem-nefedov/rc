@@ -28,15 +28,10 @@ if [ "$1" = '-z' ]; then
 		fi
 	fi
 
-	zsh_completions=${ZSH_CUSTOM:-"$HOME/.oh-my-zsh/custom"}/plugins/zsh-completions
+	zsh_completions=${ZSH_CUSTOM:-${ZSH:-$HOME/.oh-my-zsh}/custom}/plugins/zsh-completions
 	if [ ! -d "$zsh_completions" ]; then
 		git clone https://github.com/zsh-users/zsh-completions "$zsh_completions"
-		sed -i.bu 's/plugins=(/&zsh-completions /' ~/.zshrc
-		if ! grep -q -F 'autoload -U compinit && compinit' ~/.zshrc; then
-			echo 'autoload -U compinit && compinit' >> ~/.zshrc
-		fi
 		rm -f ~/.zcompdump
-		rm -f ~/.zshrc.bu
 	fi
 fi
 
@@ -44,68 +39,6 @@ cd "$(dirname "$0")"
 
 mkdir -p "$HOME/.config"
 stow --dotfiles -t "$HOME" dotfiles
-
-if [ -d "$ZSH" ] && [ -e "$HOME/.zshrc" ]; then
-	with_sh='zsh'
-elif [ -n "$BASH_VERSION" ]; then
-	with_sh='bash'
-else
-	echo >&2 "Unsupported shell: $SHELL"
-	exit 1
-fi
-
-rc="$HOME/.${with_sh}rc"
-
-if ! grep -Fq .bash_aliases.bash "$rc" || ! grep -Fq .bash_functions.bash "$rc"; then
-	cat >> "$rc" <<-'EOF'
-
-	if [ -e ~/.bash_aliases.bash ]; then
-		. ~/.bash_aliases.bash
-	fi
-
-	if [ -e ~/.bash_functions.bash ]; then
-		. ~/.bash_functions.bash
-	fi
-
-	PATH="$HOME/git/personal/linux_shell_scripts:$HOME/bin:$PATH"
-
-	EOF
-fi
-
-if uname | grep -q CYGWIN; then
-if ! grep -q x11_toggle "$rc"; then
-cat >> "$rc" <<'EOF'
-
-x11_toggle ()
-{
-	if ps aux | grep -q XWin; then
-		echo -n 'Stop X server? '
-		read -r
-		kill -- -$(ps aux | awk '/[x]init/{print $2}')
-		while ps aux | grep -q XWin; do
-			sleep 1
-		done
-		pstree
-		unset DISPLAY
-	else
-		echo -n 'Start X server? '
-		read -r
-		startxwin -- -multiwindow -listen tcp >/dev/null 2>&1 &
-		while ! ps aux | grep -q XWin; do
-			sleep 1
-		done
-		pstree
-		export DISPLAY='localhost:0.0'
-	fi
-}
-
-EOF
-fi
-
-if [ -f "/cygdrive/c/Users/$(whoami)/Documents/WindowsPowerShell/profile.ps1" ]; then
-	cp profile.ps1 "/cygdrive/c/Users/$(whoami)/Documents/WindowsPowerShell/profile.ps1"
-fi
-fi
 
 if [ -d "$HOME/.jira.d/" ]; then
 	ln -s "$script_dir/jira.config.yml" "$HOME/.jira.d/config.yml"
@@ -121,45 +54,4 @@ if [ -d "$HOME/git" ]; then
 	if [ ! -d "$HOME/git/diff-so-fancy" ]; then
 		git clone "https://github.com/so-fancy/diff-so-fancy"
 	fi
-
-	# shellcheck disable=2016
-	if ! grep -Fq '$HOME/git/diff-so-fancy' "$rc"; then
-		echo 'PATH="$HOME/git/diff-so-fancy:$PATH"' >> "$rc"
-	fi
-fi
-
-git_comp='/usr/local/share/zsh/site-functions/git-completion.bash'
-
-if [ -f "$git_comp" ] && ! grep -q '^_git_sw ' "$git_comp"; then
-	#sed -i.bu 's/-d|--delete|-m|--move)/-D|&/' "$git_comp"
-	# shellcheck disable=2016
-	echo '_git_sw () { __gitcomp_direct "$(__git_heads "" "$track" " ")"; }' >> "$git_comp"
-fi
-
-if ! grep -qx '# RC ZOXIDE' "$rc"; then
-cat >> "$rc" <<EOF
-
-# RC ZOXIDE
-eval "\$(zoxide init ${with_sh} --cmd j)"
-EOF
-fi
-
-if ! grep -qx '# RC ASDF' "$rc"; then
-cat >> "$rc" <<'EOF'
-
-# RC ASDF
-. /opt/homebrew/opt/asdf/libexec/asdf.sh
-EOF
-fi
-
-if [ "$with_sh" = zsh ] && ! grep -qx '# OPTIMIZE PERFORMANCE' "$rc"; then
-cat >> "$rc" <<'EOF'
-
-# OPTIMIZE PERFORMANCE
-add-zsh-hook -d precmd omz_termsupport_cwd
-add-zsh-hook -d precmd omz_termsupport_precmd
-add-zsh-hook -d preexec omz_termsupport_preexec
-# export ZSH_AUTOSUGGEST_MANUAL_REBIND=1
-# _zsh_autosuggest_bind_widgets # run manually if needed
-EOF
 fi
