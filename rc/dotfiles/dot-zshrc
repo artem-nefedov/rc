@@ -147,5 +147,7 @@ source <(fzf --zsh)
 
 PATH="$PATH:$HOME/.rd/bin"
 
+export AWS_PAGER=''
+
 # print performance results
 # zprof
