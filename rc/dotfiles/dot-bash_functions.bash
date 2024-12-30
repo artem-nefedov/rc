@@ -22,7 +22,7 @@ is_inside_git()
 	fi
 }
 
-dirdiff ()
+dirdiff()
 {
 	local diff cG cN line type
 	local -a find=( find . \( \! -path '*/.git/*' -a \! -path '*/.svn/*' \) )
@@ -96,7 +96,7 @@ dirdiff ()
 	fi
 }
 
-tonix ()
+tonix()
 {
 	if [ -z "$1" ]; then
 		sed 's,\\,/,g'
@@ -105,7 +105,7 @@ tonix ()
 	fi
 }
 
-stylize ()
+stylize()
 {
 	if [ -z "$1" ]; then
 		echo "Usage: stylize [-t] <file list>"
@@ -139,7 +139,7 @@ is_power_of_2 ()
 	fi
 }
 
-artifacts_unpack ()
+artifacts_unpack()
 {
 	(
 		base="$PWD"
@@ -159,12 +159,12 @@ artifacts_unpack ()
 	)
 }
 
-h ()
+h()
 {
 	help -m "$@" | less
 }
 
-md ()
+md()
 {
 	if [ -z "$1" ]; then
 		echo "md <dir_name>"
