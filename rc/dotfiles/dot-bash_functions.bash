@@ -269,7 +269,7 @@ cdr()
 	done
 
 	if [ -n "$d" ]; then
-		cd "$d"
+		cd "$d" || return
 	else
 		echo >&2 "Git root not found"
 		return 1
