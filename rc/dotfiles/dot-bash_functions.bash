@@ -194,8 +194,8 @@ v()
 			else
 				v+=(
 				-c "let b:nvr_jump = bufnr('#')"
-				-c 'nnoremap <buffer> ZQ :call GoBack(0)<cr>i'
-				-c 'nnoremap <buffer> ZZ :call GoBack(1)<cr>i'
+				-c 'nnoremap <buffer> ZQ <cmd>call GoBack(0)<cr>i'
+				-c 'nnoremap <buffer> ZZ <cmd>call GoBack(1)<cr>i'
 				--remote
 				)
 			fi
