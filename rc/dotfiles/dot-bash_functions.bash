@@ -260,22 +260,6 @@ else
 	export VISUAL="nvim -p"
 fi
 
-cdw()
-{
-	local i
-	if [ -n "$BASH_VERSION" ]; then
-		i=0 # BASH arrays start at 0
-	elif [[ "$(setopt)" != *ksharrays* ]]; then
-		i=1 # ZSH arrays start at 1
-	fi
-
-	if [ "$PWD" = "${CD_WORK_DIR[i]}" ]; then
-		\cd "${CD_WORK_DIR[i+1]}"
-	else
-		\cd "${CD_WORK_DIR[i]}"
-	fi
-}
-
 cdr()
 {
 	local d="$PWD"
