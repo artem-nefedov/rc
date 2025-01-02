@@ -116,6 +116,7 @@ stylize()
 		dryrun=1
 		shift
 	fi
+	# shellcheck disable=2016
 	cmd='s/\]\s+\b(do|then)\b/\]; $1/g'
 	while [ $# -ne 0 ]; do
 		echo -e "\033[1;32m=== $1 ===\033[0m"
@@ -151,10 +152,10 @@ artifacts_unpack()
 		fi
 
 		for f in "$@"; do
-			cd "$f"
+			cd "$f" || return 1
 			cat   ./*.tar.gz ./*.tgz | tar xzi
 			rm -f ./*.tar.gz ./*.tgz
-			cd "$base"
+			cd "$base" || return 1
 		done
 	)
 }
@@ -171,7 +172,7 @@ md()
 		return 0
 	fi
 	mkdir -p "$1"
-	cd "$1"
+	cd "$1" || return 1
 }
 
 nvr_reset_mouse()
@@ -448,11 +449,15 @@ update_arc() {
 }
 
 if [ -n "$ZSH_VERSION" ]; then
+	# shellcheck disable=2154
 	(( $+functions[_git-sw] )) ||
 	_git-sw() {
+		# shellcheck disable=2034
 		local curcontext="$curcontext" state line expl ret=1
+		# shellcheck disable=2034
 		local -A opt_args
 
+		# shellcheck disable=2086
 		_arguments -C -s -S $endopt \
 			'1: :->branches' && ret=0
 
