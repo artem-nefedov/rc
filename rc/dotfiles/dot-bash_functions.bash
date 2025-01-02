@@ -437,6 +437,16 @@ inc_chart_rc_ver()
 	done
 }
 
+update_arc() {
+	local file
+	file=$(jfrog rt search '**/arc-cli_Darwin_arm64.tar.gz' \
+		| jq -r '[ .[] | select(.props["build.number"][0] | test("^[0-9]+[.][0-9]+[.][0-9]+$")) ] | sort_by(.created) | last | .path') || return 1
+	rm -rf arc-cli-dist
+	jfrog rt dl --explode "$file" || return 1
+	mv -v arc-cli-dist/*/arc "$HOME/bin/"
+	rm -rf arc-cli-dist
+}
+
 if [ -n "$ZSH_VERSION" ]; then
 	(( $+functions[_git-sw] )) ||
 	_git-sw() {
