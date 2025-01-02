@@ -1,1 +1,1 @@
-exec nvr --nostart --remote-tab-wait '+setlocal bufhidden=wipe' "$@"
+exec nvr --nostart --remote-tab-wait -c 'setlocal bufhidden=wipe' "$@"

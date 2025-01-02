@@ -1,7 +1,7 @@
 #!/usr/bin/env dash
 
 if [ -n "$NVIM" ]; then
-	exec nvr --nostart --remote-tab-wait -c 'call UnmapZ()' '+setlocal bufhidden=wipe' "$@"
+	exec nvr --nostart --remote-tab-wait -c 'call UnmapZ()' -c 'setlocal bufhidden=wipe' "$@"
 else
 	exec nvim "$@"
 fi

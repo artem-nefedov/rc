@@ -214,9 +214,6 @@ v()
 		fi
 
 		nvim --listen /tmp/nvimsocket +term
-		if [ -n "$oldterm" ]; then
-			TERM=$oldterm
-		fi
 	elif [ $# -ne 0 ] || [ -t 0 ]; then
 		"${v[@]}" "$@"
 	else
