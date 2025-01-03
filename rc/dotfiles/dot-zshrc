@@ -110,26 +110,19 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 if [ -e ~/.bash_aliases.bash ]; then
-. ~/.bash_aliases.bash
+  . "$HOME/.bash_aliases.bash"
 fi
 
 if [ -e ~/.bash_functions.bash ]; then
-. ~/.bash_functions.bash
+  . "$HOME/.bash_functions.bash"
 fi
 
-PATH="$HOME/git/personal/scripts:$HOME/bin:$PATH"
-
-PATH="$HOME/git/diff-so-fancy:$PATH"
 
 # RC ZOXIDE
 eval "$(zoxide init zsh --cmd j)"
 
 # RC ASDF
 . /opt/homebrew/opt/asdf/libexec/asdf.sh
-
-PATH="$HOME/git/devops/ccbm-aws-debugging-cli:$PATH"
-PATH="$HOME/go/bin:$PATH"
-PATH="$HOME/.krew/bin:$PATH"
 
 # TODO: see if this can be optimized
 autoload -U +X bashcompinit && bashcompinit
@@ -145,7 +138,14 @@ add-zsh-hook -d precmd _omz_async_request
 
 source <(fzf --zsh)
 
-PATH="$PATH:$HOME/.rd/bin"
+if [[ "$PATH" != *:"$HOME/.rd/bin" ]]; then
+  PATH="$HOME/git/personal/scripts:$HOME/bin:$PATH"
+  PATH="$HOME/git/diff-so-fancy:$PATH"
+  PATH="$HOME/git/devops/ccbm-aws-debugging-cli:$PATH"
+  PATH="$HOME/go/bin:$PATH"
+  PATH="$HOME/.krew/bin:$PATH"
+  PATH="$PATH:$HOME/.rd/bin"
+fi
 
 export AWS_PAGER=''
 
