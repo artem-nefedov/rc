@@ -58,6 +58,9 @@ alias kg='k get'
 
 alias t='tig --first-parent'
 
-alias :h=help_vim
-alias :help=help_vim
 alias :e=v
+
+alias :h='call_vim_cmd help'
+alias :help='call_vim_cmd help'
+alias :man='call_vim_cmd Man'
+alias :Man='call_vim_cmd Man'

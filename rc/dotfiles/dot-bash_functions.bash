@@ -449,8 +449,8 @@ update_arc() {
 	rm -rf arc-cli-dist
 }
 
-help_vim() {
-	nvim --server "$NVIM" --remote-send "<cmd>help ${*}<cr>"
+call_vim_cmd() {
+	nvim --server "$NVIM" --remote-send "<cmd>${*}<cr>"
 }
 
 if [ -n "$ZSH_VERSION" ]; then
