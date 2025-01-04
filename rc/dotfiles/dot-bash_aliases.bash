@@ -57,3 +57,7 @@ alias kd='k delete -f'
 alias kg='k get'
 
 alias t='tig --first-parent'
+
+alias :h=help_vim
+alias :help=help_vim
+alias :e=v

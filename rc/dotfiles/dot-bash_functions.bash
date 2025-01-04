@@ -449,6 +449,10 @@ update_arc() {
 	rm -rf arc-cli-dist
 }
 
+help_vim() {
+	nvim --server "$NVIM" --remote-send "<cmd>help ${*}<cr>"
+}
+
 if [ -n "$ZSH_VERSION" ]; then
 	# shellcheck disable=2154
 	(( $+functions[_git-sw] )) ||
