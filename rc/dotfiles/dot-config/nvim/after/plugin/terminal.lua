@@ -115,7 +115,7 @@ vim.keymap.set('n', '<c-x><c-e>', term_goto_bound, { desc = 'Jump back to bound 
 vim.api.nvim_create_user_command('TerminalStatusUpdate', function(opts)
   vim.b.terminal_pwd = opts.fargs[1]
   vim.b.terminal_git_branch = opts.fargs[2]
-  vim.b.terminal_kube_ctx = vim.split(opts.fargs[3], '/')[2]
+  vim.b.terminal_kube_ctx = opts.fargs[3]
   vim.b.terminal_aws_profile = opts.fargs[4]
   vim.cmd.lcd(opts.fargs[1])
 end, { desc = 'Use by chpwd() function in shell', nargs = '+' })
