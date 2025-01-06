@@ -234,7 +234,7 @@ chpwd()
 		setopt LOCAL_OPTIONS NO_NOTIFY NO_MONITOR
 		(
 		branch=$(git symbolic-ref --short HEAD 2>/dev/null || git rev-parse --short HEAD 2>/dev/null || echo --)
-		kubectx=$(yq -e '.["current-context"]' "$HOME/.kube/config" 2>/dev/null || echo --)
+		kubectx=$(yq -e '.["current-context"]' "$HOME/.kube/config" 2>/dev/null || echo /--)
 
 		if [[ "$kubectx" == */* ]]; then
 			kubectx=${kubectx##*/}
