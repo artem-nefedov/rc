@@ -460,6 +460,21 @@ call_vim_cmd() {
 	nvim --server "$NVIM" --remote-send "<cmd>${*}<cr>"
 }
 
+kap() {
+	kubectl get pod -A --field-selector spec.nodeName="$1"
+}
+
+knn() {
+	local node
+	node=$(kubectl get pod -o yaml "$@" | "grep" --color=auto nodeName:)
+	if [ -n "$node" ]; then
+		echo "$node"
+		kubectl get nodeclaim | "grep" -F "${node##* }"
+	else
+		return 1
+	fi
+}
+
 if [ -n "$ZSH_VERSION" ]; then
 	# shellcheck disable=2154
 	(( $+functions[_git-sw] )) ||
