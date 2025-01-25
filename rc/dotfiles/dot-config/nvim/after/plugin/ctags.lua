@@ -2,7 +2,7 @@ local tags_regenerate = function()
   local root = vim.fs.root(0, '.git')
 
   if root == nil then
-    error('Could not find git root')
+    error('Could not find git root in ' .. vim.uv.cwd())
   end
 
   print('Started re-generating tags in ' .. root)
