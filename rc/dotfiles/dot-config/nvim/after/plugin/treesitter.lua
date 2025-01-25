@@ -14,6 +14,7 @@ require('nvim-treesitter.configs').setup({
     'json',
     'json5',
     'yaml',
+    'helm',
     'dockerfile',
     'markdown',
     'markdown_inline',

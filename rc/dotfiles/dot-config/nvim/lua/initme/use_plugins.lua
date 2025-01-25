@@ -32,9 +32,6 @@ require('lazy').setup({
     }
   },
 
-  -- helm filetype detection
-  'towolf/vim-helm',
-
   -- WTF is this
   'eandrju/cellular-automaton.nvim',
 
