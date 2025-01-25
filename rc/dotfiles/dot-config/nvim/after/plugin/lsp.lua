@@ -170,23 +170,3 @@ mason_lspconfig.setup_handlers({
     })
   end,
 })
-
--- workaround to disable yamlls for helm (TODO: find a better way)
-local lsp_aug = vim.api.nvim_create_augroup('LspPostAttach', { clear = true })
-
-vim.api.nvim_create_autocmd('BufReadPost', {
-  pattern = '*.yaml',
-  callback = function()
-    if vim.o.filetype ~= 'helm' then
-      return
-    end
-
-    -- save buffer number so it works even if buffer is switched before function triggers
-    local bufnr = vim.api.nvim_get_current_buf()
-
-    vim.defer_fn(function()
-      vim.lsp.buf_detach_client(bufnr, vim.lsp.get_clients({ name = 'yamlls' })[1].id)
-    end, 2000)
-  end,
-  group = lsp_aug,
-})
