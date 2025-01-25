@@ -33,7 +33,10 @@ require('lazy').setup({
   },
 
   -- WTF is this
-  'eandrju/cellular-automaton.nvim',
+  {
+    'artem-nefedov/cellular-automaton.nvim',
+    branch = 'fix-ft-parser-name-mismatch',
+  },
 
   -- resolve symlinks
   {
