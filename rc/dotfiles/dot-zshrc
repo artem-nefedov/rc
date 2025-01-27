@@ -144,6 +144,7 @@ if [[ "$PATH" != *:"$HOME/.rd/bin" ]]; then
   PATH="$HOME/git/devops/ccbm-aws-debugging-cli:$PATH"
   PATH="$HOME/go/bin:$PATH"
   PATH="$HOME/.krew/bin:$PATH"
+  PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
   PATH="$PATH:$HOME/.rd/bin"
 fi
 
