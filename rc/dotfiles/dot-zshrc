@@ -121,9 +121,6 @@ fi
 # RC ZOXIDE
 eval "$(zoxide init zsh --cmd j)"
 
-# RC ASDF
-. /opt/homebrew/opt/asdf/libexec/asdf.sh
-
 # TODO: see if this can be optimized
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /Users/anefedov/go/bin/gocomplete go
@@ -139,6 +136,7 @@ add-zsh-hook -d precmd _omz_async_request
 source <(fzf --zsh)
 
 if [[ "$PATH" != *:"$HOME/.rd/bin" ]]; then
+  PATH="$HOME/.asdf/shims:$PATH"
   PATH="$HOME/git/personal/scripts:$HOME/bin:$PATH"
   PATH="$HOME/git/diff-so-fancy:$PATH"
   PATH="$HOME/git/devops/ccbm-aws-debugging-cli:$PATH"
