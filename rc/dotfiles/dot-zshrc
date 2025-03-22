@@ -1,5 +1,5 @@
 fpath+="/opt/homebrew/share/zsh/site-functions"
-fpath+="$HOME/git/zsh-completions"
+fpath+="$HOME/git/zsh-completions/src"
 
 if [ -e ~/.bash_aliases.bash ]; then
   . "$HOME/.bash_aliases.bash"
