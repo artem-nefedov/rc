@@ -35,4 +35,4 @@ if [ -d "$HOME/git" ]; then
 fi
 
 mkdir -p "$HOME/.cache/zsh-compcache"
-rm -f "$HOME/.zcompdump"
+rm -f "$HOME/.zcompdump" "$HOME/.cache/compdump"
