@@ -46,4 +46,7 @@ if [[ "$PATH" != *:"$HOME/.rd/bin" ]]; then
   PATH="$PATH:$HOME/.rd/bin"
 fi
 
+HISTSIZE=50000
+SAVEHIST=$HISTSIZE
+
 export AWS_PAGER=''
