@@ -28,9 +28,13 @@ if [ -n "$ZSH_VERSION" ]; then
 	bindkey '^k' kill-line
 	bindkey '^y' yank
 	bindkey '^_' undo
-	if [ -n "$TMUX" ]; then
-		bindkey '^s' backward-word
-	fi
+
+	autoload -U up-line-or-beginning-search
+	autoload -U down-line-or-beginning-search
+	zle -N up-line-or-beginning-search
+	zle -N down-line-or-beginning-search
+	bindkey "^[[A" up-line-or-beginning-search
+	bindkey "^[[B" down-line-or-beginning-search
 fi
 
 if [ "$(uname)" != Darwin ]; then

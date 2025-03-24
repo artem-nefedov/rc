@@ -170,3 +170,5 @@ mason_lspconfig.setup_handlers({
     })
   end,
 })
+
+require('lspconfig').nushell.setup({})
