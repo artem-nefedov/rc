@@ -29,6 +29,11 @@ if [ -n "$ZSH_VERSION" ]; then
 	bindkey '^y' yank
 	bindkey '^_' undo
 
+	# home/end/delete
+	bindkey "^[[H" beginning-of-line
+	bindkey "^[[F" end-of-line
+	bindkey "^[[3~" delete-char
+
 	autoload -U up-line-or-beginning-search
 	autoload -U down-line-or-beginning-search
 	zle -N up-line-or-beginning-search
