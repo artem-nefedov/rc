@@ -46,7 +46,7 @@ if [[ "$PATH" != *:"$HOME/.rd/bin" ]]; then
   PATH="$PATH:$HOME/.rd/bin"
 fi
 
-setopt INTERACTIVE_COMMENTS
+setopt INTERACTIVE_COMMENTS NO_FLOW_CONTROL
 
 setopt HIST_IGNORE_ALL_DUPS
 HISTSIZE=10000
