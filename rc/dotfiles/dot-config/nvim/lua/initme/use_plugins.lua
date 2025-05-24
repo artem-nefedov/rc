@@ -4,9 +4,6 @@
 --  You can also configure plugins after the setup call,
 --    as they will be available in your neovim runtime.
 require('lazy').setup({
-  -- Detect tabstop and shiftwidth automatically
-  'tpope/vim-sleuth',
-
   -- -- repeat custom commands with "."
   'tpope/vim-repeat',
 
@@ -85,6 +82,7 @@ require('lazy').setup({
   require('plugme.oil'),
   require('plugme.trouble'),
   require('plugme.gx'),
+  require('plugme.guessindent'),
 
   { 'Bilal2453/luvit-meta', lazy = true },
 
