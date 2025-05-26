@@ -10,8 +10,7 @@ fi
 if [ -n "$ZSH_VERSION" ]; then
 	unalias md 2>/dev/null
 
-	# includes prompt marker for [[ and ]] jumps to work
-	PROMPT=$'%B%(?:%F{green}:%F{red})\e]133;A\e\\➜ %f%b'
+	PROMPT='%B%(?:%F{green}:%F{red})➜ %f%b'
 
 	WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
 
