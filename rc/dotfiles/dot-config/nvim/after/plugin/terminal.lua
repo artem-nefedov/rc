@@ -28,6 +28,8 @@ local term_init = function()
   vim.keymap.set('n', '<c-w><c-l>', vim.fn.TerminalReset, { buffer = true, desc = 'Terminal reset' })
   vim.keymap.set('n', 'C', '"tyiW"tpi', { silent = true, buffer = true, desc = 'Copy word into terminal' })
   vim.keymap.set('n', 'yy', term_yank, { silent = true, buffer = true, desc = 'Yank line and remove prompt symbol' })
+  vim.keymap.set('n', '[[', '?^➜ <cr>', { silent = true, buffer = true, desc = 'Jump to previous terminal prompt'})
+  vim.keymap.set('n', ']]', '/^➜ <cr>', { silent = true, buffer = true, desc = 'Jump to next terminal prompt'})
 
   require('lualine').refresh()
   -- setlocal nonumber norelativenumber sidescrolloff=0 scrolloff=0
