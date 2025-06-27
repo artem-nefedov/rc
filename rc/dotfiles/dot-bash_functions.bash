@@ -246,7 +246,7 @@ chpwd()
 		if [[ "${AWS_ACCESS_KEY_ID+x} ${AWS_SECRET_ACCESS_KEY+x} ${AWS_SESSION_TOKEN+x}" == *x* ]]; then
 			profile='SESSION'
 		else
-			profile=${AWS_PROFILE-}
+			profile="${AWS_PROFILE-}${AWS_REGION+@${AWS_REGION}}"
 		fi
 
 		nvim --server "$NVIM" \
