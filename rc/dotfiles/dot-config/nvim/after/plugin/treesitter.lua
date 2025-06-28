@@ -19,6 +19,7 @@ require('nvim-treesitter.configs').setup({
     'markdown',
     'markdown_inline',
     'nu',
+    'jq',
   },
 
   -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
