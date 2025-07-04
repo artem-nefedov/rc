@@ -475,6 +475,25 @@ knn() {
 	fi
 }
 
+commit_from_changelog() {
+	(
+		cdr
+		msg=$(git --no-pager diff --no-color CHANGELOG.md | sed -n '/^[+][*] / {s///p;}')
+
+		if [ -z "$msg" ]; then
+			msg=$(git --no-pager diff --no-color --cached CHANGELOG.md | sed -n '/^[+][*] / {s///p;}')
+		fi
+
+		if [[ "$msg" == *$'\n'* ]]; then
+			echo "Too many change lines"
+		elif [ -n "$msg" ]; then
+			git commit -a -m "$msg"
+		else
+			echo "No changes in CHANGELOG.md to commit"
+		fi
+	)
+}
+
 if [ -n "$ZSH_VERSION" ]; then
 	# shellcheck disable=2154
 	(( $+functions[_git-sw] )) ||
