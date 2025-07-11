@@ -16,6 +16,12 @@ local term_yank = function()
   vim.fn.setreg('"', vim.fn.getreg('"'):gsub('^➜ ', '', 1):gsub('\n$', '', 1))
 end
 
+local term_word_yank_and_insert = function()
+  local prev = vim.fn.getreg('"')
+  vim.cmd.normal('"tyiW"tpi')
+  vim.fn.setreg('"', prev)
+end
+
 local term_init = function()
   vim.opt_local.number = false
   vim.opt_local.relativenumber = false
@@ -26,7 +32,7 @@ local term_init = function()
   vim.b.terminal_pwd = vim.fn.getcwd()
 
   vim.keymap.set('n', '<c-w><c-l>', vim.fn.TerminalReset, { buffer = true, desc = 'Terminal reset' })
-  vim.keymap.set('n', 'C', '"tyiW"tpi', { silent = true, buffer = true, desc = 'Copy word into terminal' })
+  vim.keymap.set('n', 'C', term_word_yank_and_insert, { silent = true, buffer = true, desc = 'Copy word into terminal' })
   vim.keymap.set('n', 'yy', term_yank, { silent = true, buffer = true, desc = 'Yank line and remove prompt symbol' })
 
   vim.keymap.set('n', '[[', function() vim.cmd('keeppatterns ?^➜') end,
