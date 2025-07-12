@@ -10,7 +10,6 @@ return {
   config = function()
     require("gx").setup({
       handlers = {
-        terraform = true,
         jira = {
           name = "jira",
           handle = function(mode, line, _)
