@@ -1,6 +1,5 @@
 return {
-  "artem-nefedov/gx.nvim",
-  branch = 'terraform-ft',
+  "chrishrb/gx.nvim",
   keys = { { "gx", "<cmd>Browse<cr>", mode = { "n", "x" } } },
   cmd = { "Browse" },
   init = function ()
