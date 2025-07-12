@@ -1,15 +1,16 @@
 return {
-  "chrishrb/gx.nvim",
+  "artem-nefedov/gx.nvim",
+  branch = 'terraform-ft',
   keys = { { "gx", "<cmd>Browse<cr>", mode = { "n", "x" } } },
   cmd = { "Browse" },
   init = function ()
     vim.g.netrw_nogx = 1 -- disable netrw gx
   end,
-  dependencies = { "nvim-lua/plenary.nvim" },
   submodules = false, -- not needed, submodules are required only for tests
   config = function()
     require("gx").setup({
       handlers = {
+        terraform = true,
         jira = {
           name = "jira",
           handle = function(mode, line, _)
