@@ -56,6 +56,7 @@ alias cdg='cd ~/git'
 alias cdd='cd ~/Downloads'
 alias cdD='cd ~/Desktop'
 alias cd..='cd ..'
+alias cd-='cd -'
 
 alias -- -='cd -'
 alias ...=../..
@@ -104,3 +105,4 @@ alias :h='call_vim_cmd help'
 alias :help='call_vim_cmd help'
 alias :man='call_vim_cmd Man'
 alias :Man='call_vim_cmd Man'
+alias :mes='call_vim_cmd mes'
