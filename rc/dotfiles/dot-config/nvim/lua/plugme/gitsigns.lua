@@ -26,7 +26,7 @@ return {
         if vim.wo.diff then
           vim.cmd.normal { ']c', bang = true }
         else
-          gitsigns.nav_hunk 'next'
+          gitsigns.nav_hunk('next', {preview = true})
         end
       end, { desc = 'Jump to next Git [c]hange' })
 
@@ -34,7 +34,7 @@ return {
         if vim.wo.diff then
           vim.cmd.normal { '[c', bang = true }
         else
-          gitsigns.nav_hunk 'prev'
+          gitsigns.nav_hunk('prev', {preview = true})
         end
       end, { desc = 'Jump to previous Git [c]hange' })
 
@@ -50,7 +50,6 @@ return {
       map('n', '<leader>hs', gitsigns.stage_hunk, { desc = 'Git [s]tage hunk' })
       map('n', '<leader>hr', gitsigns.reset_hunk, { desc = 'Git [r]eset hunk' })
       map('n', '<leader>hS', gitsigns.stage_buffer, { desc = 'Git [S]tage buffer' })
-      map('n', '<leader>hu', gitsigns.undo_stage_hunk, { desc = 'Git [u]ndo stage hunk' })
       map('n', '<leader>hR', gitsigns.reset_buffer, { desc = 'Git [R]eset buffer' })
       map('n', '<leader>hp', gitsigns.preview_hunk, { desc = 'Git [p]review hunk' })
       map('n', '<leader>hb', gitsigns.blame_line, { desc = 'Git [b]lame line' })
@@ -60,7 +59,6 @@ return {
       end, { desc = 'Git [D]iff against last commit' })
       -- Toggles
       map('n', '<leader>tb', gitsigns.toggle_current_line_blame, { desc = '[T]oggle Git show [b]lame line' })
-      map('n', '<leader>tD', gitsigns.toggle_deleted, { desc = '[T]oggle Git show [D]eleted' })
     end,
   },
 }
