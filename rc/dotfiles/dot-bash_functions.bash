@@ -189,6 +189,11 @@ v()
 	local -a v
 
 	if [ -n "$NVIM" ]; then
+		if [ $# -eq 0 ] && [ -t 0 ]; then
+			nvim --server "$NVIM" --remote-send "<cmd>FindFileToUseAsArgument v<cr>"
+			return
+		fi
+
 		v=( nvr --nostart )
 		if [ "$1" != '--remote-tab' ]; then
 			if [ $# -gt 1 ]; then

@@ -62,3 +62,22 @@ end, { desc = '[S]earch current [W]ord (git dir)' })
 nmap('<leader>sg', function()
   telescope_builtin.live_grep({ cwd = find_git_root() })
 end, { desc = '[S]earch by [G]rep (git dir)' })
+
+local actions = require('telescope.actions')
+local action_state = require('telescope.actions.state')
+
+local find_file_to_use_as_argument = function(input)
+  telescope_builtin.find_files({
+    attach_mappings = function(prompt_bufnr, _)
+      actions.select_default:replace(function()
+        actions.close(prompt_bufnr)
+        local selection = action_state.get_selected_entry()
+        vim.fn.setreg('t', input.fargs[1] .. ' ' .. selection[1])
+        vim.cmd.normal('"tpi')
+      end)
+      return true
+    end
+  })
+end
+
+vim.api.nvim_create_user_command('FindFileToUseAsArgument', find_file_to_use_as_argument, {nargs = 1})
