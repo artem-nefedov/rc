@@ -86,9 +86,6 @@ require('lazy').setup({
 
   { 'Bilal2453/luvit-meta', lazy = true },
 
-  -- "gc" to comment visual regions/lines
-  { 'numToStr/Comment.nvim',         opts = {} },
-
   -- Fuzzy Finder (files, lsp, etc)
   {
     'nvim-telescope/telescope.nvim',
