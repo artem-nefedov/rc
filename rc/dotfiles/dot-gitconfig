@@ -27,12 +27,9 @@
 	b  = branch
 	d  = diff --no-prefix
 	s  = show --no-prefix
-	sbr = svn branch -d branches
 	all-diff =  !git d $(git log --pretty=format:%h master.. | tail -n 1)..HEAD
 	all-list =  !git all-diff --name-status
 	all-files = !git all-list | cut -f 2-
-	svnu = !git svn fetch && git svn rebase
-	svn-log-since = "!f() { r=$1; shift; git l \"$@\" $(git svn find-rev r${r#r})^..HEAD ; } ; f"
 	lsb = branch -a --sort=committerdate
 	alias = !git config --get-regexp '^alias\\.' | sed 's/\\t\\+//g'
 	sw = "!f() { git checkout $(if [ -z \"$1\" ]; then \
@@ -48,8 +45,6 @@
 			echo $m; \
 		fi; else echo \"$1\"; fi) && git branch; } ; f"
 
-[svn]
-	pushmergeinfo = true
 [core]
 	;pager = diff-so-fancy | less --tabs=4 -R -+F -+X
 	pager = diff-so-fancy | less --tabs=4 -RFX
