@@ -411,6 +411,8 @@ p()
 			return 1
 			;;
 	esac
+
+	chpwd # force redraw statusline
 }
 
 inc_chart_rc_ver()
