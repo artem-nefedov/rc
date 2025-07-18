@@ -8,7 +8,7 @@ local term_branch = function()
 end
 
 local term_cwd = function()
-  return vim.fn.fnamemodify(vim.fn.getcwd(), ":~:.")
+  return vim.fn.fnamemodify(vim.b.terminal_pwd or vim.fn.getcwd(), ":~:.")
 end
 
 local term_kubeconfig = function()
