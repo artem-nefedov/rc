@@ -14,10 +14,11 @@ nmap(';', 'q:i', { silent = true })
 -- ZA to quit everything
 nmap('ZA', vim.cmd.quitall, { desc = 'Quit everything' })
 
--- Diagnostic keymaps
-nmap('[d', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic message' })
-nmap(']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })
-nmap('<leader>e', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
+-- Diagnostic keymaps (adds float compared to defaults)
+nmap('[d', function() vim.diagnostic.jump({ count = -1, float = true }) end,
+  { desc = 'Go to previous diagnostic message' })
+nmap(']d', function() vim.diagnostic.jump({ count = 1, float = true }) end,
+  { desc = 'Go to next diagnostic message' })
 nmap('<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
 
 -- emacs-like shortcuts for insert/command mode (and some for normal)
