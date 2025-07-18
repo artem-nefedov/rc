@@ -483,15 +483,25 @@ knn() {
 commit_from_changelog() {
 	(
 		cdr
-		msg=$(git --no-pager diff --no-color CHANGELOG.md | sed -n '/^[+][*] / {s///p;}')
+
+		msg=$(git --no-pager diff --no-color CHANGELOG.md | grep -E '^[+]([*]|##) ')
 
 		if [ -z "$msg" ]; then
-			msg=$(git --no-pager diff --no-color --cached CHANGELOG.md | sed -n '/^[+][*] / {s///p;}')
+			msg=$(git --no-pager diff --no-color --cached CHANGELOG.md | grep -E '^[+]([*]|##) ')
+		fi
+
+		if [[ "$msg" == *$'\n'* ]]; then
+			msg=$(grep -Ev '^[+]## ' <<< "$msg")
 		fi
 
 		if [[ "$msg" == *$'\n'* ]]; then
 			echo "Too many change lines"
 		elif [ -n "$msg" ]; then
+			if [[ "$msg" == "+## "* ]]; then
+				msg="MINOR Prepare for release ${msg#* }"
+			else
+				msg=${msg#* }
+			fi
 			git commit -a -m "$msg"
 		else
 			echo "No changes in CHANGELOG.md to commit"
