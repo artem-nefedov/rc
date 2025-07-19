@@ -5,6 +5,10 @@ if [ -e ~/.bash_aliases.bash ]; then
   . "$HOME/.bash_aliases.bash"
 fi
 
+if [ -e ~/.zsh_functions.zsh ]; then
+  . "$HOME/.zsh_functions.zsh"
+fi
+
 if [ -e ~/.bash_functions.bash ]; then
   . "$HOME/.bash_functions.bash"
 fi
