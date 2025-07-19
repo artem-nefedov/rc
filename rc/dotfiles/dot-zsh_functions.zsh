@@ -1,5 +1,13 @@
 ## functions that break bash-language-server
 
+nvr_reset_mouse()
+{
+	setopt LOCAL_OPTIONS NO_NOTIFY NO_MONITOR
+	( sleep 1
+	nvr --nostart --remote -c 'set mouse=' -c 'set mouse=a'
+	) >/dev/null 2>&1 &!
+}
+
 chpwd()
 {
 	if [ -n "$NVIM" ] && [ -z "$WIDGET" ] && [ "$ZSH_SUBSHELL" -eq 0 ]; then
