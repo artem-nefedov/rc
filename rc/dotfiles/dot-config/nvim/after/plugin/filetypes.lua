@@ -4,6 +4,7 @@ vim.filetype.add({
       return path:match('/templates/.+[.]yaml$') and 'helm' or 'yaml'
     end,
     tpl = 'helm',
+    tmpl = 'gotmpl',
   },
   filename = {
     ['dot-zshrc'] = 'zsh',

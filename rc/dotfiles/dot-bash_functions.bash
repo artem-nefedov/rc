@@ -180,6 +180,8 @@ v()
 {
 	local -a v
 
+	_skip_periodic_trigger=1
+
 	if [ -n "$NVIM" ]; then
 		if [ $# -eq 0 ] && [ -t 0 ]; then
 			nvim --server "$NVIM" --remote-send "<cmd>FindFileToUseAsArgument v<cr>"
@@ -197,6 +199,13 @@ v()
 				-c 'nnoremap <buffer> ZZ <cmd>call GoBack(1)<cr>i'
 				--remote
 				)
+
+				if [[ "$1" == */* ]]; then
+					local d=${1%/*}
+					if [ -d "$d" ]; then
+						v+=( -c "lcd $d" )
+					fi
+				fi
 			fi
 		fi
 	else

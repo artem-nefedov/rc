@@ -35,7 +35,16 @@ chpwd()
 	fi
 }
 
+_periodic_chpwd()
+{
+	if [ -n "${_skip_periodic_trigger-}" ]; then
+		unset _skip_periodic_trigger
+		return 0
+	fi
+	chpwd
+}
+
 # shellcheck disable=2034
 PERIOD=3
 # shellcheck disable=2034
-periodic_functions=( chpwd )
+periodic_functions=( _periodic_chpwd )

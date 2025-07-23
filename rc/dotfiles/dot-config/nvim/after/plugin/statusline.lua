@@ -8,7 +8,11 @@ local term_branch = function()
 end
 
 local term_cwd = function()
-  return vim.fn.fnamemodify(vim.b.terminal_pwd or vim.fn.getcwd(), ":~:.")
+  if vim.o.buftype == 'terminal' then
+    return vim.fn.fnamemodify(vim.b.terminal_pwd or vim.fn.getcwd(), ":~:.")
+  else
+    return vim.fn.fnamemodify(vim.fn.expand('%'), ":~:.")
+  end
 end
 
 local term_kubeconfig = function()
