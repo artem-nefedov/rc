@@ -469,7 +469,10 @@ commit_from_changelog() {
 			echo "Too many change lines"
 		elif [ -n "$msg" ]; then
 			if [[ "$msg" == "+## "* ]]; then
-				msg="MINOR Prepare for release ${msg#* }"
+				local msg_short="${msg#* }"
+				msg="MINOR Prepare for release $msg_short"
+				printf '%s' "Release $msg_short" | pbcopy
+				echo "Copied to clipboard: Release $msg_short"
 			else
 				msg=${msg#* }
 			fi
