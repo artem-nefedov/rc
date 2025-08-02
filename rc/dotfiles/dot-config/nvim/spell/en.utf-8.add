@@ -4,3 +4,17 @@ NodePool
 EC2NodeClass
 NodeClass
 addon
+ECR
+Artifactory
+AWS
+thirdparty
+buildsystem
+aws
+proxied
+artifactory
+VPC
+VPCs
+dev
+prd
+STG
+JSON
