@@ -1,0 +1,8 @@
+vim.keymap.set({'i', 't', 's'}, '<M-s>', 'ß')
+vim.keymap.set({'i', 't', 's'}, '<M-S-s>', 'ẞ')
+vim.keymap.set({'i', 't', 's'}, '<M-a>', 'ä')
+vim.keymap.set({'i', 't', 's'}, '<M-S-a>', 'Ä')
+vim.keymap.set({'i', 't', 's'}, '<M-o>', 'ö')
+vim.keymap.set({'i', 't', 's'}, '<M-S-o>', 'Ö')
+vim.keymap.set({'i', 't', 's'}, '<M-u>', 'ü')
+vim.keymap.set({'i', 't', 's'}, '<M-S-u>', 'Ü')
