@@ -10,8 +10,5 @@ vim.g.editorconfig = false
 vim.g.loaded_ruby_provider = 0
 vim.g.loaded_perl_provider = 0
 
--- gdoc api (for gdoc.vim)
-vim.g.path_to_creds = '~/.config/gdoc-nvim/credentials.json'
-
 require('initme.ensure_lazy')
 require('initme.use_plugins')

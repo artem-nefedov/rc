@@ -70,8 +70,6 @@ require('lazy').setup({
     config = true,
   },
 
-  'Aadv1k/gdoc.vim',
-
   require('plugme.lazydev'),
   require('plugme.lspconfig'),
   require('plugme.cmp'),
