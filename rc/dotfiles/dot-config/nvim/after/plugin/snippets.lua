@@ -7,15 +7,6 @@ local t = ls.text_node
 -- local i = ls.insert_node
 local c = ls.choice_node
 
--- ls.change_choice(-1) jumps back
-vim.keymap.set({ "i", "s" }, "<C-l>", function()
-  if ls.choice_active() then
-    ls.change_choice(1)
-  else
-    ls.expand_or_jump()
-  end
-end, { desc = 'Luasnip next choice' })
-
 ls.add_snippets("sh", {
   s("ssc", { t("# shellcheck disable=") }),
   s("sss", { t("# shellcheck source=") }),
