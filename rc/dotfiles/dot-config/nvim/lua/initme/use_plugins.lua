@@ -70,7 +70,6 @@ require('lazy').setup({
     config = true,
   },
 
-  require('plugme.lazydev'),
   require('plugme.lspconfig'),
   require('plugme.cmp'),
   require('plugme.colorscheme'),

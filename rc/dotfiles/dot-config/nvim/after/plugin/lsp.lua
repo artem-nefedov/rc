@@ -171,10 +171,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
   end,
 })
 
--- nvim-cmp supports additional completion capabilities, so broadcast that to servers
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
-
 -- Ensure the servers above are installed
 require('mason-lspconfig').setup({
   ensure_installed = vim.tbl_keys(servers),
@@ -186,7 +182,5 @@ for server, config in pairs(servers) do
     vim.lsp.config(server, config)
   end
 end
-
-vim.lsp.config('*', { capabilities = capabilities })
 
 require('lspconfig').nushell.setup({})

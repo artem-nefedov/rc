@@ -1,12 +1,15 @@
-return {
-  -- Autocompletion
-  'hrsh7th/nvim-cmp',
+return { -- Autocompletion
+  'saghen/blink.cmp',
+  event = 'VimEnter',
+  version = '1.*',
   dependencies = {
-    'hrsh7th/cmp-nvim-lsp',
-    { 'L3MON4D3/LuaSnip', build = 'make install_jsregexp' },
-    'saadparwaiz1/cmp_luasnip',
-    'hrsh7th/cmp-path',
-    'hrsh7th/cmp-buffer',
-    -- 'hrsh7th/cmp-cmdline',
+    -- Snippet Engine
+    {
+      'L3MON4D3/LuaSnip',
+      version = '2.*',
+      build = 'make install_jsregexp',
+      opts = {},
+    },
+    'folke/lazydev.nvim',
   },
 }
