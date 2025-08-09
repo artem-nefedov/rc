@@ -45,7 +45,7 @@ cmp.setup({
   },
 
   sources = {
-    default = { 'lsp', 'path', 'snippets', 'lazydev', 'jira' },
+    default = { 'lsp', 'path', 'snippets', 'lazydev', 'buffer', 'jira' },
     providers = {
       lazydev = { module = 'lazydev.integrations.blink', score_offset = 100 },
       jira = {
