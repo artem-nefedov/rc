@@ -53,6 +53,11 @@ cmp.setup({
         module = 'cmp-jira-issues',
         opts = {},
       },
+      buffer = {
+        should_show_items = function(ctx)
+          return ctx.trigger.initial_kind ~= 'trigger_character'
+        end,
+      },
     },
   },
 
