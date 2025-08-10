@@ -52,6 +52,9 @@ cmp.setup({
         name = 'Jira',
         module = 'cmp-jira-issues',
         opts = {},
+        should_show_items = function(ctx)
+          return ctx.trigger.initial_character == '['
+        end,
       },
       buffer = {
         should_show_items = function(ctx)

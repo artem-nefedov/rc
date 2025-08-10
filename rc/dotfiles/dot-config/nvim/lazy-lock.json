@@ -3,7 +3,7 @@
   "blink.cmp": { "branch": "main", "commit": "bae4bae0eedd1fa55f34b685862e94a222d5c6f8" },
   "bufferline.nvim": { "branch": "main", "commit": "655133c3b4c3e5e05ec549b9f8cc2894ac6f51b3" },
   "cellular-automaton.nvim": { "branch": "main", "commit": "1606e9d5d04ff254023c3f3c62842d065708d6d3" },
-  "cmp-jira-issues.nvim": { "branch": "main", "commit": "04bceeb6adac367d60d1432bdbf08a6ce3d6a822" },
+  "cmp-jira-issues.nvim": { "branch": "main", "commit": "6a6a64d69bbe3e4dd0137e89162ea3a2f8c60ce1" },
   "core.nvim": { "branch": "main", "commit": "26ada48758e73ff3763ac134a9a0da320a7762e4" },
   "fidget.nvim": { "branch": "main", "commit": "dafd592c7bdbb6cd6d17d3c9a1a8abf3930138c1" },
   "git-log.nvim": { "branch": "main", "commit": "1bac391255db8416565835ab7103f35d5beafff2" },
