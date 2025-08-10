@@ -177,11 +177,14 @@ automatically-unhide-macos-hidden-apps = false
     # alt-shift-y = 'move-node-to-workspace Y'
     # alt-shift-z = 'move-node-to-workspace Z'
 
-    # custom
+    # custom apps
     alt-q = 'exec-and-forget open -a Alacritty'
     alt-w = 'exec-and-forget open -a "Brave Browser"'
     alt-e = 'exec-and-forget open -a Finder'
     alt-r = 'exec-and-forget open -a Preview'
+
+    # custom other
+    alt-0 = 'balance-sizes'
 
     # See: https://nikitabobko.github.io/AeroSpace/commands#workspace-back-and-forth
     alt-tab = 'workspace-back-and-forth'
