@@ -186,6 +186,20 @@ automatically-unhide-macos-hidden-apps = false
 
     # custom other
     alt-0 = 'balance-sizes'
+    alt-c = '''exec-and-forget timeout 10s osascript -e '
+    tell application "System Events" to tell process "GlobalProtect"
+      click menu bar item 1 of menu bar 2
+      repeat until (exists window 1)
+        delay 0.1
+      end repeat
+      if exists of UI element "Connect" of window 1 then
+        click button "Connect" of window 1
+      else
+        click button "Disconnect" of window 1
+      end if
+      click menu bar item 1 of menu bar 2
+    end tell'
+    '''
 
     # See: https://nikitabobko.github.io/AeroSpace/commands#workspace-back-and-forth
     alt-tab = 'workspace-back-and-forth'
