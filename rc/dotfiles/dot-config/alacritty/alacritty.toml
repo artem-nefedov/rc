@@ -4,37 +4,41 @@ animation = "EaseOutExpo"
 color = "#909090"
 duration = 10
 
-[colors.bright]
-black = "#555555"
-blue = "#0d68f4"
-cyan = "#6bc9dd"
-green = "#50fa7b"
-magenta = "#cd44c6"
-red = "#bb3333"
-white = "#ffffff"
-yellow = "#c1ca6c"
-
-[colors.cursor]
-cursor = "#bbbbbb"
-text = "#ffffff"
+[colors.primary]
+background = '#1f1f28'
+foreground = '#dcd7ba'
 
 [colors.normal]
-black = "#000000"
-blue = "#0d68f4"
-cyan = "#6bc9dd"
-green = "#10ba3b"
-magenta = "#ff79c6"
-red = "#aa2222"
-white = "#bbbbbb"
-yellow = "#c1ca6c"
+black   = '#090618'
+red     = '#c34043'
+green   = '#76946a'
+yellow  = '#c0a36e'
+blue    = '#7e9cd8'
+magenta = '#957fb8'
+cyan    = '#6a9589'
+white   = '#c8c093'
 
-[colors.primary]
-background = "#131313"
-foreground = "#d6dbe5"
+[colors.bright]
+black   = '#727169'
+red     = '#e82424'
+green   = '#98bb6c'
+yellow  = '#e6c384'
+blue    = '#7fb4ca'
+magenta = '#938aa9'
+cyan    = '#7aa89f'
+white   = '#dcd7ba'
 
 [colors.selection]
-background = "#44475a"
-text = "#ffffff"
+background = '#2d4f67'
+foreground = '#c8c093'
+
+[[colors.indexed_colors]]
+index = 16
+color = '#ffa066'
+
+[[colors.indexed_colors]]
+index = 17
+color = '#ff5d62'
 
 [env]
 TERM = "xterm-256color"
@@ -228,6 +232,7 @@ history = 0
 option_as_alt = "OnlyLeft"
 startup_mode = "Maximized"
 dynamic_title = false
+padding = { x = 15, y = 0 }
 
 [general]
 live_config_reload = false
