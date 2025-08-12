@@ -186,6 +186,8 @@ automatically-unhide-macos-hidden-apps = false
 
     # custom other
     alt-0 = 'balance-sizes'
+    alt-shift-comma = 'move-workspace-to-monitor left'
+    alt-shift-period = 'move-workspace-to-monitor right'
     alt-c = '''exec-and-forget timeout 10s osascript -e '
     tell application "System Events" to tell process "GlobalProtect"
       click menu bar item 1 of menu bar 2
