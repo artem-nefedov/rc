@@ -184,10 +184,7 @@ automatically-unhide-macos-hidden-apps = false
     alt-r = 'exec-and-forget open -a "Microsoft Outlook"'
     alt-f = 'exec-and-forget open -a Finder'
 
-    # custom other
-    alt-0 = 'balance-sizes'
-    alt-shift-comma = 'move-workspace-to-monitor left'
-    alt-shift-period = 'move-workspace-to-monitor right'
+    # custom scripts
     alt-c = '''exec-and-forget timeout 10s osascript -e '
     tell application "System Events" to tell process "GlobalProtect"
       click menu bar item 1 of menu bar 2
@@ -202,6 +199,15 @@ automatically-unhide-macos-hidden-apps = false
       click menu bar item 1 of menu bar 2
     end tell'
     '''
+
+    # custom other
+    alt-0 = 'balance-sizes'
+    alt-shift-comma = 'move-workspace-to-monitor left'
+    alt-shift-period = 'move-workspace-to-monitor right'
+    alt-leftSquareBracket = 'move-node-to-monitor left --focus-follows-window'
+    alt-rightSquareBracket = 'move-node-to-monitor right --focus-follows-window'
+    alt-quote = 'swap right --wrap-around'
+    alt-semicolon = 'focus right --boundaries-action wrap-around-the-workspace'
 
     # See: https://nikitabobko.github.io/AeroSpace/commands#workspace-back-and-forth
     alt-tab = 'workspace-back-and-forth'
