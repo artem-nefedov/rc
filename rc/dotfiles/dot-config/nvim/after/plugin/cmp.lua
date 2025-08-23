@@ -46,9 +46,6 @@ cmp.setup({
 
   sources = {
     default = { 'lsp', 'path', 'snippets', 'lazydev', 'buffer', 'jira' },
-    per_filetype = {
-      yaml = { 'path', 'snippets', 'buffer' }
-    },
     providers = {
       lsp = {
         fallbacks = {} -- Remove buffer fallback, always show other sources
