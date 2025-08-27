@@ -199,6 +199,7 @@ automatically-unhide-macos-hidden-apps = false
       click menu bar item 1 of menu bar 2
     end tell'
     '''
+    alt-shift-p = 'exec-and-forget bash ~/git/personal/scripts/aero-preset.sh'
 
     # custom other
     alt-0 = 'balance-sizes'
