@@ -4,7 +4,7 @@ set -eu -o pipefail
 
 update_id() {
 	local id
-	id=$(jq --arg n "$1" -r '.[] | select(.["app-name"] == $n) | .["window-id"]' <<< "$windows")
+	id=$(jq --arg n "$1" -r '.[] | select(.["app-name"] == $n) | select(.["window-title"] | contains("Reminder") | not) | .["window-id"]' <<< "$windows")
 	win_ids["$1"]="$id"
 }
 
