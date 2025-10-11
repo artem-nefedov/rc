@@ -40,6 +40,9 @@ complete -o nospace -C /Users/anefedov/go/bin/gocomplete go
 source <(fzf --zsh)
 
 if [[ "$PATH" != *:"$HOME/.rd/bin" ]]; then
+  # ARC CLI - Start
+  PATH="$HOME/.arc/bin:$PATH"
+  # ARC CLI - End
   PATH="$HOME/.asdf/shims:$PATH"
   PATH="$HOME/git/personal/scripts:$HOME/bin:$PATH"
   PATH="$HOME/git/diff-so-fancy:$PATH"

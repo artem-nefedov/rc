@@ -183,4 +183,4 @@ for server, config in pairs(servers) do
   end
 end
 
-require('lspconfig').nushell.setup({})
+vim.lsp.enable('nushell')

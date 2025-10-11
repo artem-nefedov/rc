@@ -25,3 +25,7 @@ https
 io
 wikipedia
 tz
+HelmRelease
+HelmReleases
+allowlist
+initContainers
