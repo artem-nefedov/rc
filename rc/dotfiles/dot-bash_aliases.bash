@@ -14,6 +14,9 @@ if [ -n "$ZSH_VERSION" ]; then
 
 	WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
 
+	# emacs backspace
+	bindkey "^?" backward-delete-char
+
 	bindkey "^[[1~" beginning-of-line
 	bindkey "^[[4~" end-of-line
 
