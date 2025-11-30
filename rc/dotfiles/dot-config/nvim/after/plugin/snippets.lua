@@ -34,3 +34,7 @@ ls.add_snippets("go", {
   parse("fp", "fmt.Println(\"$1\")"),
   parse("ff", "fmt.Printf(\"$1\", ${2:var})"),
 })
+
+ls.add_snippets("markdown", {
+  parse("uu", "* Upgrade $1 helm chart to $0"),
+})
