@@ -21,4 +21,13 @@ vim.api.nvim_create_user_command('AWS', function(x)
     end
     print(msg)
   end
-end, { nargs = '*' } )
+end, {
+  nargs = '*',
+  complete = function(_, l, _)
+    if l:match('^AWS +$') then
+      return { 'sbx', 'dev', 'stg', 'prd' }
+    else
+      return { 'us-west-2', 'eu-central-1' }
+    end
+  end,
+})
