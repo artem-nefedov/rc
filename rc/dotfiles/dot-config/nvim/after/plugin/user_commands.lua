@@ -25,9 +25,13 @@ end, {
   nargs = '*',
   complete = function(_, l, _)
     if l:match('^AWS +$') then
-      return { 'sbx', 'dev', 'stg', 'prd' }
+      return { 'sbx', 'dev', 'stg', 'prd' , 'cn-sbx', 'cn-dev', 'cn-stg', 'cn-prd' }
     else
-      return { 'us-west-2', 'eu-central-1' }
+      if l:match('cn-') then
+        return { 'cn-north-1' }
+      else
+        return { 'us-west-2', 'eu-central-1' }
+      end
     end
   end,
 })
