@@ -11,7 +11,6 @@ vim.api.nvim_create_user_command('AWS', function(x)
     vim.env.AWS_REGION = nil
   elseif table.maxn(x.fargs) > 2 then
     error('Bad number of arguments')
-    return
   else
     local msg = 'Set AWS_PROFILE to ' .. x.fargs[1]
     vim.env.AWS_PROFILE = x.fargs[1]
@@ -21,11 +20,16 @@ vim.api.nvim_create_user_command('AWS', function(x)
     end
     print(msg)
   end
+
+  if x.bang then
+    vim.api.nvim_exec2('!aws sso login --profile ' .. x.fargs[1], {})
+  end
 end, {
   nargs = '*',
+  bang = true,
   complete = function(_, l, _)
-    if l:match('^AWS +$') then
-      return { 'sbx', 'dev', 'stg', 'prd' , 'cn-sbx', 'cn-dev', 'cn-stg', 'cn-prd' }
+    if l:match('^AWS!? +$') then
+      return { 'sbx', 'dev', 'stg', 'prd', 'cn-sbx', 'cn-dev', 'cn-stg', 'cn-prd' }
     else
       if l:match('cn-') then
         return { 'cn-north-1' }
@@ -35,3 +39,11 @@ end, {
     end
   end,
 })
+
+-- wrapper around oil for s3
+vim.api.nvim_create_user_command('S3', function(x)
+  if not vim.env.AWS_PROFILE then
+    error('Must set AWS_PROFILE first')
+  end
+  vim.cmd.Oil('oil-sss://' .. x.args)
+end, { nargs = '?' })
