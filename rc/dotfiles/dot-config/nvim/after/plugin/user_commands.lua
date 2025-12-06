@@ -9,6 +9,7 @@ vim.api.nvim_create_user_command('AWS', function(x)
     print('Unset AWS_PROFILE and AWS_REGION')
     vim.env.AWS_PROFILE = nil
     vim.env.AWS_REGION = nil
+    return
   elseif table.maxn(x.fargs) > 2 then
     error('Bad number of arguments')
   else

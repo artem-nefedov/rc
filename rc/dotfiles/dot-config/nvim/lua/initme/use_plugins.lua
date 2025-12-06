@@ -59,6 +59,7 @@ require('lazy').setup({
     'nvim-lualine/lualine.nvim',
     dependencies = {
       'tpope/vim-fugitive',
+      'tpope/vim-rhubarb',
       require('plugme.gitsigns'),
     },
   },
