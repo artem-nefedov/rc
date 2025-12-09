@@ -5,6 +5,7 @@ vim.filetype.add({
     end,
     tpl = 'helm',
     tmpl = 'gotmpl',
+    log = 'text',
   },
   filename = {
     ['dot-zshrc'] = 'zsh',
