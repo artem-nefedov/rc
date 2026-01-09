@@ -22,6 +22,7 @@ require('nvim-treesitter.configs').setup({
     'nu',
     'jq',
     'xml',
+    'make',
   },
 
   -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)

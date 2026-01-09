@@ -29,3 +29,12 @@ HelmRelease
 HelmReleases
 allowlist
 initContainers
+Makefile
+toolchain
+jq
+goreleaser
+Terraform
+OpenAPI
+datasource
+Datasources
+terraform
