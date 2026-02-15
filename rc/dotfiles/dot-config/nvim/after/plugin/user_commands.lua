@@ -30,9 +30,9 @@ end, {
   bang = true,
   complete = function(_, l, _)
     if l:match('^AWS!? +$') then
-      return { 'sbx', 'dev', 'stg', 'prd', 'cn-sbx', 'cn-dev', 'cn-stg', 'cn-prd' }
+      return { 'sbx', 'dev', 'core-dev', 'stg', 'prd', 'cn-sbx', 'cn-dev', 'cn-stg', 'cn-prd' }
     else
-      if l:match('cn-') then
+      if l:match('cn%-') then
         return { 'cn-north-1' }
       else
         return { 'us-west-2', 'eu-central-1' }
