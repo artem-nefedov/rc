@@ -64,12 +64,11 @@ require('lazy').setup({
     },
   },
 
+  -- :GBrowse BitBucket support
   'tommcdo/vim-fubitive',
 
-  {
-    'kylechui/nvim-surround',
-    config = true,
-  },
+  -- Surround bindings
+  'kylechui/nvim-surround',
 
   require('plugme.lspconfig'),
   require('plugme.cmp'),
