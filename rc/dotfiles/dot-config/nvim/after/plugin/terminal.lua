@@ -125,6 +125,8 @@ vim.keymap.set('n', '<c-x><c-e>', term_goto_bound, { desc = 'Jump back to bound 
 
 -- operator-pending in terminal
 vim.keymap.set('t', '<c-o>', '<c-\\><c-o>', { desc = '[O]perator-pending (terminal)' })
+-- literal <c-o>
+vim.keymap.set('t', '<c-x><c-o>', '<c-o>', { desc = 'Send literal Ctrl-[O] in terminal' })
 
 vim.api.nvim_create_user_command('TerminalStatusUpdate', function(opts)
   vim.b.terminal_pwd = opts.fargs[1]
