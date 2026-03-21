@@ -14,7 +14,7 @@ return {
           handle = function(mode, line, _)
             local ticket = require("gx.helper").find(line, mode, "(%u+-%d+)")
             if ticket and #ticket < 15 then
-              return "https://jira.aligntech.com/browse/" .. ticket
+              return "https://cloud.jira.aligntech.com/browse/" .. ticket
             end
           end,
         },
