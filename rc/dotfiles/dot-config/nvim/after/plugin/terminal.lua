@@ -90,6 +90,7 @@ local restore_session = function()
   vim.api.nvim_exec2('tabdo windo call TerminalCD() | ' ..
     curtab .. 'tabn\n' .. curwin .. 'wincmd w', {})
   vim.fn.DeleteHiddenBuffers()
+  vim.api.nvim_chan_send(vim.bo.channel, 'chpwd\n')
 end
 
 -- these must be set after nvimux setup to override nvimux defaults
@@ -105,7 +106,7 @@ vim.keymap.set('t', '<c-x><c-r>', function()
 end, { desc = 'Restore session (term)' })
 
 local term_insert_branch = function()
-  vim.api.nvim_chan_send(vim.o.channel, vim.b.terminal_git_branch)
+  vim.api.nvim_chan_send(vim.bo.channel, vim.b.terminal_git_branch)
 end
 
 -- insert branch in terminal
