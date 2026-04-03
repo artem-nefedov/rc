@@ -483,6 +483,10 @@ commit_from_changelog() {
 	)
 }
 
+fix_cursor() {
+	echo -ne '\e[2 q'
+}
+
 if [ -n "$ZSH_VERSION" ]; then
 	# shellcheck disable=2154
 	(( $+functions[_git-sw] )) ||

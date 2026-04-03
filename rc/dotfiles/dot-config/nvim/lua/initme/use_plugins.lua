@@ -10,9 +10,6 @@ require('lazy').setup({
   -- Align
   'junegunn/vim-easy-align',
 
-  -- Undotree
-  'mbbill/undotree',
-
   -- Read without distractions
   'folke/twilight.nvim',
   'folke/zen-mode.nvim',

@@ -12,3 +12,5 @@ vim.g.loaded_perl_provider = 0
 
 require('initme.ensure_lazy')
 require('initme.use_plugins')
+
+vim.cmd.packadd('nvim.undotree')
