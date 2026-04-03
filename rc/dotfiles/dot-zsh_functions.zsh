@@ -10,7 +10,7 @@ nvr_reset_mouse()
 
 chpwd()
 {
-	if [ -n "$NVIM" ] && [ -z "$WIDGET" ] && [ "$ZSH_SUBSHELL" -eq 0 ]; then
+	if [ -n "$NVIM" ] && [ -n "$NVIM_BUF_ID" ] && [ -z "$WIDGET" ] && [ "$ZSH_SUBSHELL" -eq 0 ]; then
 		setopt LOCAL_OPTIONS NO_NOTIFY NO_MONITOR
 		(
 		branch=$(git symbolic-ref --short HEAD 2>/dev/null || git rev-parse --short HEAD 2>/dev/null || echo --)
@@ -30,7 +30,7 @@ chpwd()
 		fi
 
 		nvim --server "$NVIM" \
-			--remote-send "<cmd>silent TerminalStatusUpdate $PWD $branch $kubectx $profile<cr>" \
+			--remote-send "<cmd>silent TerminalStatusUpdate $NVIM_BUF_ID $PWD $branch $kubectx $profile<cr>" \
 			>/dev/null 2>&1 ) >/dev/null 2>&1 &!
 	fi
 }

@@ -22,13 +22,14 @@ local term_word_yank_and_insert = function()
   vim.fn.setreg('"', prev)
 end
 
-local term_init = function()
+local term_init = function(args)
   vim.opt_local.number = false
   vim.opt_local.relativenumber = false
   vim.opt_local.sidescrolloff = 0
   vim.opt_local.scrolloff = 0
   vim.opt_local.signcolumn = 'no'
-  vim.w.nvr_term = vim.api.nvim_get_current_buf()
+  vim.w.nvr_term = args.buf
+  vim.api.nvim_chan_send(vim.bo[args.buf].channel, ('export NVIM_BUF_ID=%d && chpwd\n'):format(args.buf))
   vim.b.terminal_pwd = vim.fn.getcwd()
 
   vim.keymap.set('n', '<c-w><c-l>', vim.fn.TerminalReset, { buffer = true, desc = 'Terminal reset' })
@@ -129,12 +130,15 @@ vim.keymap.set('t', '<c-o>', '<c-\\><c-o>', { desc = '[O]perator-pending (termin
 vim.keymap.set('t', '<c-x><c-o>', '<c-o>', { desc = 'Send literal Ctrl-[O] in terminal' })
 
 vim.api.nvim_create_user_command('TerminalStatusUpdate', function(opts)
-  vim.b.terminal_pwd = opts.fargs[1]
-  vim.b.terminal_git_branch = opts.fargs[2]
-  vim.b.terminal_kube_ctx = opts.fargs[3]
-  vim.b.terminal_aws_profile = opts.fargs[4]
-  vim.cmd.lcd(opts.fargs[1])
-  local bufname = vim.api.nvim_buf_get_name(0)
-  local new_bufname = bufname:gsub('^term://.+//', 'term://' .. vim.fn.fnamemodify(opts.fargs[1], ':~') .. '//', 1)
-  vim.cmd('keepalt file ' .. new_bufname)
+  local b = tonumber(opts.fargs[1], 10)
+  vim.api.nvim_buf_set_var(b, 'terminal_pwd', opts.fargs[2])
+  vim.api.nvim_buf_set_var(b, 'terminal_git_branch', opts.fargs[3])
+  vim.api.nvim_buf_set_var(b, 'terminal_kube_ctx', opts.fargs[4])
+  vim.api.nvim_buf_set_var(b, 'terminal_aws_profile', opts.fargs[5])
+  local bufname = vim.api.nvim_buf_get_name(b)
+  local new_bufname = bufname:gsub('^term://.+//', 'term://' .. vim.fn.fnamemodify(opts.fargs[2], ':~') .. '//', 1)
+  vim.api.nvim_buf_call(b, function()
+    vim.cmd.lcd(opts.fargs[2])
+    vim.cmd('keepalt file ' .. new_bufname)
+  end)
 end, { desc = 'Use by chpwd() function in shell', nargs = '+' })

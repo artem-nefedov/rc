@@ -2,7 +2,7 @@
 function! TerminalCD()
   if &buftype == 'terminal' && expand('%') =~# '[\/]zsh$'
     let b:terminal_pwd = getcwd()
-    call chansend(&channel, 'NVIM= cd "' . b:terminal_pwd . "\"\<cr>")
+    "call chansend(&channel, 'NVIM= cd "' . b:terminal_pwd . "\"\<cr>")
   endif
 endfunction
 
