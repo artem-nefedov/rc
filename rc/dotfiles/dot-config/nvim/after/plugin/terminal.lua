@@ -134,4 +134,7 @@ vim.api.nvim_create_user_command('TerminalStatusUpdate', function(opts)
   vim.b.terminal_kube_ctx = opts.fargs[3]
   vim.b.terminal_aws_profile = opts.fargs[4]
   vim.cmd.lcd(opts.fargs[1])
+  local bufname = vim.api.nvim_buf_get_name(0)
+  local new_bufname = bufname:gsub('^term://.+//', 'term://' .. vim.fn.fnamemodify(opts.fargs[1], ':~') .. '//', 1)
+  vim.cmd('keepalt file ' .. new_bufname)
 end, { desc = 'Use by chpwd() function in shell', nargs = '+' })
