@@ -18,7 +18,7 @@ return {
     options = {
       sort_by = 'tabs',
       name_formatter = function(buf)
-        return find_tab_by_bufnr(buf.bufnr) .. buf.name
+        return find_tab_by_bufnr(buf.bufnr) .. buf.bufnr .. ' ' .. buf.name
       end,
     },
   },
