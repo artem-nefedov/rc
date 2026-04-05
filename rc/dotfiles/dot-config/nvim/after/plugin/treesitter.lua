@@ -11,6 +11,7 @@ ts.install({
   'vimdoc',
   'vim',
   'bash',
+  'zsh',
   'terraform',
   'java',
   'json',
