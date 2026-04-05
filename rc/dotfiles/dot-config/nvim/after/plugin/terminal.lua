@@ -29,7 +29,7 @@ local term_init = function(args)
   vim.opt_local.scrolloff = 0
   vim.opt_local.signcolumn = 'no'
   vim.w.nvr_term = args.buf
-  vim.api.nvim_chan_send(vim.bo[args.buf].channel, ('export NVIM_BUF_ID=%d && chpwd\n'):format(args.buf))
+  vim.api.nvim_chan_send(vim.bo[args.buf].channel, (' export NVIM_BUF_ID=%d && chpwd\n'):format(args.buf))
   vim.b.terminal_pwd = vim.fn.getcwd()
 
   vim.keymap.set('n', '<c-w><c-l>', vim.fn.TerminalReset, { buffer = true, desc = 'Terminal reset' })
