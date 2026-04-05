@@ -1,7 +1,7 @@
 -- [[ Configure Treesitter ]]
 -- See `:help nvim-treesitter`
 
-local ftypes = {
+local parsers = {
   'go',
   'gomod',
   'lua',
@@ -24,10 +24,10 @@ local ftypes = {
   'make',
 }
 
-require('nvim-treesitter').install(vim.list_extend(ftypes, { 'markdown_inline' }))
+require('nvim-treesitter').install(vim.list_extend(parsers, { 'markdown_inline' }))
 
 vim.api.nvim_create_autocmd('FileType', {
-  pattern = vim.list_extend(ftypes, { 'sh' }),
+  pattern = vim.list_extend(parsers, { 'sh' }),
   callback = function()
     vim.treesitter.start()
     vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
