@@ -1,8 +1,6 @@
 -- [[ Configure Treesitter ]]
 -- See `:help nvim-treesitter`
 
-local ts = require('nvim-treesitter')
-
 local ftypes = {
   'go',
   'gomod',
@@ -26,7 +24,7 @@ local ftypes = {
   'make',
 }
 
-ts.install(vim.list_extend(ftypes, { 'markdown_inline' }))
+require('nvim-treesitter').install(vim.list_extend(ftypes, { 'markdown_inline' }))
 
 vim.api.nvim_create_autocmd('FileType', {
   pattern = vim.list_extend(ftypes, { 'sh' }),
