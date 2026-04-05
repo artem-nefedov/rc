@@ -1,13 +1,25 @@
 local function find_tab_by_bufnr(bufnr)
-  local winnr = vim.fn.win_findbuf(bufnr)[1]
+  local wins = vim.fn.win_findbuf(bufnr)
+  if #wins == 0 then
+    return ''
+  end
+  local win_set = {}
+  for _, w in ipairs(wins) do
+    win_set[w] = true
+  end
+  local tabs = {}
   for _, t in ipairs(vim.fn.gettabinfo()) do
     for _, w in ipairs(t.windows) do
-      if w == winnr then
-        return '[' .. t.tabnr .. '] '
+      if win_set[w] then
+        tabs[#tabs + 1] = t.tabnr
+        break
       end
     end
   end
-  return ''
+  if #tabs == 0 then
+    return ''
+  end
+  return '[' .. table.concat(tabs, ',') .. '] '
 end
 
 return {
