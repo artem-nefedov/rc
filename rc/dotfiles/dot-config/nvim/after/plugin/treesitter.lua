@@ -3,7 +3,7 @@
 
 local ts = require('nvim-treesitter')
 
-ts.install({
+local ftypes = {
   'go',
   'gomod',
   'lua',
@@ -20,11 +20,17 @@ ts.install({
   'helm',
   'dockerfile',
   'markdown',
-  'markdown_inline',
   'nu',
   'jq',
   'xml',
   'make',
+}
+
+ts.install(vim.list_extend(ftypes, { 'markdown_inline' }))
+
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = vim.list_extend(ftypes, { 'sh' }),
+  callback = function() vim.treesitter.start() end,
 })
 
 -- require('nvim-treesitter.configs').setup({
