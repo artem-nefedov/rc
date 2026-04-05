@@ -34,8 +34,8 @@ function! InheritExitRemap()
   try
     let l:altbuf = bufnr('#')
     let b:nvr_jump = l:altbuf
-    nnoremap <buffer> ZQ :call GoBack(0)<cr>
-    nnoremap <buffer> ZZ :call GoBack(1)<cr>
+    nnoremap <buffer> ZQ <cmd>call GoBack(0)<cr>
+    nnoremap <buffer> ZZ <cmd>call GoBack(1)<cr>
   catch
   endtry
 endfunction
