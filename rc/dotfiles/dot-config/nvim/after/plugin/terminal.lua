@@ -86,10 +86,6 @@ end
 
 local restore_session = function()
   vim.cmd.source(session_file)
-  local curtab = vim.fn.tabpagenr()
-  local curwin = vim.fn.winnr()
-  vim.api.nvim_exec2('tabdo windo call TerminalCD() | ' ..
-    curtab .. 'tabn\n' .. curwin .. 'wincmd w', {})
   vim.fn.DeleteHiddenBuffers()
 end
 

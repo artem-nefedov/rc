@@ -1,11 +1,3 @@
-" reset b:terminal_pwd to avoid race condition
-function! TerminalCD()
-  if &buftype == 'terminal' && expand('%') =~# '[\/]zsh$'
-    let b:terminal_pwd = getcwd()
-    "call chansend(&channel, 'NVIM= cd "' . b:terminal_pwd . "\"\<cr>")
-  endif
-endfunction
-
 function! TerminalReset()
   setlocal scrollback=1
   call chansend(&channel, "\<c-l>")
