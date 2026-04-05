@@ -99,7 +99,9 @@ vim.keymap.set('t', '<c-x><c-r>', function()
   vim.cmd.stopinsert()
   vim.schedule(function()
     restore_session()
-    vim.cmd.startinsert()
+    if vim.bo.buftype == 'terminal' then
+      vim.cmd.startinsert()
+    end
   end)
 end, { desc = 'Restore session (term)' })
 
