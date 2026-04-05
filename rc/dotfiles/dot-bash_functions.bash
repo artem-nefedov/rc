@@ -202,7 +202,7 @@ v()
 				if [[ "$1" == */* ]]; then
 					local d=${1%/*}
 					if [ -d "$d" ]; then
-						v+=( -c "lcd $d" )
+						v+=( -c "silent lcd $d" )
 					fi
 				fi
 
