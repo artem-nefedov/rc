@@ -3,8 +3,6 @@
 set -e
 trap 'echo >&2 "$0: Error at $LINENO: $BASH_COMMAND"' ERR
 
-script_dir=$(cd "$(dirname "$0")" && pwd)
-
 hash curl
 hash git
 hash stow
@@ -13,10 +11,6 @@ cd "$(dirname "$0")"
 
 mkdir -p "$HOME/.config"
 stow --dotfiles -t "$HOME" dotfiles
-
-if [ -d "$HOME/.jira.d/" ]; then
-	ln -s "$script_dir/jira.config.yml" "$HOME/.jira.d/config.yml"
-fi
 
 if [ ! -e "$HOME/git" ]; then
 	mkdir "$HOME/git"
