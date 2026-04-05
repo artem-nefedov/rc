@@ -22,6 +22,13 @@ local term_word_yank_and_insert = function()
   vim.fn.setreg('"', prev)
 end
 
+local term_modifiable = function(ncmd)
+  vim.bo.modifiable = true
+  vim.keymap.del({'n', 'v'}, 'J', { buffer = true })
+  vim.keymap.del({'n', 'v'}, 'gJ', { buffer = true })
+  vim.cmd.normal(ncmd)
+end
+
 local term_init = function(args)
   vim.opt_local.number = false
   vim.opt_local.relativenumber = false
@@ -35,29 +42,21 @@ local term_init = function(args)
   vim.keymap.set('n', '<c-w><c-l>', vim.fn.TerminalReset, { buffer = true, desc = 'Terminal reset' })
   vim.keymap.set('n', 'C', term_word_yank_and_insert, { silent = true, buffer = true, desc = 'Copy word into terminal' })
   vim.keymap.set('n', 'yy', term_yank, { silent = true, buffer = true, desc = 'Yank line and remove prompt symbol' })
+  vim.keymap.set('n', 'o', vim.cmd.startinsert, { silent = true, buffer = true, desc = 'Enter terminal mode' })
+  vim.keymap.set('n', 'O', vim.cmd.startinsert, { silent = true, buffer = true, desc = 'Enter terminal mode' })
 
   vim.keymap.set('n', '[[', function() vim.cmd('keeppatterns ?^➜') end,
     { silent = true, buffer = true, desc = 'Jump to previous terminal prompt' })
   vim.keymap.set('n', ']]', function() vim.cmd('keeppatterns /^➜') end,
     { silent = true, buffer = true, desc = 'Jump to next terminal prompt' })
 
+  vim.keymap.set({'n', 'v'}, 'J', function() term_modifiable('J') end, { buffer = true, desc = 'Make term buffer modifiable and [J]oin lines' })
+  vim.keymap.set({'n', 'v'}, 'gJ', function() term_modifiable('gJ') end, { buffer = true, desc = 'Make term buffer modifiable and [J]oin lines (no spaces)' })
+
   require('lualine').refresh()
-  -- setlocal nonumber norelativenumber sidescrolloff=0 scrolloff=0
-  -- let w:nvr_term = bufnr('%')
-  -- let b:terminal_pwd = getcwd()
-  -- nmap <buffer> o i
-  -- nmap <buffer> O i
   -- nmap <buffer> R :call chansend(&channel, "\<lt>c-a>\<lt>c-k>. ~/.zshrc\<lt>cr>")<cr>
   -- nnoremap <buffer> <c-w><c-l> :call Terminal_reset()<cr>
   -- nnoremap <buffer> D "tyiW:call Terminal_open()<cr>
-  -- nnoremap <buffer> C "tyiW"tpi
-  -- nnoremap <buffer> J :<c-u>call Terminal_modify('J')<cr>
-  -- vnoremap <buffer> J :<c-u>call Terminal_modify('J')<cr>
-  -- nnoremap <buffer> gJ :<c-u>call Terminal_modify('gJ')<cr>
-  -- vnoremap <buffer> gJ :<c-u>call Terminal_modify('gJ')<cr>
-  -- nnoremap <buffer> <silent> yy yy:<c-u>call Terminal_regsub()<cr>
-  -- call Get_git_branch(1)
-  -- AirlineRefresh
 end
 
 local term_enter = function()
