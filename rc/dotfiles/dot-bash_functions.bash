@@ -197,7 +197,6 @@ v()
 				-c "let b:nvr_jump = bufnr('#')"
 				-c 'nnoremap <buffer> ZQ <cmd>call GoBack(0)<cr>i'
 				-c 'nnoremap <buffer> ZZ <cmd>call GoBack(1)<cr>i'
-				--remote
 				)
 
 				if [[ "$1" == */* ]]; then
@@ -206,6 +205,8 @@ v()
 						v+=( -c "lcd $d" )
 					fi
 				fi
+
+				v+=( --remote )
 			fi
 		fi
 	else
