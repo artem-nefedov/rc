@@ -188,25 +188,13 @@ v()
 			return
 		fi
 
-		v=( nvr --nostart )
+		v=( nvim --server "$NVIM" )
 		if [ "$1" != '--remote-tab' ]; then
 			if [ $# -gt 1 ]; then
 				v+=( --remote-tab )
 			else
-				v+=(
-				-c "let b:nvr_jump = bufnr('#')"
-				-c 'nnoremap <buffer> ZQ <cmd>call GoBack(0)<cr>i'
-				-c 'nnoremap <buffer> ZZ <cmd>call GoBack(1)<cr>i'
-				)
-
-				if [[ "$1" == */* ]]; then
-					local d=${1%/*}
-					if [ -d "$d" ]; then
-						v+=( -c "silent lcd $d" )
-					fi
-				fi
-
-				v+=( --remote )
+				v+=( --remote-send )
+				set -- "<cmd>TerminalOpen ${1}<cr>"
 			fi
 		fi
 	else

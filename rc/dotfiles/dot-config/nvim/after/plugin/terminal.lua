@@ -24,8 +24,8 @@ end
 
 local term_modifiable = function(ncmd)
   vim.bo.modifiable = true
-  vim.keymap.del({'n', 'v'}, 'J', { buffer = true })
-  vim.keymap.del({'n', 'v'}, 'gJ', { buffer = true })
+  vim.keymap.del({ 'n', 'v' }, 'J', { buffer = true })
+  vim.keymap.del({ 'n', 'v' }, 'gJ', { buffer = true })
   vim.cmd.normal(ncmd)
 end
 
@@ -50,8 +50,10 @@ local term_init = function(args)
   vim.keymap.set('n', ']]', function() vim.cmd('keeppatterns /^➜') end,
     { silent = true, buffer = true, desc = 'Jump to next terminal prompt' })
 
-  vim.keymap.set({'n', 'v'}, 'J', function() term_modifiable('J') end, { buffer = true, desc = 'Make term buffer modifiable and [J]oin lines' })
-  vim.keymap.set({'n', 'v'}, 'gJ', function() term_modifiable('gJ') end, { buffer = true, desc = 'Make term buffer modifiable and [J]oin lines (no spaces)' })
+  vim.keymap.set({ 'n', 'v' }, 'J', function() term_modifiable('J') end,
+    { buffer = true, desc = 'Make term buffer modifiable and [J]oin lines' })
+  vim.keymap.set({ 'n', 'v' }, 'gJ', function() term_modifiable('gJ') end,
+    { buffer = true, desc = 'Make term buffer modifiable and [J]oin lines (no spaces)' })
 
   require('lualine').refresh()
   -- nmap <buffer> R :call chansend(&channel, "\<lt>c-a>\<lt>c-k>. ~/.zshrc\<lt>cr>")<cr>
@@ -60,7 +62,7 @@ local term_init = function(args)
 end
 
 local term_enter = function()
-  vim.cmd.lcd(vim.b.terminal_pwd)
+  vim.cmd.lcd({ args = { vim.b.terminal_pwd }, mods = { silent = true } })
 end
 
 local aug = vim.api.nvim_create_augroup('CustomTerminalSetup', { clear = true })
@@ -138,11 +140,26 @@ vim.api.nvim_create_user_command('TerminalStatusUpdate', function(opts)
   local bufname = vim.api.nvim_buf_get_name(b)
   local new_bufname = bufname:gsub('^term://.+//', 'term://' .. vim.fn.fnamemodify(opts.fargs[2], ':~') .. '//', 1)
   vim.api.nvim_buf_call(b, function()
-    vim.cmd('keepalt file ' .. new_bufname)
+    vim.cmd.file({ args = { new_bufname }, mods = { silent = true, keepalt = true } })
   end)
   for _, win in ipairs(vim.fn.win_findbuf(b)) do
     vim.api.nvim_win_call(win, function()
-      vim.cmd.lcd(opts.fargs[2])
+      vim.cmd.lcd({ args = { opts.fargs[2] }, mods = { silent = true } })
     end)
   end
 end, { desc = 'Called by chpwd() hook function in zsh', nargs = '+' })
+
+vim.api.nvim_create_user_command('TerminalOpen', function(opts)
+  vim.cmd.edit(opts.args)
+
+  if opts.args == '..' or vim.endswith(opts.args, '/..') then
+    vim.cmd.lcd({ args = { opts.args }, mods = { silent = true } })
+  else
+    vim.cmd.lcd({ args = { vim.fs.dirname(opts.args) }, mods = { silent = true } })
+  end
+
+  vim.keymap.set('n', 'ZQ', '<cmd>call GoBack(0)<cr>i',
+    { buffer = true, desc = 'Go back (no save) and return to terminal mode' })
+  vim.keymap.set('n', 'ZZ', '<cmd>call GoBack(1)<cr>i',
+    { buffer = true, desc = 'Go back (with save) and return to terminal mode' })
+end, { desc = 'Open file in current window using "v" command in zsh', nargs = 1 })
