@@ -134,7 +134,11 @@ vim.api.nvim_create_user_command('TerminalStatusUpdate', function(opts)
   local bufname = vim.api.nvim_buf_get_name(b)
   local new_bufname = bufname:gsub('^term://.+//', 'term://' .. vim.fn.fnamemodify(opts.fargs[2], ':~') .. '//', 1)
   vim.api.nvim_buf_call(b, function()
-    vim.cmd.lcd(opts.fargs[2])
     vim.cmd('keepalt file ' .. new_bufname)
   end)
+  for _, win in ipairs(vim.fn.win_findbuf(b)) do
+    vim.api.nvim_win_call(win, function()
+      vim.cmd.lcd(opts.fargs[2])
+    end)
+  end
 end, { desc = 'Called by chpwd() hook function in zsh', nargs = '+' })
