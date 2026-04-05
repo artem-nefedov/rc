@@ -70,7 +70,7 @@ local zsh_term_patterm = 'term://*/zsh'
 
 vim.api.nvim_create_autocmd({ 'BufReadPre', 'FileReadPre' },
   { pattern = '*', callback = 'InheritExitRemap', group = aug })
-vim.api.nvim_create_autocmd('FileType', { pattern = 'oil:///*', callback = 'InheritExitRemap', group = aug })
+vim.api.nvim_create_autocmd('FileType', { pattern = 'oil://*', callback = 'InheritExitRemap', group = aug })
 vim.api.nvim_create_autocmd('WinEnter', { pattern = 'term://*', command = 'stopinsert', group = aug })
 vim.api.nvim_create_autocmd('TermEnter', { pattern = zsh_term_patterm, callback = term_enter, group = aug })
 vim.api.nvim_create_autocmd('TermOpen', { pattern = zsh_term_patterm, callback = term_init, group = aug })
@@ -137,4 +137,4 @@ vim.api.nvim_create_user_command('TerminalStatusUpdate', function(opts)
     vim.cmd.lcd(opts.fargs[2])
     vim.cmd('keepalt file ' .. new_bufname)
   end)
-end, { desc = 'Use by chpwd() function in shell', nargs = '+' })
+end, { desc = 'Called by chpwd() hook function in zsh', nargs = '+' })
