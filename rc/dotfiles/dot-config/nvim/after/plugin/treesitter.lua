@@ -30,7 +30,10 @@ ts.install(vim.list_extend(ftypes, { 'markdown_inline' }))
 
 vim.api.nvim_create_autocmd('FileType', {
   pattern = vim.list_extend(ftypes, { 'sh' }),
-  callback = function() vim.treesitter.start() end,
+  callback = function()
+    vim.treesitter.start()
+    vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+  end,
 })
 
 -- require('nvim-treesitter.configs').setup({
