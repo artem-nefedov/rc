@@ -24,9 +24,9 @@ function! GoBack(write)
     echom 'Nowhere to jump'
   else
     try
-      exec "b! " . b:nvr_jump
+      execute 'b!' b:nvr_jump
     catch
-      exec "b! " . bufnr('#')
+      execute 'b!' bufnr('#')
     endtry
   endif
 endfunction
