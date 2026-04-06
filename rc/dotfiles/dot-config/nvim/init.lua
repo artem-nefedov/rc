@@ -1,5 +1,5 @@
 -- experimental UI v2 (:mes and such)
-require('vim._core.ui2').enable({ enable = true, msg = { target = 'msg' } })
+require('vim._core.ui2').enable({ enable = true, msg = { target = 'cmd' } })
 
 -- Leader must be set before calling "lazy"
 vim.g.mapleader = ' '
