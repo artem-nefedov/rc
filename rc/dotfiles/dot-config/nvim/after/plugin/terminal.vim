@@ -23,7 +23,11 @@ function! GoBack(write)
   elseif b:nvr_jump == -1
     echom 'Nowhere to jump'
   else
-    exec "b! " . b:nvr_jump
+    try
+      exec "b! " . b:nvr_jump
+    catch
+      exec "b! " . bufnr('#')
+    endtry
   endif
 endfunction
 
