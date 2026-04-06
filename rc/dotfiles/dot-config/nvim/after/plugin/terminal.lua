@@ -152,7 +152,7 @@ end, { desc = 'Called by chpwd() hook function in zsh', nargs = '+' })
 vim.api.nvim_create_user_command('TerminalOpen', function(opts)
   vim.cmd.edit(opts.args)
 
-  if opts.args == '..' or vim.endswith(opts.args, '/..') then
+  if vim.fn.isdirectory(opts.args) == 1 then
     vim.cmd.lcd({ args = { opts.args }, mods = { silent = true } })
   else
     vim.cmd.lcd({ args = { vim.fs.dirname(opts.args) }, mods = { silent = true } })
