@@ -158,6 +158,7 @@ vim.api.nvim_create_user_command('TerminalOpen', function(opts)
     vim.cmd.lcd({ args = { vim.fs.dirname(opts.args) }, mods = { silent = true } })
   end
 
+  -- not working when opening oil buffers with "v" for some reason
   vim.keymap.set('n', 'ZQ', '<cmd>call GoBack(0)<cr>i',
     { buffer = true, desc = 'Go back (no save) and return to terminal mode' })
   vim.keymap.set('n', 'ZZ', '<cmd>call GoBack(1)<cr>i',
