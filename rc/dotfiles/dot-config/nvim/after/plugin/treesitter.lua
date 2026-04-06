@@ -30,7 +30,9 @@ vim.api.nvim_create_autocmd('FileType', {
   pattern = vim.list_extend(parsers, { 'sh' }),
   callback = function()
     vim.treesitter.start()
-    vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+    if vim.bo.filetype ~= 'vim' then
+      vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+    end
   end,
 })
 
