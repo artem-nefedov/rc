@@ -38,8 +38,10 @@ function! InheritExitRemap()
   try
     let l:altbuf = bufnr('#')
     let b:nvr_jump = l:altbuf
-    nnoremap <buffer> ZQ <cmd>call GoBack(0)<cr>
-    nnoremap <buffer> ZZ <cmd>call GoBack(1)<cr>
+    if maparg('ZQ', 'n') != '<cmd>call GoBack(0)<cr>i'
+      nnoremap <buffer> ZQ <cmd>call GoBack(0)<cr>
+      nnoremap <buffer> ZZ <cmd>call GoBack(1)<cr>
+    endif
   catch
   endtry
 endfunction

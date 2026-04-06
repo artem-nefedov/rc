@@ -71,7 +71,6 @@ local zsh_term_patterm = 'term://*/zsh'
 
 vim.api.nvim_create_autocmd({ 'BufReadPre', 'FileReadPre' },
   { pattern = '*', callback = 'InheritExitRemap', group = aug })
-vim.api.nvim_create_autocmd('FileType', { pattern = 'oil://*', callback = 'InheritExitRemap', group = aug })
 vim.api.nvim_create_autocmd('WinEnter', { pattern = 'term://*', command = 'stopinsert', group = aug })
 vim.api.nvim_create_autocmd('TermEnter', { pattern = zsh_term_patterm, callback = term_enter, group = aug })
 vim.api.nvim_create_autocmd('TermOpen', { pattern = zsh_term_patterm, callback = term_init, group = aug })
