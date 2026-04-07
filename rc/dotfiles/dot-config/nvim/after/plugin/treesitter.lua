@@ -129,5 +129,5 @@ vim.api.nvim_create_autocmd('FileType', {
 --   },
 -- })
 
--- vim.treesitter.language.register("helm", "gotmpl")
+vim.treesitter.language.register("helm", "gotmpl")
 -- vim.treesitter.language.register("bash", "zsh")
