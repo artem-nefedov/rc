@@ -20,8 +20,6 @@ function! GoBack(write)
   endif
   if &bufhidden == 'delete' || &bufhidden == 'wipe'
     q!
-  elseif b:nvr_jump == -1
-    echom 'Nowhere to jump'
   else
     try
       execute 'b!' b:nvr_jump
