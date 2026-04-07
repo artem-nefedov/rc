@@ -16,6 +16,7 @@ local parsers = {
   'json5',
   'yaml',
   'helm',
+  'gotmpl',
   'dockerfile',
   'markdown',
   'nu',
@@ -24,10 +25,10 @@ local parsers = {
   'make',
 }
 
-require('nvim-treesitter').install(vim.list_extend(parsers, { 'markdown_inline' }))
+require('nvim-treesitter').install(vim.list_extend(vim.deepcopy(parsers), { 'markdown_inline' }))
 
 vim.api.nvim_create_autocmd('FileType', {
-  pattern = vim.list_extend(parsers, { 'sh' }),
+  pattern = vim.list_extend(vim.deepcopy(parsers), { 'sh' }),
   callback = function()
     vim.treesitter.start()
     if vim.bo.filetype ~= 'vim' then
@@ -128,5 +129,5 @@ vim.api.nvim_create_autocmd('FileType', {
 --   },
 -- })
 
-vim.treesitter.language.register("helm", "gotmpl")
+-- vim.treesitter.language.register("helm", "gotmpl")
 -- vim.treesitter.language.register("bash", "zsh")
