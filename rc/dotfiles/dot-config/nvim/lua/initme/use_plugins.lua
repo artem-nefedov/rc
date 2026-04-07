@@ -80,6 +80,7 @@ require('lazy').setup({
   require('plugme.gx'),
   require('plugme.guessindent'),
   require('plugme.99'),
+  require('plugme.octo'),
 
   { 'Bilal2453/luvit-meta', lazy = true },
 

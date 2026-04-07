@@ -476,6 +476,24 @@ fix_cursor() {
 	echo -ne '\e[2 q'
 }
 
+set_approvers() {
+	case "$1" in
+	dev | prod ) ;;
+	* ) echo >&2 "Bad first argument value: '$1'; Must be dev or prod"; return 1;;
+	esac
+
+	local v
+	case "$2" in
+	0 ) v=disable;;
+	1 ) v=1_approver;;
+	2 ) v=2_approvers;;
+	* ) echo >&2 "Bad second argument value: '$2'; Must be 0, 1, or 2."; return 1;;
+	esac
+
+	gh api -X PATCH '/repos/{owner}/{repo}/properties/values' \
+		-F "properties[][property_name]=${1}-approvers" -F "properties[][value]=${v}"
+}
+
 if [ -n "$ZSH_VERSION" ]; then
 	# shellcheck disable=2154
 	(( $+functions[_git-sw] )) ||
