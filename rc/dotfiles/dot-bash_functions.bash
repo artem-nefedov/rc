@@ -426,7 +426,9 @@ call_vim_cmd() {
 }
 
 kap() {
-	kubectl get pod -A --field-selector spec.nodeName="$1"
+	local node=$1
+	shift
+	kubectl get pod -A --field-selector "spec.nodeName=$node" "$@"
 }
 
 knn() {

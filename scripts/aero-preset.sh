@@ -10,7 +10,10 @@ update_id() {
 
 move_to_ws() {
 	test -n "${win_ids["$1"]-}" || return 0
-	aerospace move-node-to-workspace --window-id "${win_ids["$1"]}" "$2"
+	local win_id
+	while read -r win_id || [[ -n "$win_id" ]]; do
+		aerospace move-node-to-workspace --window-id "$win_id" "$2"
+	done <<< "${win_ids["$1"]}"
 }
 
 move_to_monitor() {
