@@ -411,23 +411,13 @@ inc_chart_rc_ver()
 	done
 }
 
-update_arc() {
-	local file
-	file=$(jfrog rt search '**/arc-cli_Darwin_arm64.tar.gz' \
-		| jq -er '[ .[] | select(.props["build.number"][0] | test("^[0-9]+[.][0-9]+[.][0-9]+$")) ] | sort_by(.created) | last | .path') || return 1
-	rm -rf arc-cli-dist
-	jfrog rt dl --explode "$file" || return 1
-	mv -v arc-cli-dist/*/arc "$HOME/bin/"
-	rm -rf arc-cli-dist
-}
-
 call_vim_cmd() {
 	nvim --server "$NVIM" --remote-send "<cmd>${*}<cr>"
 }
 
 kap() {
 	local node=$1
-	shift
+	shift 2>/dev/null || { echo >&2 "No node name provided"; return 1; }
 	kubectl get pod -A --field-selector "spec.nodeName=$node" "$@"
 }
 
