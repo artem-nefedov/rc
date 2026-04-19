@@ -7,8 +7,8 @@ return {
     picker = "telescope",
     -- bare Octo command opens picker of commands
     enable_builtin = true,
-    search_completion = {
-      overrides = {
+    search = {
+      completion_overrides = {
         repo = {},
         org = { 'align-platform' },
       },
