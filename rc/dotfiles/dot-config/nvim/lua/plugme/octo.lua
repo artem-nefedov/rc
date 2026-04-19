@@ -9,7 +9,7 @@ return {
     enable_builtin = true,
     search = {
       completion_overrides = {
-        repo = {},
+        repo = { 'align-platform/' },
         org = { 'align-platform' },
       },
     },
