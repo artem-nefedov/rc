@@ -1,11 +1,18 @@
 return {
-  "pwntester/octo.nvim",
+  "artem-nefedov/octo.nvim",
+  branch = 'feature-completion-overrides',
   cmd = "Octo",
   opts = {
     -- or "fzf-lua" or "snacks" or "default"
     picker = "telescope",
     -- bare Octo command opens picker of commands
     enable_builtin = true,
+    search_completion = {
+      overrides = {
+        repo = {},
+        org = { 'align-platform' },
+      },
+    },
   },
   dependencies = {
     "nvim-lua/plenary.nvim",
