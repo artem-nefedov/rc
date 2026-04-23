@@ -254,7 +254,7 @@ gpr()
 		printf '%s\n' "$line"
 		# shellcheck disable=SC2034
 		read -r f1 f2 <<< "$line"
-		if [[ "$f2" == https://* ]]; then
+		if [[ "$f2" == https://* ]] && [[ "$f2" != */security/dependabot ]]; then
 			open "$f2"
 		fi
 	done < <(git push -u 2>&1)
@@ -474,16 +474,17 @@ set_approvers() {
 	* ) echo >&2 "Bad first argument value: '$1'; Must be dev or prod"; return 1;;
 	esac
 
-	local v
+	local approvers team
 	case "$2" in
-	0 ) v=disable;;
-	1 ) v=1_approver;;
-	2 ) v=2_approvers;;
+	0 ) approvers=disable; team='';;
+	1 ) approvers=1_approver; team=arc;;
+	2 ) approvers=2_approvers; team=arc;;
 	* ) echo >&2 "Bad second argument value: '$2'; Must be 0, 1, or 2."; return 1;;
 	esac
 
 	gh api -X PATCH '/repos/{owner}/{repo}/properties/values' \
-		-F "properties[][property_name]=${1}-approvers" -F "properties[][value]=${v}"
+		-F "properties[][property_name]=${1}-approvers" -F "properties[][value]=${approvers}" \
+		-F "properties[][property_name]=team" -F "properties[][value]=${team}"
 }
 
 if [ -n "$ZSH_VERSION" ]; then

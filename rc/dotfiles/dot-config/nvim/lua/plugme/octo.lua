@@ -1,6 +1,5 @@
 return {
-  "artem-nefedov/octo.nvim",
-  branch = 'feature-completion-overrides',
+  "pwntester/octo.nvim",
   cmd = "Octo",
   opts = {
     -- or "fzf-lua" or "snacks" or "default"
@@ -9,8 +8,8 @@ return {
     enable_builtin = true,
     search = {
       completion_overrides = {
-        repo = { 'align-platform/' },
-        org = { 'align-platform' },
+        repo = { "align-platform/" },
+        org = { "align-platform" },
       },
     },
   },
