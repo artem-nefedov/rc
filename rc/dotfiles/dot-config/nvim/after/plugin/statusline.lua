@@ -23,10 +23,14 @@ local term_aws_profile = function()
   return vim.b.terminal_aws_profile and (' ' .. vim.b.terminal_aws_profile) or ''
 end
 
+local term_gh_profile = function()
+  return ' ' .. vim.b.terminal_gh_profile
+end
+
 local term_extension = {
   sections = {
     lualine_a = { 'mode' },
-    lualine_b = { term_branch, term_kubeconfig, term_aws_profile },
+    lualine_b = { term_branch, term_kubeconfig, term_aws_profile, term_gh_profile },
     lualine_c = { term_cwd },
     lualine_z = { 'location' },
   },

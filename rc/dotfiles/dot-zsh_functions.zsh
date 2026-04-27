@@ -24,13 +24,21 @@ chpwd()
 		fi
 
 		if [[ "${AWS_ACCESS_KEY_ID+x} ${AWS_SECRET_ACCESS_KEY+x} ${AWS_SESSION_TOKEN+x}" == *x* ]]; then
-			profile='SESSION'
+			aws_profile='SESSION'
 		else
-			profile="${AWS_PROFILE-}${AWS_REGION+@${AWS_REGION}}"
+			aws_profile="${AWS_PROFILE-}${AWS_REGION+@${AWS_REGION}}"
 		fi
 
+		gh_profile=$(yq -e '.["github.com"].user' "$HOME/.config/gh/hosts.yml" || echo '')
+
+		case "$gh_profile" in
+		artem-nefedov ) gh_profile='personal';;
+		anefedov_align ) gh_profile='align';;
+		'' ) gh_profile='--';;
+		esac
+
 		nvim --server "$NVIM" \
-			--remote-send "<cmd>silent TerminalStatusUpdate $NVIM_BUF_ID $PWD $branch $kubectx $profile<cr>" \
+			--remote-send "<cmd>silent TerminalStatusUpdate $NVIM_BUF_ID $PWD $branch $kubectx $aws_profile $gh_profile<cr>" \
 			>/dev/null 2>&1 ) >/dev/null 2>&1 &!
 	fi
 }
