@@ -3,6 +3,7 @@
 local keymaps = require('helpme.keymaps')
 local nmap = keymaps.nmap
 local cmap = keymaps.cmap
+local find_git_root = require('helpme.fs').find_git_root
 
 -- Remap for dealing with word wrap
 nmap('k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
@@ -56,3 +57,10 @@ nmap('*', search_without_bounds, { desc = 'Search under cursor and store string 
 
 nmap('<c-x>>', "<cmd>call TabMove('+')<cr>", { desc = 'Move tab to the right' })
 nmap('<c-x><', "<cmd>call TabMove('-')<cr>", { desc = 'Move tab to the left' })
+
+nmap('<leader>c', function()
+    vim.cmd.split()
+    vim.cmd.lcd(find_git_root())
+    vim.cmd.terminal('claude')
+  end,
+  { desc = 'Open coding agent in git root' })
