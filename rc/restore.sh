@@ -19,11 +19,15 @@ fi
 if [ -d "$HOME/git" ]; then
 	cd "$HOME/git"
 
-	if [ ! -d "diff-so-fancy" ]; then
+	if [ -d "diff-so-fancy" ]; then
+		git -C diff-so-fancy pull
+	else
 		git clone "https://github.com/so-fancy/diff-so-fancy"
 	fi
 
-	if [ ! -d "zsh-completions" ]; then
+	if [ -d "zsh-completions" ]; then
+		git -C zsh-completions pull
+	else
 		git clone "https://github.com/zsh-users/zsh-completions.git"
 	fi
 fi
