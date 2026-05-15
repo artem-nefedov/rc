@@ -57,10 +57,3 @@ nmap('*', search_without_bounds, { desc = 'Search under cursor and store string 
 
 nmap('<c-x>>', "<cmd>call TabMove('+')<cr>", { desc = 'Move tab to the right' })
 nmap('<c-x><', "<cmd>call TabMove('-')<cr>", { desc = 'Move tab to the left' })
-
-nmap('<leader>c', function()
-    vim.cmd.split()
-    vim.cmd.lcd(find_git_root())
-    vim.cmd.terminal('claude')
-  end,
-  { desc = 'Open coding agent in git root' })
