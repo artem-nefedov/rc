@@ -489,20 +489,5 @@ set_approvers() {
 
 if [ -n "$ZSH_VERSION" ]; then
 	# shellcheck disable=2154
-	(( $+functions[_git-sw] )) ||
-	_git-sw() {
-		# shellcheck disable=2034
-		local curcontext="$curcontext" state line expl ret=1
-		# shellcheck disable=2034
-		local -A opt_args
-
-		# shellcheck disable=2086
-		_arguments -C -s -S $endopt \
-			'1: :->branches' && ret=0
-
-		_alternative \
-			'branches::__git_branch_names' && ret=0
-
-		return $ret
-	}
+	(( $+functions[_git_sw] )) || _git_sw() { __git_complete_refs --mode=heads; }
 fi
