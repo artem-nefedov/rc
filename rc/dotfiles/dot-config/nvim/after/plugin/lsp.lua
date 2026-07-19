@@ -10,11 +10,30 @@ local servers = {
   dockerls    = {}, -- dockerfile
   lemminx     = {}, -- xml
   jsonls      = {}, -- json
-  helm_ls     = {}, -- helm
+  helm_ls     = {
+    settings = {
+      ['helm-ls'] = {
+        yamlls = {
+          config = {
+            kubernetesVersion = "1.36.1",
+            schemas = {
+              kubernetes = "templates/**",
+            },
+            completion = true,
+            hover = true,
+            schemaStore = {
+              enable = false, -- https://github.com/redhat-developer/yaml-language-server/issues/1298
+            }
+          }
+        }
+      }
+    }
+  },
   yamlls      = {
     settings = {
       yaml = {
         keyOrdering = false,
+        kubernetesVersion = "1.36.1",
         customTags = { -- AWS CloudFormation tags
           "!And scalar",
           "!And mapping",

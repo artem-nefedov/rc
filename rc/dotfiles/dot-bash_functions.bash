@@ -468,6 +468,20 @@ fix_cursor() {
 	echo -ne '\e[2 q'
 }
 
+tfu() {
+	if [ $# -ne 2 ]; then
+		echo >&2 "Usage: tfu name.ns lock-id"
+		return 1
+	fi
+	local name=${1%.*}
+	name=${name#terraform/}
+	local ns=${1##*.}
+	echo "Force unlocking $name in $ns with lock id $2"
+	tfctl force-unlock -n "$ns" "$name" --lock-id "$2"
+	echo "To get runner logs:"
+	echo "kubectl logs -f -n $ns ${name}-tf-runner"
+}
+
 set_approvers() {
 	case "$1" in
 	dev | prod ) ;;
