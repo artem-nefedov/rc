@@ -34,6 +34,9 @@ local servers = {
       yaml = {
         keyOrdering = false,
         kubernetesVersion = "1.36.1",
+        schemas = {
+          kubernetes = {"components/apps/**", "crds/**"},
+        },
         customTags = { -- AWS CloudFormation tags
           "!And scalar",
           "!And mapping",
