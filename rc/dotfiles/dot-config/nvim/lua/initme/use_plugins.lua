@@ -79,7 +79,59 @@ require('lazy').setup({
   require('plugme.trouble'),
   require('plugme.gx'),
   require('plugme.guessindent'),
-  require('plugme.octo'),
+  -- require('plugme.octo'),
+
+  { 'artem-nefedov/guh.nvim', branch = 'main' }, -- needs latest neovim
+  { 'barrettruth/diffs.nvim' },
+
+  -- {
+  --   'johnseth97/gh-dash.nvim',
+  --   -- lazy = true,
+  --   keys = {
+  --     {
+  --       '<leader>cc',
+  --       function() require('gh_dash').toggle() end,
+  --       desc = 'Toggle gh-dash popup',
+  --     },
+  --   },
+  --   -- opts = {
+  --   --   keymaps     = {},    -- disable internal mapping
+  --   --   border      = 'rounded', -- or 'double'
+  --   --   width       = 0.8,
+  --   --   height      = 0.8,
+  --   --   autoinstall = true,
+  --   -- },
+  -- },
+
+  -- {
+  --   "undont/differ.nvim",
+  --   build = "make go-build",
+  --   config = function()
+  --     require("differ").setup()
+  --   end,
+  -- },
+
+  -- {
+  --   "emrearmagan/atlas.nvim",
+  --   dependencies = {
+  --     "nvim-tree/nvim-web-devicons", -- optional but recommended
+  --     "MeanderingProgrammer/render-markdown.nvim", -- optional but recommended
+  --     "esmuellert/codediff.nvim", -- optional (PullRequest diff)
+  --     "sindrets/diffview.nvim", -- optional (PullRequest diff - alternative)
+  --   },
+  --   opts = {
+  --     pulls = {
+  --       providers = {
+  --         github = {},    -- See configuration below
+  --       },
+  --     },
+  --     issues = {
+  --       providers = {
+  --         jira = {},   -- See configuration below
+  --       },
+  --     },
+  --   },
+  -- },
 
   { 'Bilal2453/luvit-meta', lazy = true },
 

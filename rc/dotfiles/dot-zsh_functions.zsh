@@ -10,6 +10,7 @@ nvr_reset_mouse()
 
 chpwd()
 {
+	[[ -o interactive ]] || return 0
 	if [ -n "$NVIM" ] && [ -n "$NVIM_BUF_ID" ] && [ -z "$WIDGET" ] && [ "$ZSH_SUBSHELL" -eq 0 ]; then
 		setopt LOCAL_OPTIONS NO_NOTIFY NO_MONITOR
 		(

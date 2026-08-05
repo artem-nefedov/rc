@@ -17,7 +17,7 @@
 	lf = log --no-prefix --pretty=format:'%C(green)%h %C(yellow)[%cd]%Cred%d %Creset%s%C(cyan)%  [%cn]%Creset' --decorate --date=format:'%d %b %H:%M' --graph
 	ln = log --no-prefix --pretty=format:'%C(green)%h %C(yellow)[%cd]%>(18)%C(cyan)%cn%Cred%d %Creset%s' --decorate --date='format:%Y-%m-%d %H:%M:%S' --graph
 	lm = log --no-prefix --pretty=format:'%C(green)%h %C(yellow)[%cd] %Cred%d%Creset%s' --decorate --date='format:%Y-%m-%d %H:%M:%S' --graph --author=anefedov@aligntech.com
-	ll = log --no-prefix --pretty=format:'%C(yellow)%h%Cred%d %Creset%s%C(cyan) [%cn]%Creset' --decorate --numstat
+	ll = -c diff.external=difft log -p --ext-diff
 	lh = !git l | head
 	dsf = !"f() { git log --color -p \"$@\" | diff-so-fancy | less --tabs=4 -R -+F -+X; } ; f"
 	st = status -s --ignored
@@ -26,7 +26,9 @@
 	co = checkout
 	b  = branch
 	d  = diff --no-prefix
+	dd = -c diff.external=difft diff --no-prefix --ext-diff
 	s  = show --no-prefix
+	ss = -c diff.external=difft show --no-prefix --ext-diff
 	all-diff =  !git d $(git log --pretty=format:%h master.. | tail -n 1)..HEAD
 	all-list =  !git all-diff --name-status
 	all-files = !git all-list | cut -f 2-

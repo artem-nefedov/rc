@@ -2,6 +2,11 @@ return {
   "pwntester/octo.nvim",
   cmd = "Octo",
   opts = {
+    mappings = {
+      pull_request = {
+        open_in_browser = { lhs = "gX", desc = "open discussion in browser" },
+      }
+    },
     -- or "fzf-lua" or "snacks" or "default"
     picker = "telescope",
     -- bare Octo command opens picker of commands
