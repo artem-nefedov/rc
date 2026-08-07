@@ -13,6 +13,9 @@ vim.g.editorconfig = false
 vim.g.loaded_ruby_provider = 0
 vim.g.loaded_perl_provider = 0
 
+-- disable builtin dir plugin
+vim.g.loaded_nvim_dir_plugin = 1
+
 require('initme.ensure_lazy')
 require('initme.use_plugins')
 
