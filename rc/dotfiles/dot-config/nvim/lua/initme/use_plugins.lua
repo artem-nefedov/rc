@@ -11,7 +11,14 @@ require('lazy').setup({
   'junegunn/vim-easy-align',
 
   -- Read without distractions
-  'folke/twilight.nvim',
+  {
+    'folke/twilight.nvim',
+    opts = {
+      -- filetypes without a treesitter parser (e.g. plain "text") break
+      -- twilight's dimming, which in turn breaks zen-mode. Exclude them.
+      exclude = { 'text' },
+    },
+  },
   'folke/zen-mode.nvim',
 
   -- Terminal multiplexer
