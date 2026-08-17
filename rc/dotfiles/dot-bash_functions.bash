@@ -466,6 +466,7 @@ commit_from_changelog() {
 
 fix_cursor() {
 	echo -ne '\e[2 q'
+	printf '\e[?1000l\e[?1006l\e[?1015l'
 }
 
 tfu() {
