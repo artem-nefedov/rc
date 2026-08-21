@@ -1,89 +1,183 @@
-tap "anomalyco/tap"
-tap "atlassian/acli"
-tap "aws/tap"
-tap "charmbracelet/tap"
-tap "derailed/k9s"
-tap "nikitabobko/tap"
-tap "noahgorstein/tap"
+tap "anomalyco/tap", trusted: true
+tap "artem-nefedov/tap", trusted: true
+tap "atlassian/acli", trusted: true
+tap "aws/tap", trusted: true
+tap "charmbracelet/tap", trusted: true
+tap "derailed/k9s", trusted: true
+tap "fenio/tap", trusted: true
+tap "nikitabobko/tap", trusted: true
+tap "noahgorstein/tap", trusted: true
+# Extendable version manager with support for Ruby, Node.js, Erlang & more
 brew "asdf"
+# Code searching, linting, rewriting
 brew "ast-grep"
+# Official Amazon AWS command-line interface
 brew "awscli"
+# Bourne-Again SHell, a UNIX command interpreter
 brew "bash"
+# Clone of cat(1) with syntax highlighting and Git integration
 brew "bat"
+# Color-highlighted diff(1) output
 brew "colordiff"
+# GNU File, Shell, and Text utilities
 brew "coreutils"
+# Get, unpack, build, and install modules from CPAN
 brew "cpanminus"
+# Tool for interacting with remote images and registries
 brew "crane"
+# Diff that understands syntax
+brew "difftastic"
+# Tool for exploring each layer in a docker image
 brew "dive"
+# Run arbitrary commands when files change
 brew "entr"
+# Simple, fast and user-friendly alternative to find
 brew "fd"
+# Collection of GNU find, xargs, and locate
 brew "findutils"
+# Command-line fuzzy finder written in Go
 brew "fzf"
+# GitHub command-line tool
 brew "gh"
+# Distributed revision control system
 brew "git"
+# Easy semantic versioning for projects using Git
 brew "gitversion"
+# GNU implementation of the famous stream editor
 brew "gnu-sed"
+# GNU version of the tar archiving utility
 brew "gnu-tar"
+# GNU Privacy Guard (OpenPGP)
 brew "gnupg"
+# Open source programming language to build simple/reliable/efficient software
 brew "go"
+# Deliver Go binaries as fast and easily as possible
 brew "goreleaser"
+# GNU grep, egrep and fgrep
 brew "grep"
+# Like cURL, but for gRPC
 brew "grpcurl"
+# Calculate various network masks, etc. from a given IP address
 brew "ipcalc"
+# Command-line interface for JFrog products
 brew "jfrog-cli"
+# Lightweight and flexible command-line JSON processor
 brew "jq"
+# TUI playground to experiment and play with jq
 brew "jqp"
+# Kubernetes command-line interface
 brew "kubernetes-cli"
+# Package manager for kubectl plugins
 brew "krew"
+# Template-free customization of Kubernetes YAML manifests
 brew "kustomize"
+# TIFF library and utilities
+brew "libtiff"
+# Parsing Expression Grammars For Lua
 brew "lpeg"
+# Powerful, lightweight programming language
 brew "lua"
+# Package manager for the Lua programming language
 brew "luarocks"
+# Open-source, cross-platform JavaScript runtime environment
 brew "node"
+# CLI for Node.js style checker and lint tool for Markdown files
 brew "markdownlint-cli"
+# Java-based project management
 brew "maven"
+# CommonMark compliant Markdown formatter
+brew "mdformat"
+# Collection of tools that nobody wrote when UNIX was young
 brew "moreutils"
-brew "neovim"
+# Ambitious Vim-fork focused on extensibility and agility
+brew "neovim", args: ["HEAD"]
+# Control nvim processes using `nvr` command-line tool
 brew "neovim-remote"
+# Modern shell for the GitHub era
 brew "nushell"
+# 7-Zip (high compression file archiver) implementation
 brew "p7zip"
+# Highly capable, feature-rich programming language
 brew "perl"
+# PDF rendering library (based on the xpdf-3.0 code base)
+brew "poppler"
+# Show ps output as a tree
 brew "pstree"
+# Search tool like grep and The Silver Searcher
 brew "ripgrep"
+# Static analysis and lint tool, for (ba)sh scripts
 brew "shellcheck"
+# HTTP regression testing and benchmarking utility
 brew "siege"
+# Terminal based presentation tool
 brew "slides"
+# Editor of encrypted files
 brew "sops"
+# Organize software neatly under a single directory tree (e.g. /usr/local)
 brew "stow"
+# User interface to the TELNET protocol
 brew "telnet"
+# Tool to generate documentation from Terraform modules
 brew "terraform-docs"
+# Static analysis security scanner for your terraform code
 brew "tfsec"
+# Text interface for Git repositories
 brew "tig"
+# Simplified and community-driven man pages
 brew "tldr"
+# Display directories as trees (with optional color/HTML output)
 brew "tree"
+# Parser generator tool
 brew "tree-sitter-cli"
+# Code review TUI with vim keybindings
+brew "tuicr"
+# Maintained ctags implementation
 brew "universal-ctags"
+# Executes a program periodically, showing output fullscreen
 brew "watch"
+# Command-line client for WebSockets
 brew "websocat"
+# Internet file retriever
 brew "wget"
+# JavaScript package manager
 brew "yarn"
+# Process YAML, JSON, XML, CSV and properties documents from the CLI
 brew "yq"
+# Shell extension to navigate your filesystem faster
 brew "zoxide"
-brew "anomalyco/tap/opencode"
+# The AI coding agent built for the terminal.
+brew "anomalyco/tap/opencode", trusted: true
+# GenVer - Git SemVer generator
+brew "artem-nefedov/tap/genver", trusted: true
+# Software to interact with Atlassian Cloud from the terminal
 brew "atlassian/acli/acli"
+# eks-node-viewer is a tool for visualizing dynamic node usage within an EKS cluster.
 brew "aws/tap/eks-node-viewer"
+# Kubernetes CLI To Manage Your Clusters In Style!
 brew "derailed/k9s/k9s"
-cask "nikitabobko/tap/aerospace"
+# Terminal dashboard for managing tofu-controller Terraform and Flux Kustomization resources in Kubernetes
+brew "fenio/tap/terrarium", trusted: true
+# AeroSpace is an i3-like tiling window manager for macOS
+cask "nikitabobko/tap/aerospace", trusted: true
+# GPU-accelerated terminal emulator
 cask "alacritty"
-cask "anki"
+# Web browser focusing on privacy
 cask "brave-browser"
-cask "claude-code"
+# Drivers for DisplayLink docks, adapters and monitors
 cask "displaylink"
 cask "font-jetbrains-mono-nerd-font"
+# Password manager app
 cask "keepassxc"
+# Visual diff and merge tool
 cask "meld"
+# Kubernetes and container management on the desktop
 cask "rancher"
+# Plugin for AWS CLI to start and end sessions that connect to managed instances
 cask "session-manager-plugin"
+# Messaging app with a focus on speed and security
 cask "telegram"
+# Native desktop client for WhatsApp
 cask "whatsapp"
+go "github.com/posener/complete/gocomplete"
+krew "kyverno"
 krew "view-secret"
