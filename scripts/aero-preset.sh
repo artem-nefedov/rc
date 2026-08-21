@@ -37,8 +37,8 @@ update_id "$app_messenger_1"
 update_id "$app_messenger_2"
 update_id "$app_mail"
 
-move_to_ws "$app_browser_0" 1
-move_to_ws "$app_browser_1" 0
+move_to_ws "$app_browser_0" 0
+move_to_ws "$app_browser_1" 1
 move_to_ws "$app_term" 2
 move_to_ws "$app_messenger_1" 3
 move_to_ws "$app_messenger_2" 3
