@@ -109,3 +109,5 @@ alias :help='call_vim_cmd help'
 alias :man='call_vim_cmd Man'
 alias :Man='call_vim_cmd Man'
 alias :mes='call_vim_cmd mes'
+
+alias c='opencode'

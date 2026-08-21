@@ -250,6 +250,37 @@ unalias gpr 2>/dev/null || true
 gpr()
 {
 	local f1 f2 line
+
+	if [[ "$(git branch --show-current)" == develop ]]; then
+		local release body base url
+		while read -r f1 f2; do
+			if [[ "$f1" == '##' ]]; then
+				if [ -z "${release:-}" ]; then
+					if [[ "$(tr '[:upper:]' '[:lower:]' <<< "$f2")" == unreleased ]]; then
+						echo >&2 "Release not set"
+						return 1
+					fi
+					release="$f2"
+				else
+					if [[ "$(git rev-parse refs/remotes/origin/develop)" != "$(git rev-parse HEAD)" ]]; then
+						set_approvers dev 0
+						git push
+						set_approvers dev 1
+					fi
+
+					base=$(git rev-parse master &>/dev/null && echo master || echo main)
+
+					url=$(gh pr create --base "$base" --title "Release $release" --body "$body") || return 1
+					open "$url"
+					return 0
+				fi
+			elif [[ "$f1" == '*' ]]; then
+				body+="${f1} ${f2}"$'\n'
+			fi
+		done < CHANGELOG.md
+		return 1
+	fi
+
 	while IFS='' read -r line; do
 		printf '%s\n' "$line"
 		# shellcheck disable=SC2034
