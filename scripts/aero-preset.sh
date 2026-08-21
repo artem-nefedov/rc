@@ -23,19 +23,22 @@ move_to_monitor() {
 windows=$(aerospace list-windows --all --json)
 declare -A win_ids
 
-app_browser="Brave Browser"
+app_browser_1="Microsoft Edge"
+app_browser_2="Brave Browser"
 app_term="Alacritty"
 app_messenger_1="Microsoft Teams"
 app_messenger_2="Telegram"
 app_mail="Microsoft Outlook"
 
-update_id "$app_browser"
+update_id "$app_browser_1"
+update_id "$app_browser_2"
 update_id "$app_term"
 update_id "$app_messenger_1"
 update_id "$app_messenger_2"
 update_id "$app_mail"
 
-move_to_ws "$app_browser" 1
+move_to_ws "$app_browser_1" 0
+move_to_ws "$app_browser_2" 1
 move_to_ws "$app_term" 2
 move_to_ws "$app_messenger_1" 3
 move_to_ws "$app_messenger_2" 3
