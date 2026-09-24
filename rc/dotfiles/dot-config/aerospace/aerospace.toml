@@ -209,10 +209,10 @@ automatically-unhide-macos-hidden-apps = false
 
     # custom other
     alt-0 = 'balance-sizes'
-    alt-shift-leftSquareBracket = 'move-workspace-to-monitor left'
-    alt-shift-rightSquareBracket = 'move-workspace-to-monitor right'
-    alt-leftSquareBracket = 'move-node-to-monitor left --focus-follows-window'
-    alt-rightSquareBracket = 'move-node-to-monitor right --focus-follows-window'
+    alt-shift-leftSquareBracket = 'move-workspace-to-monitor prev'
+    alt-shift-rightSquareBracket = 'move-workspace-to-monitor next'
+    alt-leftSquareBracket = 'move-node-to-monitor prev --focus-follows-window'
+    alt-rightSquareBracket = 'move-node-to-monitor next --focus-follows-window'
     alt-quote = 'swap right --wrap-around'
     alt-semicolon = 'focus right --boundaries-action wrap-around-the-workspace'
 
