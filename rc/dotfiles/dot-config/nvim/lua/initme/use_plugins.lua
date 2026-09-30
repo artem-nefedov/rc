@@ -88,7 +88,7 @@ require('lazy').setup({
   require('plugme.guessindent'),
 
   { 'artem-nefedov/guh.nvim', branch = 'main' }, -- needs latest neovim
-  { 'barrettruth/diffs.nvim' },
+  { 'https://forge.barrettruth.com/barrettruth/diffs.nvim' },
 
   { 'Bilal2453/luvit-meta', lazy = true },
 
