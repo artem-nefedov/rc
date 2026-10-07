@@ -257,10 +257,10 @@ gpr()
 			if [[ "$f1" == '##' ]]; then
 				if [ -z "${release:-}" ]; then
 					if [[ "$(tr '[:upper:]' '[:lower:]' <<< "$f2")" == unreleased ]]; then
-						echo >&2 "Release not set"
-						return 1
+						release=$(genver --format '{{.Core}}') || return 1
+					else
+						release="$f2"
 					fi
-					release="$f2"
 				else
 					if [[ "$(git rev-parse refs/remotes/origin/develop)" != "$(git rev-parse HEAD)" ]]; then
 						set_approvers dev 0
