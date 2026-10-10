@@ -40,6 +40,15 @@ complete -o nospace -C /Users/anefedov/go/bin/gocomplete go
 source <(fzf --zsh)
 
 if [[ "$PATH" != *:"$HOME/.rd/bin" ]]; then
+  # from "/opt/homebrew/bin/brew shellenv zsh" (shortened, ~/.zprofile deleted)
+  export HOMEBREW_PREFIX="/opt/homebrew"
+  export HOMEBREW_CELLAR="/opt/homebrew/Cellar"
+  export HOMEBREW_REPOSITORY="/opt/homebrew"
+  export FPATH
+  PATH="/opt/homebrew/bin:/opt/homebrew/sbin:$PATH" # partially duplicates /etc/paths.d/homebrew
+  [ -z "${MANPATH-}" ] || { export MANPATH="${MANPATH%"${MANPATH##*[!:]}"}"; export MANPATH=":${MANPATH#"${MANPATH%%[!:]*}"}"; }
+  export INFOPATH="/opt/homebrew/share/info:${INFOPATH:-}"
+
   # ARC CLI - Start
   PATH="$HOME/.arc/bin:$PATH"
   # ARC CLI - End
@@ -51,15 +60,6 @@ if [[ "$PATH" != *:"$HOME/.rd/bin" ]]; then
   PATH="$HOME/.krew/bin:$PATH"
   PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
   PATH="$PATH:$HOME/.rd/bin"
-
-  # from "/opt/homebrew/bin/brew shellenv zsh" (shortened, ~/.zprofile deleted)
-  export HOMEBREW_PREFIX="/opt/homebrew"
-  export HOMEBREW_CELLAR="/opt/homebrew/Cellar"
-  export HOMEBREW_REPOSITORY="/opt/homebrew"
-  export FPATH
-  PATH="/opt/homebrew/bin:/opt/homebrew/sbin:$PATH" # partially duplicates /etc/paths.d/homebrew
-  [ -z "${MANPATH-}" ] || { export MANPATH="${MANPATH%"${MANPATH##*[!:]}"}"; export MANPATH=":${MANPATH#"${MANPATH%%[!:]*}"}"; }
-  export INFOPATH="/opt/homebrew/share/info:${INFOPATH:-}"
 fi
 
 setopt INTERACTIVE_COMMENTS NO_FLOW_CONTROL
