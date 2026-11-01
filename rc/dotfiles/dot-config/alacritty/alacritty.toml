@@ -233,6 +233,7 @@ option_as_alt = "OnlyLeft"
 startup_mode = "Maximized"
 dynamic_title = false
 padding = { x = 15, y = 0 }
+decorations = "None"
 
 [general]
 live_config_reload = false
