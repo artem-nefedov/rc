@@ -1,5 +1,5 @@
-fpath+="/opt/homebrew/share/zsh/site-functions"
-fpath+="$HOME/git/zsh-completions/src"
+# order affects which completion to use when there are multiple (e.g. for "git")
+fpath=("/opt/homebrew/share/zsh/site-functions" "$HOME/git/zsh-completions/src" $fpath)
 
 if [ -e ~/.bash_aliases.bash ]; then
   . "$HOME/.bash_aliases.bash"
