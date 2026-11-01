@@ -145,12 +145,12 @@ brew "yarn"
 brew "yq"
 # Shell extension to navigate your filesystem faster
 brew "zoxide"
-# The AI coding agent built for the terminal.
-brew "anomalyco/tap/opencode", trusted: true
+# OpenCode V2 - the AI coding agent for the terminal
+brew "anomalyco/tap/opencode-v2", trusted: true
 # GenVer - Git SemVer generator
 brew "artem-nefedov/tap/genver", trusted: true
 # Software to interact with Atlassian Cloud from the terminal
-brew "atlassian/acli/acli"
+brew "atlassian/acli/acli", trusted: true
 # eks-node-viewer is a tool for visualizing dynamic node usage within an EKS cluster.
 brew "aws/tap/eks-node-viewer"
 # Kubernetes CLI To Manage Your Clusters In Style!
@@ -161,6 +161,8 @@ brew "fenio/tap/terrarium", trusted: true
 cask "nikitabobko/tap/aerospace", trusted: true
 # GPU-accelerated terminal emulator
 cask "alacritty"
+# Official eID-Client of the Federal Government of Germany
+cask "ausweisapp"
 # Web browser focusing on privacy
 cask "brave-browser"
 # Drivers for DisplayLink docks, adapters and monitors
@@ -178,6 +180,11 @@ cask "session-manager-plugin"
 cask "telegram"
 # Native desktop client for WhatsApp
 cask "whatsapp"
+go "golang.org/x/perf/cmd/benchstat"
+go "github.com/bufbuild/buf/cmd/buf"
 go "github.com/posener/complete/gocomplete"
+go "github.com/oapi-codegen/oapi-codegen/v2/cmd/oapi-codegen"
+go "github.com/hashicorp/terraform-plugin-codegen-framework/cmd/tfplugingen-framework"
+go "github.com/hashicorp/terraform-plugin-codegen-openapi/cmd/tfplugingen-openapi"
 krew "kyverno"
 krew "view-secret"
