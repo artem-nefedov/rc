@@ -123,8 +123,6 @@ brew "terraform-docs"
 brew "tfsec"
 # Text interface for Git repositories
 brew "tig"
-# Simplified and community-driven man pages
-brew "tldr"
 # Display directories as trees (with optional color/HTML output)
 brew "tree"
 # Parser generator tool
